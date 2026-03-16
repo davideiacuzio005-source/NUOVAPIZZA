@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pizzeria Renato</title>
+<title>Pizzeria Paradise Cavriago</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -14,154 +14,190 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
+font-family:Poppins;
 }
 
 body{
-font-family:"Inter",sans-serif;
 background:#111;
 color:white;
-line-height:1.6;
+overflow-x:hidden;
 }
 
 /* NAVBAR */
 
 nav{
+position:fixed;
+top:0;
+width:100%;
+background:black;
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:20px 10%;
-background:black;
-position:sticky;
-top:0;
-z-index:10;
-}
-
-nav h1{
-font-family:"Playfair Display";
-font-size:28px;
+z-index:1000;
 }
 
 nav a{
 color:white;
+margin-left:25px;
 text-decoration:none;
-margin-left:30px;
-font-weight:500;
 }
 
 nav a:hover{
-color:#ff4d00;
+color:#ff5c00;
 }
 
 /* HERO */
 
 .hero{
-height:85vh;
+height:100vh;
 background:
 linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
-url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=80");
+url("https://images.unsplash.com/photo-1513104890138-7c749659a591");
 background-size:cover;
-background-position:center;
 display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-padding:20px;
 }
 
-.hero h2{
+.hero h1{
 font-size:60px;
-font-family:"Playfair Display";
 margin-bottom:20px;
 }
 
-.hero p{
-font-size:20px;
-opacity:0.9;
-margin-bottom:30px;
-}
+.hero button{
 
-.hero a{
-padding:14px 35px;
-background:#ff4d00;
-border-radius:30px;
-text-decoration:none;
+padding:15px 35px;
+background:#ff5c00;
+border:none;
 color:white;
-font-weight:600;
+font-size:18px;
+border-radius:40px;
+cursor:pointer;
+transition:.3s;
+
 }
 
-.hero a:hover{
-background:#ff6a00;
+.hero button:hover{
+transform:scale(1.1);
+background:#ff7b2f;
 }
 
-/* SECTIONS */
+/* PIZZA BACKGROUND */
 
-section{
-padding:80px 10%;
+.pizza-bg{
+
+position:fixed;
+right:40px;
+top:50%;
+transform:translateY(-50%);
+width:320px;
+pointer-events:none;
+z-index:-1;
+
 }
 
-.title{
-text-align:center;
-font-size:40px;
-margin-bottom:50px;
-font-family:"Playfair Display";
+.layer{
+position:absolute;
+width:100%;
+opacity:0;
+transition:1s;
+}
+
+.show{
+opacity:1;
 }
 
 /* MENU */
 
-.menu-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:35px;
+section{
+padding:100px 10%;
 }
 
-.pizza{
-background:#1a1a1a;
+.title{
+font-size:40px;
+margin-bottom:60px;
+text-align:center;
+}
+
+.menu{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+
+}
+
+/* CARD */
+
+.card{
+perspective:1000px;
+}
+
+.inner{
+
+position:relative;
+width:100%;
+height:300px;
+transition:transform .6s;
+transform-style:preserve-3d;
+
+}
+
+.card:hover .inner{
+transform:rotateY(180deg);
+}
+
+.front,.back{
+
+position:absolute;
+width:100%;
+height:100%;
+backface-visibility:hidden;
 border-radius:15px;
 overflow:hidden;
-transition:0.4s;
+background:#1a1a1a;
+
 }
 
-.pizza:hover{
-transform:translateY(-8px);
-box-shadow:0 15px 40px rgba(0,0,0,0.6);
-}
-
-.pizza img{
+.front img{
 width:100%;
 height:200px;
 object-fit:cover;
 }
 
-.pizza-content{
+.front h3{
+padding:15px;
+}
+
+.back{
+
+transform:rotateY(180deg);
 padding:20px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+
 }
 
-.pizza-content h3{
-margin-bottom:10px;
-}
-
-.price{
-color:#ff4d00;
-font-weight:600;
-font-size:18px;
+.back li{
+margin-bottom:8px;
 }
 
 /* ABOUT */
 
 .about{
+
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:50px;
+gap:40px;
 align-items:center;
+
 }
 
 .about img{
 width:100%;
 border-radius:15px;
-}
-
-.about p{
-opacity:0.85;
 }
 
 /* CONTACT */
@@ -180,25 +216,20 @@ border:0;
 border-radius:15px;
 }
 
-/* FOOTER */
-
 footer{
-background:black;
 text-align:center;
-padding:25px;
-opacity:0.7;
+padding:20px;
+background:black;
 }
 
-/* MOBILE */
-
-@media(max-width:900px){
-
-.hero h2{
-font-size:42px;
-}
+@media(max-width:800px){
 
 .about{
 grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:40px;
 }
 
 }
@@ -210,156 +241,111 @@ grid-template-columns:1fr;
 
 <nav>
 
-<h1>Pizzeria Renato</h1>
+<h2>Pizzeria Paradise</h2>
 
 <div>
+
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
+
 </div>
 
 </nav>
 
+<div class="pizza-bg">
+
+<img class="layer dough" src="https://i.imgur.com/6R0Z6dG.png">
+<img class="layer sauce" src="https://i.imgur.com/Yz9P6X6.png">
+<img class="layer cheese" src="https://i.imgur.com/G7Yy1H3.png">
+<img class="layer toppings" src="https://i.imgur.com/ONk8G7R.png">
+<img class="layer basil" src="https://i.imgur.com/h9Pp0bF.png">
+
+</div>
 
 <section class="hero">
 
 <div>
 
-<h2>La Vera Pizza Italiana</h2>
+<h1>Pizzeria Paradise</h1>
 
-<p>Ingredienti freschi, forno tradizionale e passione dal 1998</p>
+<p>La vera pizza italiana a Cavriago</p>
 
-<a href="#menu">Guarda il Menu</a>
+<button onclick="document.getElementById('menu').scrollIntoView()">Scopri il menu</button>
 
 </div>
 
 </section>
-
 
 <section id="menu">
 
-<h2 class="title">Il Nostro Menu</h2>
+<h2 class="title">Le nostre pizze</h2>
 
-<div class="menu-grid">
+<div class="menu">
 
 <!-- 12 PIZZE -->
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5">
-<div class="pizza-content">
-<h3>Margherita</h3>
-<p>Pomodoro, mozzarella, basilico</p>
-<span class="price">€7</span>
-</div>
+<script>
+
+const pizze=[
+
+"Margherita","Diavola","Capricciosa","Prosciutto Funghi",
+"Quattro Formaggi","Bufala","Napoli","Vegetariana",
+"Boscaiola","Calzone","Tonno Cipolla","Paradise"
+
+];
+
+const menu=document.currentScript.parentElement;
+
+pizze.forEach(nome=>{
+
+menu.innerHTML+=`
+
+<div class="card">
+
+<div class="inner">
+
+<div class="front">
+
+<img src="https://source.unsplash.com/400x300/?pizza">
+
+<h3>${nome}</h3>
+
 </div>
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1594007654729-407eedc4fe24">
-<div class="pizza-content">
-<h3>Diavola</h3>
-<p>Pomodoro, mozzarella, salame piccante</p>
-<span class="price">€9</span>
-</div>
+<div class="back">
+
+<h3>Preparazione</h3>
+
+<ul>
+
+<li>Impasto steso</li>
+<li>Pomodoro San Marzano</li>
+<li>Mozzarella</li>
+<li>Cottura forno 450°</li>
+<li>Servita calda</li>
+
+</ul>
+
 </div>
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3">
-<div class="pizza-content">
-<h3>Capricciosa</h3>
-<p>Prosciutto cotto, funghi, carciofi</p>
-<span class="price">€10</span>
-</div>
 </div>
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1548365328-9f547fb0953d">
-<div class="pizza-content">
-<h3>Quattro Formaggi</h3>
-<p>Mozzarella, gorgonzola, fontina, parmigiano</p>
-<span class="price">€10</span>
-</div>
 </div>
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e">
-<div class="pizza-content">
-<h3>Prosciutto e Funghi</h3>
-<p>Pomodoro, mozzarella, prosciutto</p>
-<span class="price">€9</span>
-</div>
-</div>
+`;
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c">
-<div class="pizza-content">
-<h3>Bufala</h3>
-<p>Mozzarella di bufala e basilico</p>
-<span class="price">€10</span>
-</div>
-</div>
+});
 
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38">
-<div class="pizza-content">
-<h3>Napoli</h3>
-<p>Acciughe e capperi</p>
-<span class="price">€9</span>
-</div>
-</div>
-
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1566843972142-a7fcb70de55a">
-<div class="pizza-content">
-<h3>Vegetariana</h3>
-<p>Verdure grigliate</p>
-<span class="price">€9</span>
-</div>
-</div>
-
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002">
-<div class="pizza-content">
-<h3>Boscaiola</h3>
-<p>Salsiccia e funghi</p>
-<span class="price">€10</span>
-</div>
-</div>
-
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1603079847914-4d2fcb9f7e89">
-<div class="pizza-content">
-<h3>Calzone</h3>
-<p>Prosciutto e mozzarella</p>
-<span class="price">€9</span>
-</div>
-</div>
-
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212">
-<div class="pizza-content">
-<h3>Tonno e Cipolla</h3>
-<p>Tonno, cipolla, mozzarella</p>
-<span class="price">€9</span>
-</div>
-</div>
-
-<div class="pizza">
-<img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5">
-<div class="pizza-content">
-<h3>Renato Special</h3>
-<p>Ingredienti segreti della casa</p>
-<span class="price">€12</span>
-</div>
-</div>
+</script>
 
 </div>
 
 </section>
 
-
 <section id="about">
 
-<h2 class="title">Chi Siamo</h2>
+<h2 class="title">Chi siamo</h2>
 
 <div class="about">
 
@@ -367,12 +353,9 @@ grid-template-columns:1fr;
 
 <p>
 
-La Pizzeria Renato nasce dalla passione per la vera pizza italiana.
-
-Utilizziamo ingredienti selezionati, impasti a lunga lievitazione e
-un forno tradizionale per garantire sapori autentici.
-
-Ogni pizza viene preparata al momento con cura e attenzione.
+La Pizzeria Paradise nasce dalla passione per la pizza
+italiana tradizionale. Impasti a lunga lievitazione,
+ingredienti freschi e forno ad alta temperatura.
 
 </p>
 
@@ -380,25 +363,37 @@ Ogni pizza viene preparata al momento con cura e attenzione.
 
 </section>
 
-
 <section id="contact" class="contact">
 
 <h2 class="title">Contatti</h2>
 
-<p>Telefono: +39 0123 456789</p>
-
-<p>Email: info@pizzeriarenato.it</p>
+<p>Cavriago (RE)</p>
 
 <iframe src="https://www.google.com/maps?q=Pizzeria+Paradise+Cavriago&output=embed"></iframe>
 
 </section>
 
-
 <footer>
 
-© 2026 Pizzeria Renato
+© 2026 Pizzeria Paradise
 
 </footer>
+
+<script>
+
+window.addEventListener("scroll",()=>{
+
+let s=window.scrollY
+
+if(s>200)document.querySelector(".dough").classList.add("show")
+if(s>500)document.querySelector(".sauce").classList.add("show")
+if(s>900)document.querySelector(".cheese").classList.add("show")
+if(s>1300)document.querySelector(".toppings").classList.add("show")
+if(s>1700)document.querySelector(".basil").classList.add("show")
+
+})
+
+</script>
 
 </body>
 </html>

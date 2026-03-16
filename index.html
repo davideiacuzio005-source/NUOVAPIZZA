@@ -9,7 +9,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+.pizza-bg{
+position:fixed;
+right:40px;
+bottom:40px;
+width:300px;
+height:300px;
+pointer-events:none;
+z-index:0;
+}
 
+.pizza-base{
+width:100%;
+border-radius:50%;
+animation:rotatePizza 40s linear infinite;
+}
+
+@keyframes rotatePizza{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+.ingredient{
+position:absolute;
+width:70px;
+opacity:0;
+transform:translateY(-200px);
+transition:all 1s ease;
+}
+
+.tomato{ top:30%; left:20%; }
+.cheese{ top:40%; left:60%; }
+.basil{ top:60%; left:30%; }
+.olive{ top:20%; left:50%; }
+
+.ingredient.show{
+opacity:1;
+transform:translateY(0);
+}
+  
 *{
 margin:0;
 padding:0;
@@ -238,7 +276,15 @@ font-size:40px;
 </head>
 
 <body>
-
+<div class="pizza-bg">
+  <img class="pizza-base" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80">
+  
+  <img class="ingredient tomato" src="https://pngimg.com/uploads/tomato/tomato_PNG12594.png">
+  <img class="ingredient cheese" src="https://pngimg.com/uploads/cheese/cheese_PNG25287.png">
+  <img class="ingredient basil" src="https://pngimg.com/uploads/basil/basil_PNG17.png">
+  <img class="ingredient olive" src="https://pngimg.com/uploads/olive/olive_PNG14.png">
+</div>
+  
 <nav>
 
 <h2>Pizzeria Paradise</h2>
@@ -394,6 +440,30 @@ if(s>1700)document.querySelector(".basil").classList.add("show")
 })
 
 </script>
+<script>
 
+window.addEventListener("scroll",()=>{
+
+let scroll = window.scrollY
+
+if(scroll > 300){
+document.querySelector(".tomato").classList.add("show")
+}
+
+if(scroll > 700){
+document.querySelector(".cheese").classList.add("show")
+}
+
+if(scroll > 1100){
+document.querySelector(".basil").classList.add("show")
+}
+
+if(scroll > 1500){
+document.querySelector(".olive").classList.add("show")
+}
+
+})
+
+</script>
 </body>
 </html>

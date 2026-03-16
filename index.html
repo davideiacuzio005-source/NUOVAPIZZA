@@ -10,12 +10,29 @@
 body, h1,h2,h3,p,a {margin:0; padding:0; box-sizing:border-box;}
 body {
     font-family: 'Roboto', sans-serif;
-    background:#fff5f0;
+    background: linear-gradient(120deg,#fff5f0,#ffe0e0);
     color:#333;
     overflow-x:hidden;
+    position:relative;
 }
 
-/* --- HERO PARALLAX --- */
+/* --- CRAZY PARTICELLE SFONDO --- */
+body::before{
+    content:"";
+    position:fixed;
+    top:0; left:0; width:100%; height:100%;
+    background:radial-gradient(circle,#ff5722 1px,transparent 2px);
+    background-size:50px 50px;
+    animation: moveParticles 10s linear infinite;
+    pointer-events:none;
+    z-index:0;
+}
+@keyframes moveParticles{
+    0%{background-position:0 0;}
+    100%{background-position:100px 100px;}
+}
+
+/* --- HERO PARALLAX CRAZY --- */
 .hero {
     height:100vh;
     background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
@@ -26,38 +43,72 @@ body {
     text-align:center;
     color:white;
     position:relative;
+    overflow:hidden;
+}
+.hero::after{
+    content:"🔥🍕💥";
+    position:absolute;
+    top:50%; left:50%;
+    font-size:5em;
+    transform:translate(-50%,-50%) rotate(0deg);
+    animation: rotateEmoji 8s linear infinite;
+}
+@keyframes rotateEmoji{
+    0%{transform:translate(-50%,-50%) rotate(0deg);}
+    100%{transform:translate(-50%,-50%) rotate(360deg);}
 }
 .hero h1 {
     font-family:'Orbitron', sans-serif;
     font-size:5em;
     text-shadow: 3px 3px 20px rgba(0,0,0,0.8);
-    animation: pulse 2s infinite;
+    animation: pulse 2s infinite, rainbowText 5s linear infinite;
+    z-index:2;
 }
 @keyframes pulse{
     0%,100%{text-shadow:3px 3px 20px rgba(198,40,40,0.8);}
     50%{text-shadow:3px 3px 40px rgba(255,87,34,1);}
 }
+@keyframes rainbowText{
+    0%{color:#ff5722;}
+    25%{color:#ffeb3b;}
+    50%{color:#4caf50;}
+    75%{color:#2196f3;}
+    100%{color:#ff5722;}
+}
 .hero p {
-    font-size:1.8em;
+    font-size:2em;
     margin:20px 0;
     text-shadow: 2px 2px 15px rgba(0,0,0,0.7);
+    animation: wiggle 3s infinite;
+}
+@keyframes wiggle{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-5px);}
+    75%{transform:translateX(5px);}
 }
 .hero a {
     margin-top:20px;
     padding:20px 40px;
     background:#c62828;
-    border-radius:15px;
+    border-radius:25px;
     font-weight:bold;
     color:white;
-    font-size:1.2em;
+    font-size:1.5em;
     box-shadow:0 0 25px #ff5722;
-    animation: glow 2s infinite alternate;
+    animation: glow 1s infinite alternate, bounceBtn 2s infinite;
 }
-.hero a:hover {background:#ff5722;}
+.hero a:hover {
+    background:#ff5722;
+    transform: scale(1.2) rotate(-5deg);
+}
 @keyframes glow{
     0%{box-shadow:0 0 25px #ff5722;}
-    50%{box-shadow:0 0 50px #ff5722;}
+    50%{box-shadow:0 0 60px #ff5722;}
     100%{box-shadow:0 0 25px #ff5722;}
+}
+@keyframes bounceBtn{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
 }
 
 /* --- MENU GRID CRAZY --- */
@@ -67,35 +118,43 @@ body {
     gap:25px;
     max-width:1300px;
     margin:auto;
+    padding:50px 20px;
+    position:relative;
 }
 .menu-item{
-    background:#fff;
-    border-radius:20px;
+    background:linear-gradient(135deg,#fff5f0,#ffe0e0);
+    border-radius:30px;
     overflow:hidden;
     position:relative;
     cursor:pointer;
-    transition:transform 0.4s, box-shadow 0.4s;
+    transition:transform 0.5s, box-shadow 0.5s;
 }
 .menu-item:hover{
-    transform: scale(1.1) rotate(-1deg);
-    box-shadow:0 15px 40px rgba(198,40,40,0.6);
+    transform: scale(1.15) rotate(3deg);
+    box-shadow:0 20px 60px rgba(198,40,40,0.8);
 }
 .menu-item img{
     width:100%;
     height:220px;
     object-fit:cover;
     transition: transform 0.5s, filter 0.5s;
+    border-bottom:5px solid #ff5722;
 }
 .menu-item:hover img{
-    transform: scale(1.2) rotate(2deg);
-    filter: brightness(1.2) saturate(1.3);
+    transform: scale(1.25) rotate(-3deg);
+    filter: brightness(1.3) saturate(1.5) contrast(1.2);
 }
 .menu-content{
     padding:20px;
     text-align:center;
+    animation: floatText 3s infinite alternate;
+}
+@keyframes floatText{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-5px);}
 }
 .price{
-    font-size:20px;
+    font-size:22px;
     font-weight:bold;
     color:#c62828;
     margin:10px 0;
@@ -124,28 +183,35 @@ body {
 }
 .badge{
     position:absolute; top:10px; left:10px;
-    background:#ff5722; color:white; font-size:12px; font-weight:bold;
-    padding:5px 12px; border-radius:10px;
+    background:#ff5722; color:white; font-size:14px; font-weight:bold;
+    padding:6px 14px; border-radius:12px;
     text-transform:uppercase;
-    animation: bounce 1.5s infinite;
+    animation: bounce 1.5s infinite, neonGlow 2s infinite alternate;
 }
 @keyframes bounce{
     0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-8px);}
+    50%{transform:translateY(-10px);}
+}
+@keyframes neonGlow{
+    0%{text-shadow:0 0 5px #ff5722;}
+    50%{text-shadow:0 0 20px #ffeb3b;}
+    100%{text-shadow:0 0 5px #ff5722;}
 }
 .button-order{
     display:inline-block;
     margin-top:10px;
-    padding:10px 20px;
+    padding:12px 24px;
     background:#c62828;
     color:white;
     font-weight:bold;
-    border-radius:12px;
+    border-radius:15px;
     transition:0.3s;
+    box-shadow:0 0 15px #ff5722;
 }
 .button-order:hover{
     background:#ff5722;
-    transform: scale(1.1);
+    transform: scale(1.2) rotate(-3deg);
+    box-shadow:0 0 35px #ff5722;
 }
 
 /* --- CHI SIAMO CRAZY --- */
@@ -153,30 +219,55 @@ body {
     max-width:900px;
     margin:auto;
     text-align:center;
-    animation: fadeIn 2s ease-in-out;
+    animation: fadeInUp 2s ease-in-out, rainbowBorder 5s infinite;
+    border:5px solid transparent;
+    border-radius:30px;
+    padding:20px;
 }
 .about img{
     width:80%;
     border-radius:20px;
     margin:20px 0;
-    box-shadow:0 8px 25px rgba(198,40,40,0.5);
-    transform: rotate(-1deg);
-    transition: transform 0.5s;
+    box-shadow:0 10px 35px rgba(198,40,40,0.6);
+    transform: rotate(-2deg);
+    transition: transform 0.5s, filter 0.5s;
 }
-.about img:hover{transform: rotate(1deg) scale(1.05);}
-@keyframes fadeIn{
-    0%{opacity:0; transform:translateY(30px);}
+.about img:hover{
+    transform: rotate(2deg) scale(1.08);
+    filter: drop-shadow(0 0 20px #ff5722);
+}
+@keyframes fadeInUp{
+    0%{opacity:0; transform:translateY(50px);}
     100%{opacity:1; transform:translateY(0);}
 }
+@keyframes rainbowBorder{
+    0%{border-color:#ff5722;}
+    25%{border-color:#ffeb3b;}
+    50%{border-color:#4caf50;}
+    75%{border-color:#2196f3;}
+    100%{border-color:#ff5722;}
+}
 
-/* --- CONTATTI --- */
+/* --- CONTATTI CRAZY --- */
 .contact{
-    background:#c62828;
+    background:linear-gradient(135deg,#c62828,#ff5722);
     color:white;
     text-align:center;
     padding:50px 20px;
+    position:relative;
 }
-.contact a{color:white; font-weight:bold;}
+.contact::before{
+    content:"📍🍕🔥";
+    position:absolute;
+    top:10px; right:10px;
+    font-size:3em;
+    animation: spinEmoji 6s linear infinite;
+}
+@keyframes spinEmoji{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
+.contact a{color:white; font-weight:bold; text-decoration:underline;}
 .contact iframe{
     border:0;
     width:100%;
@@ -186,19 +277,27 @@ body {
     border-radius:15px;
 }
 
-/* --- FOOTER --- */
+/* --- FOOTER CRAZY --- */
 footer{
     text-align:center;
     padding:20px;
     background:#333;
     color:white;
+    animation: flashFooter 3s infinite;
+}
+@keyframes flashFooter{
+    0%{color:#fff;}
+    25%{color:#ff5722;}
+    50%{color:#ffeb3b;}
+    75%{color:#4caf50;}
+    100%{color:#fff;}
 }
 
 /* --- RESPONSIVE --- */
 @media(max-width:600px){
     .menu-item img{height:180px;}
     .hero h1{font-size:3em;}
-    .hero p{font-size:1.2em;}
+    .hero p{font-size:1.5em;}
 }
 </style>
 </head>
@@ -207,24 +306,24 @@ footer{
 <!-- HERO -->
 <section class="hero">
     <h1>Pizzeria E80</h1>
-    <p>Il futuro della pizza è qui 🍕</p>
+    <p>Il futuro della pizza è qui 🍕💥</p>
     <a href="#menu">Scopri il Menu</a>
 </section>
 
 <!-- MENU -->
 <section id="menu">
-<h2>Il nostro Menu</h2>
+<h2 style="text-align:center; font-size:3em; animation: rainbowText 5s linear infinite;">Il nostro Menu</h2>
 <div class="menu-items">
 
 <div class="menu-item">
     <span class="badge">Speciale</span>
     <img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5" alt="Pizza Bufala">
     <div class="menu-content">
-        <h3>Pizza Bufala</h3>
+        <h3>Pizza Bufala 🍕</h3>
         <p>Pomodoro, mozzarella di bufala e basilico</p>
         <p class="price">€8</p>
         <div class="allergeni">Allergeni: glutine, latte</div>
-        <a href="#" class="button-order">Ordina ora</a>
+        <a href="#" class="button-order" onclick="playSound()">Ordina ora</a>
     </div>
 </div>
 
@@ -232,22 +331,22 @@ footer{
     <span class="badge">Piccante</span>
     <img src="https://raw.githubusercontent.com/davideiacuzio005-source/Ristorante/main/Pizza%20Con%20Salame.jpg" alt="Pizza Salamino">
     <div class="menu-content">
-        <h3>Pizza Salamino</h3>
+        <h3>Pizza Salamino 🌶️</h3>
         <p>Pomodoro, mozzarella e salame piccante</p>
         <p class="price">€9</p>
         <div class="allergeni">Allergeni: glutine, latte</div>
-        <a href="#" class="button-order">Ordina ora</a>
+        <a href="#" class="button-order" onclick="playSound()">Ordina ora</a>
     </div>
 </div>
 
 <div class="menu-item">
     <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3" alt="Pizza Diavola">
     <div class="menu-content">
-        <h3>Pizza Diavola</h3>
+        <h3>Pizza Diavola 🔥</h3>
         <p>Pomodoro, mozzarella, salame piccante</p>
         <p class="price">€9</p>
         <div class="allergeni">Allergeni: glutine, latte</div>
-        <a href="#" class="button-order">Ordina ora</a>
+        <a href="#" class="button-order" onclick="playSound()">Ordina ora</a>
     </div>
 </div>
 
@@ -256,14 +355,14 @@ footer{
 
 <!-- CHI SIAMO -->
 <section class="about">
-<h2>Chi Siamo</h2>
+<h2>Chi Siamo 💥</h2>
 <p>Da oltre 20 anni portiamo la vera pizza italiana direttamente a casa tua. Freschezza, passione e follia nei sapori!</p>
 <img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc" alt="Chi Siamo">
 </section>
 
 <!-- CONTATTI -->
 <section class="contact">
-<h2>Contattaci</h2>
+<h2>Contattaci 📞</h2>
 <p>Telefono: <a href="tel:+390123456789">+39 0123 456789</a></p>
 <p>Email: <a href="mailto:info@pizzeriae80.it">info@pizzeriae80.it</a></p>
 <p>Trova la pizzeria su <a href="https://maps.app.goo.gl/mNXRzrGyALZRa6dd9" target="_blank">Google Maps</a></p>
@@ -274,6 +373,15 @@ footer{
 <footer>
 <p>&copy; 2026 Pizzeria E80 | Tutti i diritti riservati</p>
 </footer>
+
+<!-- SOUND -->
+<audio id="pizzaSound" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+<script>
+function playSound(){
+    document.getElementById('pizzaSound').play();
+    alert("Pizza incoming! 🍕💥");
+}
+</script>
 
 </body>
 </html>

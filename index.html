@@ -3,28 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizzeria Suprema</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+<title>Pizzeria E80 - Il Futuro della Pizza</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <style>
-/* --- Reset e stile generale --- */
-body, h1, h2, h3, p {
-    margin:0;
-    padding:0;
-}
+/* --- RESET & FONT --- */
+body, h1,h2,h3,p,a {margin:0; padding:0; box-sizing:border-box;}
 body {
     font-family: 'Roboto', sans-serif;
     background:#fff5f0;
     color:#333;
+    overflow-x:hidden;
 }
-a {text-decoration:none;}
-section {padding:50px 20px;}
-h1,h2 {text-align:center; color:#c62828;}
 
-/* --- HERO --- */
+/* --- HERO PARALLAX --- */
 .hero {
-    background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
-    height: 90vh;
+    height:100vh;
+    background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat fixed;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -34,98 +28,163 @@ h1,h2 {text-align:center; color:#c62828;}
     position:relative;
 }
 .hero h1 {
-    font-size:4em;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    font-family:'Orbitron', sans-serif;
+    font-size:5em;
+    text-shadow: 3px 3px 20px rgba(0,0,0,0.8);
+    animation: pulse 2s infinite;
+}
+@keyframes pulse{
+    0%,100%{text-shadow:3px 3px 20px rgba(198,40,40,0.8);}
+    50%{text-shadow:3px 3px 40px rgba(255,87,34,1);}
 }
 .hero p {
-    font-size:1.5em;
+    font-size:1.8em;
     margin:20px 0;
-    text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.7);
 }
 .hero a {
+    margin-top:20px;
+    padding:20px 40px;
     background:#c62828;
-    color:white;
-    padding:15px 30px;
-    border-radius:10px;
+    border-radius:15px;
     font-weight:bold;
-    transition:0.3s;
+    color:white;
+    font-size:1.2em;
+    box-shadow:0 0 25px #ff5722;
+    animation: glow 2s infinite alternate;
 }
 .hero a:hover {background:#ff5722;}
+@keyframes glow{
+    0%{box-shadow:0 0 25px #ff5722;}
+    50%{box-shadow:0 0 50px #ff5722;}
+    100%{box-shadow:0 0 25px #ff5722;}
+}
 
-/* --- MENU --- */
+/* --- MENU GRID CRAZY --- */
 .menu-items{
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    margin: auto;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    max-width:1300px;
+    margin:auto;
 }
-
 .menu-item{
-    background:white;
-    border-radius:15px;
+    background:#fff;
+    border-radius:20px;
     overflow:hidden;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    position: relative;
-    text-align: center;
+    position:relative;
+    cursor:pointer;
+    transition:transform 0.4s, box-shadow 0.4s;
 }
 .menu-item:hover{
-    transform: scale(1.05);
-    box-shadow:0 10px 25px rgba(198,40,40,0.5);
+    transform: scale(1.1) rotate(-1deg);
+    box-shadow:0 15px 40px rgba(198,40,40,0.6);
 }
 .menu-item img{
     width:100%;
-    height:200px;
+    height:220px;
     object-fit:cover;
-    transition: transform 0.4s;
-    border-bottom:5px solid #c62828;
+    transition: transform 0.5s, filter 0.5s;
 }
-.menu-item:hover img{transform:scale(1.1);}
-.menu-content{padding:15px;}
-.price{font-size:18px; font-weight:bold; color:#c62828; margin:5px 0; transition:0.3s;}
-.menu-item:hover .price{color:#ff5722;}
+.menu-item:hover img{
+    transform: scale(1.2) rotate(2deg);
+    filter: brightness(1.2) saturate(1.3);
+}
+.menu-content{
+    padding:20px;
+    text-align:center;
+}
+.price{
+    font-size:20px;
+    font-weight:bold;
+    color:#c62828;
+    margin:10px 0;
+    transform:translateY(20px);
+    opacity:0;
+    transition:0.5s;
+}
+.menu-item:hover .price{
+    transform:translateY(0);
+    opacity:1;
+}
 .allergeni{
-    opacity:0; max-height:0; overflow:hidden;
-    transition: all 0.4s ease;
-    background:#ffe0e0; margin-top:10px; padding:0 10px; border-radius:8px; font-size:14px;
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition:0.4s;
+    background:#ffe0e0;
+    padding:0 10px;
+    border-radius:10px;
+    font-size:14px;
 }
-.menu-item:hover .allergeni{opacity:1; max-height:100px; padding:10px;}
+.menu-item:hover .allergeni{
+    opacity:1;
+    max-height:100px;
+    padding:10px;
+}
 .badge{
     position:absolute; top:10px; left:10px;
     background:#ff5722; color:white; font-size:12px; font-weight:bold;
-    padding:5px 10px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.3);
+    padding:5px 12px; border-radius:10px;
     text-transform:uppercase;
+    animation: bounce 1.5s infinite;
+}
+@keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
 }
 .button-order{
-    display:inline-block; margin-top:10px; padding:8px 15px;
-    background:#c62828; color:white; border-radius:8px; font-weight:bold;
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 20px;
+    background:#c62828;
+    color:white;
+    font-weight:bold;
+    border-radius:12px;
     transition:0.3s;
 }
-.button-order:hover{background:#ff5722;}
+.button-order:hover{
+    background:#ff5722;
+    transform: scale(1.1);
+}
 
-/* --- CHI SIAMO --- */
-.about {
+/* --- CHI SIAMO CRAZY --- */
+.about{
     max-width:900px;
     margin:auto;
     text-align:center;
+    animation: fadeIn 2s ease-in-out;
 }
 .about img{
     width:80%;
-    border-radius:15px;
+    border-radius:20px;
     margin:20px 0;
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    box-shadow:0 8px 25px rgba(198,40,40,0.5);
+    transform: rotate(-1deg);
+    transition: transform 0.5s;
+}
+.about img:hover{transform: rotate(1deg) scale(1.05);}
+@keyframes fadeIn{
+    0%{opacity:0; transform:translateY(30px);}
+    100%{opacity:1; transform:translateY(0);}
 }
 
 /* --- CONTATTI --- */
-.contact {
+.contact{
     background:#c62828;
     color:white;
     text-align:center;
+    padding:50px 20px;
 }
-.contact a {color:white; font-weight:bold;}
-.contact iframe{border:0; width:100%; max-width:600px; height:300px; margin-top:20px; border-radius:10px;}
+.contact a{color:white; font-weight:bold;}
+.contact iframe{
+    border:0;
+    width:100%;
+    max-width:600px;
+    height:350px;
+    margin-top:20px;
+    border-radius:15px;
+}
 
 /* --- FOOTER --- */
 footer{
@@ -138,7 +197,7 @@ footer{
 /* --- RESPONSIVE --- */
 @media(max-width:600px){
     .menu-item img{height:180px;}
-    .hero h1{font-size:2.5em;}
+    .hero h1{font-size:3em;}
     .hero p{font-size:1.2em;}
 }
 </style>
@@ -147,8 +206,8 @@ footer{
 
 <!-- HERO -->
 <section class="hero">
-    <h1>Pizzeria Suprema</h1>
-    <p>Il gusto autentico della tradizione italiana 🍕</p>
+    <h1>Pizzeria E80</h1>
+    <p>Il futuro della pizza è qui 🍕</p>
     <a href="#menu">Scopri il Menu</a>
 </section>
 
@@ -198,7 +257,7 @@ footer{
 <!-- CHI SIAMO -->
 <section class="about">
 <h2>Chi Siamo</h2>
-<p>Da oltre 20 anni portiamo la vera pizza italiana direttamente a casa vostra. Ingredienti freschi, amore per la tradizione e innovazione nel gusto!</p>
+<p>Da oltre 20 anni portiamo la vera pizza italiana direttamente a casa tua. Freschezza, passione e follia nei sapori!</p>
 <img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc" alt="Chi Siamo">
 </section>
 
@@ -206,17 +265,14 @@ footer{
 <section class="contact">
 <h2>Contattaci</h2>
 <p>Telefono: <a href="tel:+390123456789">+39 0123 456789</a></p>
-<p>Email: <a href="mailto:info@pizzeriasuprema.it">info@pizzeriasuprema.it</a></p>
-<p>Seguici sui social!</p>
-<p>
-<a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">TikTok</a>
-</p>
-<iframe src="https://maps.app.goo.gl/mNXRzrGyALZRa6dd9" allowfullscreen="" loading="lazy"></iframe>
+<p>Email: <a href="mailto:info@pizzeriae80.it">info@pizzeriae80.it</a></p>
+<p>Trova la pizzeria su <a href="https://maps.app.goo.gl/mNXRzrGyALZRa6dd9" target="_blank">Google Maps</a></p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2904.4167945858826!2d12.496365315232504!3d41.902783079219024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f61aa6c68cd07%3A0xefa1b30f2ff61e8f!2sRome%2C%20Italy!5e0!3m2!1sen!2sit!4v1690000000000" allowfullscreen="" loading="lazy"></iframe>
 </section>
 
 <!-- FOOTER -->
 <footer>
-<p>&copy; 2026 Pizzeria Suprema | Tutti i diritti riservati</p>
+<p>&copy; 2026 Pizzeria E80 | Tutti i diritti riservati</p>
 </footer>
 
 </body>

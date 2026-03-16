@@ -1,288 +1,180 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizzeria Bella Napoli</title>
-    <style>
-        /* Reset e stili base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-color: #fff8f0;
-            color: #333;
-        }
-
-        header {
-            background-color: #d32f2f;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #f44336;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            padding: 15px 0;
-            display: block;
-            transition: background 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #b71c1c;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: url('https://images.unsplash.com/photo-1601924578146-5e7e9e6b8f04') no-repeat center center/cover;
-            color: white;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-
-        .hero p {
-            font-size: 24px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-        }
-
-        section {
-            padding: 50px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #d32f2f;
-        }
-
-        .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .menu-item {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: #fff;
-            transition: transform 0.3s;
-        }
-
-        .menu-item:hover {
-            transform: scale(1.05);
-        }
-
-        .menu-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .menu-item h3 {
-            padding: 15px;
-            font-size: 20px;
-        }
-
-        .menu-item p {
-            padding: 0 15px 15px;
-            color: #555;
-        }
-
-        footer {
-            background-color: #d32f2f;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        footer a {
-            color: white;
-            text-decoration: none;
-        }
-
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Pizzeria Bella Napoli</h1>
-        <p>Il sapore autentico della pizza italiana</p>
-    </header>
-
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#menu">Menu</a>
-        <a href="#contatti">Contatti</a>
-    </nav>
-
-    <section id="home" class="hero">
-        <h1>Benvenuti da Bella Napoli</h1>
-        <p>Scopri le nostre pizze artigianali e ingredienti freschi</p>
-    </section>
-
-  <!DOCTYPE html>
-<html lang="it">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizzeria Bella Napoli</title>
+<title>Pizzeria Prova</title>
 
 <style>
-body{
-font-family: Arial, sans-serif;
-margin:0;
-background:#f5f5f5;
+/* --- Stile generale --- */
+body {
+    font-family: Arial, sans-serif;
+    background: #fff5f0;
+    margin: 0;
+    padding: 0;
+    color: #333;
 }
 
-header{
-background:#c62828;
-color:white;
-text-align:center;
-padding:30px;
+h1, h2 {
+    text-align: center;
+    color: #c62828;
 }
 
-nav{
-background:#8e0000;
-text-align:center;
-padding:10px;
+section {
+    padding: 50px 20px;
 }
 
-nav a{
-color:white;
-margin:15px;
-text-decoration:none;
-font-weight:bold;
+/* --- Menu a griglia --- */
+.menu-items{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-.hero{
-background:url("https://images.unsplash.com/photo-1594007654729-407eedc4be65") center/cover;
-color:white;
-text-align:center;
-padding:100px 20px;
+.menu-item{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+    cursor: pointer;
+    text-align: center;
 }
 
-.hero h1{
-font-size:50px;
+.menu-item:hover{
+    transform: scale(1.05);
 }
 
-.container{
-padding:40px;
-max-width:1000px;
-margin:auto;
+.menu-item img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    transition: transform 0.4s;
 }
 
-.menu{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+.menu-item:hover img{
+    transform: scale(1.1);
 }
 
-.pizza{
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 2px 5px rgba(0,0,0,0.2);
-text-align:center;
+.menu-content{
+    padding:15px;
 }
 
-footer{
-background:#c62828;
-color:white;
-text-align:center;
-padding:20px;
-margin-top:40px;
+.price{
+    font-size: 18px;
+    font-weight: bold;
+    color: #c62828;
+    margin: 5px 0;
+}
+
+/* --- Allergeni (mostrati al passaggio del mouse) --- */
+.allergeni{
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition: all 0.4s ease;
+    background:#ffe0e0;
+    margin-top:10px;
+    padding:0 10px;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.menu-item:hover .allergeni{
+    opacity:1;
+    max-height:100px;
+    padding:10px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px){
+    .menu-item img{
+        height:180px;
+    }
 }
 </style>
 
 </head>
-
 <body>
 
-<header>
-<h1>Pizzeria Bella Napoli</h1>
-<p>La vera pizza italiana</p>
-</header>
+<h1>Pizzeria Prova</h1>
 
-<nav>
-<a href="#home">Home</a>
-<a href="#menu">Menu</a>
-<a href="#contatti">Contatti</a>
-</nav>
-
-<section class="hero" id="home">
-<h1>Benvenuto!</h1>
-<p>Scopri le nostre pizze artigianali</p>
-</section>
-
-<section class="container" id="menu">
+<!-- MENU -->
+<section id="menu">
 <h2>Il nostro Menu</h2>
 
-<div class="menu">
+<div class="menu-items">
 
-<div class="pizza">
-<h3>Margherita</h3>
-<p>Pomodoro, mozzarella, basilico</p>
-<p><b>€6</b></p>
+<!-- PIZZA 1 -->
+<div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5" alt="Pizza Bufala">
+    <div class="menu-content">
+        <h3>Pizza Bufala</h3>
+        <p>Pomodoro, mozzarella di bufala e basilico</p>
+        <p class="price">€8</p>
+        <div class="allergeni">Allergeni: glutine, latte</div>
+    </div>
 </div>
 
-<div class="pizza">
-<h3>Diavola</h3>
-<p>Pomodoro, mozzarella, salame piccante</p>
-<p><b>€8</b></p>
+<!-- PIZZA 2 -->
+<div class="menu-item">
+    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/Ristorante/main/Pizza%20Con%20Salame.jpg" alt="Pizza Salamino">
+    <div class="menu-content">
+        <h3>Pizza Salamino</h3>
+        <p>Pomodoro, mozzarella e salame piccante</p>
+        <p class="price">€9</p>
+        <div class="allergeni">Allergeni: glutine, latte</div>
+    </div>
 </div>
 
-<div class="pizza">
-<h3>Quattro Formaggi</h3>
-<p>Mozzarella, gorgonzola, fontina, parmigiano</p>
-<p><b>€9</b></p>
+<!-- PIZZA 3 -->
+<div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3" alt="Pizza Diavola">
+    <div class="menu-content">
+        <h3>Pizza Diavola</h3>
+        <p>Pomodoro, mozzarella, salame piccante</p>
+        <p class="price">€9</p>
+        <div class="allergeni">Allergeni: glutine, latte</div>
+    </div>
+</div>
+
+<!-- PIZZA 4 -->
+<div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002" alt="Pizza Paradise">
+    <div class="menu-content">
+        <h3>Pizza Paradise</h3>
+        <p>Pomodoro, mozzarella e frutti di mare</p>
+        <p class="price">€11</p>
+        <div class="allergeni">Allergeni: glutine, latte, molluschi</div>
+    </div>
+</div>
+
+<!-- PIZZA 5 -->
+<div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65" alt="Pizza Margherita">
+    <div class="menu-content">
+        <h3>Pizza Margherita</h3>
+        <p>Pomodoro, mozzarella e basilico</p>
+        <p class="price">€7</p>
+        <div class="allergeni">Allergeni: glutine, latte</div>
+    </div>
+</div>
+
+<!-- PIZZA 6 -->
+<div class="menu-item">
+    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591" alt="Pizza Quattro Formaggi">
+    <div class="menu-content">
+        <h3>Pizza Quattro Formaggi</h3>
+        <p>Mozzarella, gorgonzola, fontina e parmigiano</p>
+        <p class="price">€10</p>
+        <div class="allergeni">Allergeni: glutine, latte</div>
+    </div>
 </div>
 
 </div>
 </section>
 
-<section class="container" id="contatti">
-<h2>Contatti</h2>
-<p>📍 Via Roma 10</p>
-<p>📞 333 1234567</p>
-<p>📧 info@pizzeria.it</p>
-</section>
-
-<footer>
-<p>© 2026 Pizzeria Bella Napoli</p>
-</footer>
-
-</body>
-</html>
-
-    <section id="contatti">
-        <h2>Contattaci</h2>
-        <p style="text-align:center;">📞 Telefono: 123-456-789<br>
-           📍 Indirizzo: Via Roma 10, Napoli<br>
-           📧 Email: info@bellanapoli.it
-        </p>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Pizzeria Bella Napoli | <a href="#home">Torna su</a></p>
-    </footer>
 </body>
 </html>

@@ -9,50 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-.pizza-bg{
-position:fixed;
-right:40px;
-bottom:40px;
-width:300px;
-height:300px;
-pointer-events:none;
-z-index:0;
-}
 
-.pizza-base{
-width:100%;
-border-radius:50%;
-animation:rotatePizza 40s linear infinite;
-}
-
-@keyframes rotatePizza{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
-.ingredient{
-position:absolute;
-width:70px;
-opacity:0;
-transform:translateY(-200px);
-transition:all 1s ease;
-}
-
-.tomato{ top:30%; left:20%; }
-.cheese{ top:40%; left:60%; }
-.basil{ top:60%; left:30%; }
-.olive{ top:20%; left:50%; }
-
-.ingredient.show{
-opacity:1;
-transform:translateY(0);
-}
-  
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Poppins;
+scroll-behavior:smooth;
 }
 
 body{
@@ -67,17 +30,25 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:black;
+background:rgba(0,0,0,0.9);
 display:flex;
 justify-content:space-between;
+align-items:center;
 padding:20px 10%;
 z-index:1000;
+backdrop-filter:blur(10px);
+}
+
+nav h2{
+color:#ff5c00;
 }
 
 nav a{
 color:white;
 margin-left:25px;
 text-decoration:none;
+font-weight:500;
+transition:.3s;
 }
 
 nav a:hover{
@@ -90,8 +61,9 @@ color:#ff5c00;
 height:100vh;
 background:
 linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
-url("https://images.unsplash.com/photo-1513104890138-7c749659a591");
+url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1600&q=80");
 background-size:cover;
+background-position:center;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -99,12 +71,17 @@ text-align:center;
 }
 
 .hero h1{
-font-size:60px;
+font-size:65px;
 margin-bottom:20px;
 }
 
-.hero button{
+.hero p{
+font-size:20px;
+margin-bottom:25px;
+opacity:.9;
+}
 
+.hero button{
 padding:15px 35px;
 background:#ff5c00;
 border:none;
@@ -113,73 +90,88 @@ font-size:18px;
 border-radius:40px;
 cursor:pointer;
 transition:.3s;
-
 }
 
 .hero button:hover{
-transform:scale(1.1);
+transform:scale(1.08);
 background:#ff7b2f;
+box-shadow:0 10px 30px rgba(255,92,0,0.5);
 }
 
-/* PIZZA BACKGROUND */
+/* PIZZA ANIMATA */
 
 .pizza-bg{
-
 position:fixed;
 right:40px;
-top:50%;
-transform:translateY(-50%);
-width:320px;
+bottom:40px;
+width:300px;
+height:300px;
 pointer-events:none;
-z-index:-1;
-
+z-index:1;
 }
 
-.layer{
-position:absolute;
+.pizza-base{
 width:100%;
+border-radius:50%;
+animation:rotatePizza 35s linear infinite;
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+@keyframes rotatePizza{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+.ingredient{
+position:absolute;
+width:65px;
 opacity:0;
-transition:1s;
+transform:translateY(-200px);
+transition:all 1s ease;
 }
 
-.show{
+.tomato{ top:25%; left:15%; }
+.cheese{ top:40%; left:60%; }
+.basil{ top:60%; left:30%; }
+.olive{ top:20%; left:55%; }
+
+.ingredient.show{
 opacity:1;
+transform:translateY(0);
 }
 
-/* MENU */
+/* SEZIONI */
 
 section{
 padding:100px 10%;
 }
 
 .title{
-font-size:40px;
+font-size:42px;
 margin-bottom:60px;
 text-align:center;
 }
 
-.menu{
+/* MENU GRID */
 
+.menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
-
 }
 
-/* CARD */
+/* CARD PIZZA */
 
 .card{
 perspective:1000px;
 }
 
 .inner{
-
 position:relative;
 width:100%;
 height:300px;
 transition:transform .6s;
 transform-style:preserve-3d;
-
 }
 
 .card:hover .inner{
@@ -187,7 +179,6 @@ transform:rotateY(180deg);
 }
 
 .front,.back{
-
 position:absolute;
 width:100%;
 height:100%;
@@ -195,7 +186,7 @@ backface-visibility:hidden;
 border-radius:15px;
 overflow:hidden;
 background:#1a1a1a;
-
+box-shadow:0 10px 25px rgba(0,0,0,0.6);
 }
 
 .front img{
@@ -209,28 +200,20 @@ padding:15px;
 }
 
 .back{
-
 transform:rotateY(180deg);
 padding:20px;
 display:flex;
 flex-direction:column;
 justify-content:center;
-
-}
-
-.back li{
-margin-bottom:8px;
 }
 
 /* ABOUT */
 
 .about{
-
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:40px;
 align-items:center;
-
 }
 
 .about img{
@@ -254,11 +237,16 @@ border:0;
 border-radius:15px;
 }
 
+/* FOOTER */
+
 footer{
 text-align:center;
 padding:20px;
 background:black;
+margin-top:40px;
 }
+
+/* MOBILE */
 
 @media(max-width:800px){
 
@@ -270,124 +258,72 @@ grid-template-columns:1fr;
 font-size:40px;
 }
 
+.pizza-bg{
+display:none;
+}
+
 }
 
 </style>
 </head>
 
 <body>
+
+<!-- PIZZA ANIMATA -->
+
 <div class="pizza-bg">
-  <img class="pizza-base" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80">
-  
-  <img class="ingredient tomato" src="https://pngimg.com/uploads/tomato/tomato_PNG12594.png">
-  <img class="ingredient cheese" src="https://pngimg.com/uploads/cheese/cheese_PNG25287.png">
-  <img class="ingredient basil" src="https://pngimg.com/uploads/basil/basil_PNG17.png">
-  <img class="ingredient olive" src="https://pngimg.com/uploads/olive/olive_PNG14.png">
+
+<img class="pizza-base" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80">
+
+<img class="ingredient tomato" src="https://pngimg.com/uploads/tomato/tomato_PNG12594.png">
+<img class="ingredient cheese" src="https://pngimg.com/uploads/cheese/cheese_PNG25287.png">
+<img class="ingredient basil" src="https://pngimg.com/uploads/basil/basil_PNG17.png">
+<img class="ingredient olive" src="https://pngimg.com/uploads/olive/olive_PNG14.png">
+
 </div>
-  
+
+<!-- NAVBAR -->
+
 <nav>
 
 <h2>Pizzeria Paradise</h2>
 
 <div>
-
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
-
 </div>
 
 </nav>
 
-<div class="pizza-bg">
-
-<img class="layer dough" src="https://images.unsplash.com/photo-1594007654729-407eedc4fe24?auto=format&fit=crop&w=400&q=80">
-<img class="layer sauce" src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5?auto=format&fit=crop&w=400&q=80">
-<img class="layer cheese" src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=400&q=80">
-<img class="layer toppings" src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80">
-<img class="layer basil" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=400&q=80">
-
-</div>
+<!-- HERO -->
 
 <section class="hero">
 
 <div>
 
 <h1>Pizzeria Paradise</h1>
-
 <p>La vera pizza italiana a Cavriago</p>
 
-<button onclick="document.getElementById('menu').scrollIntoView()">Scopri il menu</button>
+<button onclick="document.getElementById('menu').scrollIntoView()">
+Scopri il menu
+</button>
 
 </div>
 
 </section>
+
+<!-- MENU -->
 
 <section id="menu">
 
 <h2 class="title">Le nostre pizze</h2>
 
-<div class="menu">
-
-<!-- 12 PIZZE -->
-
-<script>
-
-const pizze=[
-
-"Margherita","Diavola","Capricciosa","Prosciutto Funghi",
-"Quattro Formaggi","Bufala","Napoli","Vegetariana",
-"Boscaiola","Calzone","Tonno Cipolla","Paradise"
-
-];
-
-const menu=document.currentScript.parentElement;
-
-pizze.forEach(nome=>{
-
-menu.innerHTML+=`
-
-<div class="card">
-
-<div class="inner">
-
-<div class="front">
-
-<img src="https://source.unsplash.com/400x300/?pizza">
-
-<h3>${nome}</h3>
-
-</div>
-
-<div class="back">
-
-<h3>Preparazione</h3>
-
-<ul>
-
-<li>Impasto steso</li>
-<li>Pomodoro San Marzano</li>
-<li>Mozzarella</li>
-<li>Cottura forno 450°</li>
-<li>Servita calda</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-</script>
-
-</div>
+<div class="menu" id="pizza-container"></div>
 
 </section>
+
+<!-- ABOUT -->
 
 <section id="about">
 
@@ -399,15 +335,17 @@ menu.innerHTML+=`
 
 <p>
 
-La Pizzeria Paradise nasce dalla passione per la pizza
-italiana tradizionale. Impasti a lunga lievitazione,
-ingredienti freschi e forno ad alta temperatura.
+La Pizzeria Paradise nasce dalla passione per la pizza italiana.
+Utilizziamo impasti a lunga lievitazione e ingredienti freschi
+per garantire qualità e sapore autentico.
 
 </p>
 
 </div>
 
 </section>
+
+<!-- CONTATTI -->
 
 <section id="contact" class="contact">
 
@@ -427,43 +365,60 @@ ingredienti freschi e forno ad alta temperatura.
 
 <script>
 
+/* GENERAZIONE 12 PIZZE */
+
+const pizze=[
+"Margherita","Diavola","Capricciosa","Prosciutto Funghi",
+"Quattro Formaggi","Bufala","Napoli","Vegetariana",
+"Boscaiola","Calzone","Tonno Cipolla","Paradise"
+];
+
+const container=document.getElementById("pizza-container");
+
+pizze.forEach(nome=>{
+
+container.innerHTML+=`
+
+<div class="card">
+<div class="inner">
+
+<div class="front">
+<img src="https://source.unsplash.com/400x300/?pizza">
+<h3>${nome}</h3>
+</div>
+
+<div class="back">
+<h3>Preparazione</h3>
+<ul>
+<li>Impasto steso</li>
+<li>Pomodoro San Marzano</li>
+<li>Mozzarella</li>
+<li>Cottura forno 450°</li>
+<li>Servita calda</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+`;
+
+});
+
+/* INGREDIENTI CHE CADONO */
+
 window.addEventListener("scroll",()=>{
 
-let s=window.scrollY
+let scroll=window.scrollY
 
-if(s>200)document.querySelector(".dough").classList.add("show")
-if(s>500)document.querySelector(".sauce").classList.add("show")
-if(s>900)document.querySelector(".cheese").classList.add("show")
-if(s>1300)document.querySelector(".toppings").classList.add("show")
-if(s>1700)document.querySelector(".basil").classList.add("show")
+if(scroll>300) document.querySelector(".tomato").classList.add("show")
+if(scroll>700) document.querySelector(".cheese").classList.add("show")
+if(scroll>1100) document.querySelector(".basil").classList.add("show")
+if(scroll>1500) document.querySelector(".olive").classList.add("show")
 
 })
 
 </script>
-<script>
 
-window.addEventListener("scroll",()=>{
-
-let scroll = window.scrollY
-
-if(scroll > 300){
-document.querySelector(".tomato").classList.add("show")
-}
-
-if(scroll > 700){
-document.querySelector(".cheese").classList.add("show")
-}
-
-if(scroll > 1100){
-document.querySelector(".basil").classList.add("show")
-}
-
-if(scroll > 1500){
-document.querySelector(".olive").classList.add("show")
-}
-
-})
-
-</script>
 </body>
 </html>

@@ -1,550 +1,288 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzeria Bella Napoli</title>
+    <style>
+        /* Reset e stili base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #fff8f0;
+            color: #333;
+        }
+
+        header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #f44336;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 15px 0;
+            display: block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #b71c1c;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: url('https://images.unsplash.com/photo-1601924578146-5e7e9e6b8f04') no-repeat center center/cover;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        section {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #d32f2f;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.05);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item h3 {
+            padding: 15px;
+            font-size: 20px;
+        }
+
+        .menu-item p {
+            padding: 0 15px 15px;
+            color: #555;
+        }
+
+        footer {
+            background-color: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Pizzeria Bella Napoli</h1>
+        <p>Il sapore autentico della pizza italiana</p>
+    </header>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#contatti">Contatti</a>
+    </nav>
+
+    <section id="home" class="hero">
+        <h1>Benvenuti da Bella Napoli</h1>
+        <p>Scopri le nostre pizze artigianali e ingredienti freschi</p>
+    </section>
+
+  <!DOCTYPE html>
+<html lang="it">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ITS Maker – Digital Automation Maker</title>
-
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-
-<meta name="description" content="Diventa Digital Automation Maker. Percorso ITS biennale in automazione industriale, software e industria 4.0. Stage garantito e alta occupabilità.">
-<meta name="keywords" content="ITS, Digital Automation Maker, automazione industriale, industria 4.0, corso post diploma">
-<meta name="author" content="ITS Maker">
-<meta name="robots" content="index, follow">
-
-<meta property="og:title" content="ITS Maker – Digital Automation Maker">
-<meta property="og:description" content="Percorso ITS biennale in automazione industriale e industria 4.0.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://itsmaker.it/">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<title>Pizzeria Bella Napoli</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Poppins',sans-serif;background:#f4f7fb;color:#1c1c1c;line-height:1.7}
-img{max-width:100%;height:auto}
-a:focus{outline:3px solid #00b3ff;outline-offset:3px}
-
-/* TOP */
-.funding{background:#eef2f7;padding:8px;border-bottom:1px solid #ccc;text-align:center}
-.funding img{max-height:34px}
-
-/* NAV */
-.nav{position:sticky;top:0;background:#fff;z-index:999;box-shadow:0 5px 15px rgba(0,0,0,.1);transition:.3s}
-.nav.shrink{padding:5px 0;background:#fff;box-shadow:0 3px 10px rgba(0,0,0,.1);}
-.nav-inner{max-width:1300px;margin:auto;padding:22px;display:flex;justify-content:center;align-items:center;transition:.3s}
-.nav.shrink .nav-inner{padding:10px}
-.nav-center{display:flex;align-items:center;gap:80px;justify-content:center}
-.nav-logo img{max-height:90px;transition:.3s}
-.nav.shrink .nav-logo img{max-height:65px}
-.nav-links{display:flex;gap:25px;flex-wrap:wrap;justify-content:center}
-.nav-links a{background:linear-gradient(135deg,#0073c6,#00b3ff);color:#fff;padding:14px 30px;border-radius:40px;text-decoration:none;font-weight:600;transition:.3s}
-.nav-links a:hover{transform:scale(1.1)}
-
-/* Hamburger Menu Mobile */
-.hamburger{display:none;cursor:pointer;flex-direction:column;justify-content:space-between;width:28px;height:20px}
-.hamburger span{display:block;height:3px;background:#004b8d;border-radius:3px;transition:.3s}
-
-/* Fullscreen menu */
-.mobile-menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    font-size: 1.5em;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 115, 198, 0.5); /* blu con trasparenza */
-    color: #ffffff00;
-    transform: translateY(-100%);
-    transition: .3s;
-    z-index: 998;
-}
-.mobile-menu a{color:#fff;text-decoration:none;font-weight:700;transition:.3s}
-.mobile-menu a:hover{transform:scale(1.1)}
-
-
-
-/* Sfocatura solo per il contenuto principale */
-.content-blur {
-  filter: blur(8px);
-  transition: filter 0.3s ease;
+body{
+font-family: Arial, sans-serif;
+margin:0;
+background:#f5f5f5;
 }
 
-/* HERO */
-.hero {
-  position: relative;
-  min-height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #ffffff;
-  overflow: hidden;
+header{
+background:#c62828;
+color:white;
+text-align:center;
+padding:30px;
 }
 
-.hero-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
+nav{
+background:#8e0000;
+text-align:center;
+padding:10px;
 }
 
-
-
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.0);
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-weight:bold;
 }
 
-.hero-box {
-  position: relative;
-  max-width: 900px;
-  padding: 50px;
+.hero{
+background:url("https://images.unsplash.com/photo-1594007654729-407eedc4be65") center/cover;
+color:white;
+text-align:center;
+padding:100px 20px;
 }
 
-.hero h1 {
-  font-size: 3.5em;
-  margin-bottom: 20px;
-  font-weight: 800;
+.hero h1{
+font-size:50px;
 }
 
-.hero p {
-  font-size: 1.2em;
+.container{
+padding:40px;
+max-width:1000px;
+margin:auto;
 }
 
-/* HERO */
-header{position:relative;min-height:60vh;display:flex;justify-content:center;align-items:center;color:#fff;text-align:center;overflow:hidden}
-.hero-box{max-width:900px;padding:50px}
-header h1{font-size:3.5em;margin-bottom:20px;font-weight:800}
-header p {font-size: 1.2em}
-
-/* SECTIONS */
-section{max-width:1300px;margin:auto;padding:50px 25px;}
-.section-title{text-align:center;margin-bottom:70px}
-.section-title h2{font-size:3em;color:#004b8d}
-
-/* ABOUT */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.about img{border-radius:25px;box-shadow:0 15px 35px rgba(0,0,0,.3)}
-
-/* CARDS */
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px}
-.card{background:#fff;padding:40px;border-radius:25px;box-shadow:0 12px 30px rgba(0,0,0,.15);transition:.3s}
-.card:hover{transform:translateY(-12px)}
-.card img{height:220px;object-fit:cover;border-radius:18px;margin-bottom:20px}
-.card h3{color:#004b8d;margin-bottom:15px}
-
-/* SBOCCHI */
-.sbocchi-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:stretch;}
-.sbocchi-left{background:linear-gradient(135deg,#003c6a,#0073c6,#00b3ff);color:#fff;border-radius:30px;padding:55px;box-shadow:0 15px 35px rgba(0,0,0,.25);display:flex;flex-direction:column;justify-content:space-between}
-.sbocchi-left h2{margin-bottom:30px;font-size:2.2em;font-weight:700}
-.sbocchi-left p{margin-bottom:40px;line-height:1.8}
-.sbocchi-left img{border-radius:20px;margin-top:auto}
-.sbocchi-right{background:#fff;border-radius:30px;padding:50px 40px;box-shadow:0 15px 35px rgba(0,0,0,.08)}
-.sbocchi-right h3{text-align:center;color:#004b8d;font-size:2.2em;font-weight:700;margin-bottom:40px}
-.loghi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:25px;align-items:center}
-.loghi-grid img{max-height:32px;object-fit:contain;transition:.3s}
-.loghi-grid img:hover{transform:scale(1.08)}
-
-/* TESTIMONIAL */
-.testimonial{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:center}
-.video-box{background:linear-gradient(135deg,#003c6a,#0073c6,#00b3ff);padding:50px;border-radius:40px;box-shadow:0 20px 45px rgba(0,0,0,.3);display:flex;gap:40px;justify-content:center;align-items:center}
-.video-wrapper {
-  overflow: hidden;
-  border-radius: 25px;
-  background: #000;
-  box-shadow: 0 15px 35px rgba(0,0,0,.4);
-}
-.video-wrapper video{width:100%;height:100%;object-fit:cover}
-.video-desktop { display: block; }
-.video-mobile { display: none; }
-.video-wrapper.video-desktop {
-  width: 100%;
-  max-width: 600px; /* puoi regolare */
-  aspect-ratio: 16/9;
-}
-.video-wrapper.video-mobile {
-  width: 100%;
-  max-width: 260px; /* come prima */
-  aspect-ratio: 9/16;
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 }
 
-/* CTA */
-.cta{background:linear-gradient(135deg,#0073c6,#00b3ff);color:#fff;border-radius:40px;padding:90px 40px;text-align:center;box-shadow:0 20px 45px rgba(0,0,0,.3);margin-bottom:140px}
-.cta a{background:#fff;color:#0073c6;padding:16px 45px;border-radius:50px;text-decoration:none;font-weight:700;display:inline-block;margin-top:30px;transition:.3s}
-.cta a:hover{transform:scale(1.1);box-shadow:0 10px 25px rgba(0,0,0,.25)}
-
-/* FOOTER */
-footer{background:#0a0a0a;color:#fff;padding:35px 60px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.footer-right{display:flex;align-items:center;gap:20px}
-.footer-left img{max-height:45px}
-.footer-logo img{max-height:70px}
-
-/* MEDIA QUERIES */
-@media(max-width:1000px){
-.about,.testimonial,.sbocchi-wrapper{grid-template-columns:1fr}
-.loghi-grid{grid-template-columns:repeat(3,1fr)}
-.video-box{flex-wrap:wrap}
+.pizza{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.2);
+text-align:center;
 }
 
-@media(max-width:600px){
-.nav-inner {padding:10px 20px; display:flex; justify-content:space-between; align-items:center; max-width:100%;}
-.nav-center {justify-content:space-between; gap:0; width:100%;}
-.nav-logo img {max-height:70px;}
-.nav-links {display:none;}
-.hamburger {display:flex; flex-direction:column; justify-content:space-between; width:28px; height:20px; cursor:pointer;}
-.hamburger span {display:block; height:3px; background:#004b8d; border-radius:3px; transition:.3s;}
-.mobile-menu {display:flex; flex-direction:column; justify-content:center; align-items:center; gap:40px; font-size:1.5em; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(133, 182, 225, 0.7); color:#fff; transform:translateY(-100%); transition:.3s; z-index:998;}
-.mobile-menu a {color:#fff; text-decoration:none; font-weight:700; transition:.3s;}
-.mobile-menu a:hover {transform:scale(1.1);}
-.mobile-menu.show {transform:translateY(0);}
-.video-desktop { display: none; }
-.video-mobile { display: block; }
-
-.mobile-logo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.mobile-logo img {
-  max-height: 110px;
-  transition: transform 0.3s;
-}
-
-.mobile-logo img:hover {
-  transform: scale(1.1);
-}
-
-.nav-logo {margin-left: 30px;}
-.hamburger {margin-right: 30px;}
+footer{
+background:#c62828;
+color:white;
+text-align:center;
+padding:20px;
+margin-top:40px;
 }
 </style>
+
 </head>
 
-<body id="top">
+<body>
 
-<div id="mainContent">
-
-<div class="funding">
-<img src="BannerSponsor.jpg" loading="lazy" alt="Sponsor">
-</div>
-
-<div class="nav" id="navbar">
-<div class="nav-inner">
-<div class="nav-center">
-<div class="nav-logo">
-<a href="#top"><img src="LogoITS.png" alt="Logo ITS Maker"></a>
-</div>
-<div class="nav-links">
-<a href="#corso">Corso</a>
-<a href="#competenze">Competenze</a>
-<a href="#sbocchi">Sbocchi</a>
-<a href="#testimonianze">Testimonianze</a>
-<a href="#iscrizioni">Iscrizioni</a>
-</div>
-<div class="hamburger" id="hamburger">
-<span></span>
-<span></span>
-<span></span>
-</div>
-</div>
-</div>
-</div>
-
-<header class="hero">
-
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="https://itsmaker.it/wp-content/uploads/2026/01/ITSMAKERACADEMY-PrayForThisHero.webm" type="video/webm">
-  </video>
-
-  <div class="hero-overlay"></div>
-
-  <div class="hero-box">
-    <h1>Digital Automation Maker</h1>
-    <p>
-      Diventa protagonista della trasformazione digitale industriale.<br>
-      Il Digital Automation Maker è un percorso biennale post-diploma altamente professionalizzante,
-      progettato in collaborazione con aziende leader del settore.
-      Unisce automazione, software e industria 4.0 per formare tecnici specializzati,
-      pronti ad entrare rapidamente nel mondo del lavoro.
-    </p>
-  </div>
+<header>
+<h1>Pizzeria Bella Napoli</h1>
+<p>La vera pizza italiana</p>
 </header>
 
+<nav>
+<a href="#home">Home</a>
+<a href="#menu">Menu</a>
+<a href="#contatti">Contatti</a>
+</nav>
 
-<!-- SEZIONI (Corso, Competenze, Sbocchi, Testimonianze, CTA, Footer) rimangono uguali -->
-<!-- ...il tuo codice HTML continua qui senza cambiare ... -->
-
-
-<!-- SEZIONE CORSO -->
-<section id="corso">
-<div class="section-title"><h2>Cos’è il Digital Automation Maker</h2></div>
-<div class="about">
-<div>
-<p>
-Il percorso Digital Automation Maker nasce per rispondere alle esigenze concrete
-delle aziende manifatturiere e tecnologiche.
-Integra lezioni teoriche, laboratori pratici e un lungo periodo di stage in impresa,
-con l’obiettivo di formare professionisti altamente qualificati
-nell’automazione industriale e nei sistemi digitali avanzati.
-<br><br>
-Le competenze acquisite sono immediatamente spendibili nel mondo del lavoro.
-</p>
-</div>
-<img src="https://itsmaker.it/wp-content/uploads/2023/09/ITSMAKER-TecnicoDiAutomazione-4.jpg" loading="lazy" alt="Laboratorio automazione">
-</div>
+<section class="hero" id="home">
+<h1>Benvenuto!</h1>
+<p>Scopri le nostre pizze artigianali</p>
 </section>
 
-<!-- SEZIONE COMPETENZE -->
-<section id="competenze">
-<div class="section-title"><h2>Cosa Imparerai</h2></div>
-<div class="cards">
+<section class="container" id="menu">
+<h2>Il nostro Menu</h2>
 
-<div class="card">
-<img src="https://www.fastelettronica.com/img/componenti-elettronici-automazione-industriale.jpg" loading="lazy" alt="Automazione Industriale">
-<h3>Automazione Industriale</h3>
-<p>
-Imparerai a progettare e gestire linee produttive automatizzate,
-configurare sistemi di controllo e intervenire nella manutenzione avanzata
-degli impianti industriali.
-</p>
+<div class="menu">
+
+<div class="pizza">
+<h3>Margherita</h3>
+<p>Pomodoro, mozzarella, basilico</p>
+<p><b>€6</b></p>
 </div>
 
-<div class="card">
-<img src="https://wips.plug.it/cips/tecnologia/cms/2020/07/software-applicativi.jpg" loading="lazy" alt="Software e AI">
-<h3>Software & AI</h3>
-<p>
-Dalla programmazione alla gestione dei dati industriali,
-fino all’integrazione di soluzioni smart basate su Intelligenza Artificiale.
-</p>
+<div class="pizza">
+<h3>Diavola</h3>
+<p>Pomodoro, mozzarella, salame piccante</p>
+<p><b>€8</b></p>
 </div>
 
-<div class="card">
-<img src="https://www.alcimed.com/wp-content/uploads/2025/03/industry_4_0_min-1.webp" loading="lazy" alt="Industria 4.0">
-<h3>Industria 4.0</h3>
-<p>
-Imparerai a integrare macchine, software e sistemi intelligenti
-in un ecosistema connesso, sicuro ed efficiente.
-</p>
+<div class="pizza">
+<h3>Quattro Formaggi</h3>
+<p>Mozzarella, gorgonzola, fontina, parmigiano</p>
+<p><b>€9</b></p>
 </div>
 
 </div>
 </section>
 
-<!-- SEZIONE SBOCCHI -->
-<section id="sbocchi">
-<div class="section-title"><h2>Opportunità e Aziende del Territorio</h2></div>
-<div class="sbocchi-wrapper">
-<div class="sbocchi-left">
-<h2>Opportunità di Lavoro</h2>
-<p>
-Oltre l’80% dei diplomati ITS trova occupazione entro un anno dal termine del percorso.
-Le aziende partner partecipano attivamente alla formazione e selezionano direttamente
-gli studenti durante lo stage, offrendo concrete opportunità di inserimento
-in ruoli tecnici altamente qualificati.
-</p>
-<img src="shutterstock_2565398067.webp" loading="lazy" alt="Stage in azienda">
-</div>
-
-<div class="sbocchi-right">
-<h3>Aziende Partner</h3>
-<div class="loghi-grid">
-<!-- LOGHI COME NEL TUO CODICE ORIGINALE -->
-
-
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-AEB-300x150.jpg" loading="lazy" alt="AEB">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-AreteeECocchi-300x150.jpg" loading="lazy" alt="Aretè & Cocchi Technology">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-ARGOTractors-300x150.jpg" loading="lazy" alt="Argo Tractors">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-AutomobiliLamborghini-300x150.jpg" loading="lazy" alt="Lamborghini">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Bucher-300x150.jpg" loading="lazy" alt="Bucher">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Caprari-300x150.jpg" loading="lazy" alt="Caprari">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Casarini-300x150.jpg" loading="lazy" alt="Casarini">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-CBM-300x150.jpg" loading="lazy" alt="CBM Group">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Clevertech-300x150.jpg" loading="lazy" alt="Clevertech">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-GruppoCMS-300x150.jpg" loading="lazy" alt="Gruppo CMS">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-CNH-300x150.jpg" loading="lazy" alt="CNH">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-ComerIndustries-300x150.jpg" loading="lazy" alt="Comer Industries">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Corghi-300x150.jpg" loading="lazy" alt="Corghi">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Dallara-300x150.jpg" loading="lazy" alt="Dallara">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-E80-300x150.jpg" loading="lazy" alt="E80">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Tironi-300x150.jpg" loading="lazy" alt="Tironi">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Ferrari_CavallinoRampante-300x150.jpg" loading="lazy" alt="Ferrari">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-GalvanicaNobili-300x150.jpg" loading="lazy" alt="Galvanica Nobili">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-GD-300x150.jpg" loading="lazy" alt="GD">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-HPE_Group-300x150.jpg" loading="lazy" alt="HPE Group">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-IMA-300x150.jpg" loading="lazy" alt="IMA">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-IST-300x150.jpg" loading="lazy" alt="IST">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Kohler-300x150.jpg" loading="lazy" alt="Kohler">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Lodi-300x150.jpg" loading="lazy" alt="LODI">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Logit-300x150.jpg" loading="lazy" alt="Logit">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Marelli-300x150.jpg" loading="lazy" alt="Marelli">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Malagoli-300x150.jpg" loading="lazy" alt="Aldebrando Malagoli">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-MarchesiniGroup-300x150.jpg" loading="lazy" alt="Marchesini Group">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Margen-300x150.jpg" loading="lazy" alt="Margen">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Maserati-300x150.jpg" loading="lazy" alt="Maserati">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-MASS-300x150.jpg" loading="lazy" alt="MASS">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-MG2-300x150.jpg" loading="lazy" alt="MG2">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Nexxta-300x150.jpg" loading="lazy" alt="NEXXTA">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Nuovamacut-300x150.jpg" loading="lazy" alt="Nuovamacut">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-OgnibenePower-300x150.jpg" loading="lazy" alt="Ognibene Power">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Pagani-300x150.jpg" loading="lazy" alt="Pagani">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Poggipolini-300x150.jpg" loading="lazy" alt="Poggipolini">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Protesa-300x150.jpg" loading="lazy" alt="Protesa">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Qonsult-300x150.jpg" loading="lazy" alt="Qonsult">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-ReggianaRiduttori-300x150.jpg" loading="lazy" alt="Reggiana Riduttori">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-ReggioEmiliaInnovazione-300x150.jpg" loading="lazy" alt="Reggio Emilia Innovazione">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Salami-300x150.jpg" loading="lazy" alt="Salami">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-SCE-300x150.jpg" loading="lazy" alt="SCE">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Schneider-300x150.jpg" loading="lazy" alt="Schneider Electric">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-SEI-300x150.jpg" loading="lazy" alt="SEI">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Sacmi-300x150.jpg" loading="lazy" alt="SACMI">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Seipee-300x150.jpg" loading="lazy" alt="Seipee">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-TEC_Eurolab-300x150.jpg" loading="lazy" alt="TEC Eurolab">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-TellureRota-300x150.jpg" loading="lazy" alt="Tellure Rota">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-TemaSinergie-300x150.jpg" loading="lazy" alt="Tema Sinergie">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-TMC-300x150.jpg" loading="lazy" alt="TMC">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Viabizzuno-300x150.jpg" loading="lazy" alt="Viabizzuno">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-ViciEC-300x150.jpg" loading="lazy" alt="Vici EC">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-VM_Motori-300x150.jpg" loading="lazy" alt="VM Motori">
-<img src="https://itsmaker.it/wp-content/uploads/2025/09/ITSMAKER-Soci-Walvoil-300x150.jpg" loading="lazy" alt="Walvoil">
-
-
-
-
-<!-- ...tutti i loghi restano qui... -->
-</div>
-</div>
-</div>
+<section class="container" id="contatti">
+<h2>Contatti</h2>
+<p>📍 Via Roma 10</p>
+<p>📞 333 1234567</p>
+<p>📧 info@pizzeria.it</p>
 </section>
 
-<!-- TESTIMONIAL -->
-<section id="testimonianze">
-  <div class="section-title">
-    <h2>Cosa dicono di noi</h2>
-    <p>Esperienze reali di docenti ed ex studenti.</p>
-  </div>
-
-  <div class="testimonial">
-    <div class="video-box">
-
-      <!-- VIDEO DESKTOP (orizzontale) -->
-      <div class="video-wrapper video-desktop">
-        <video controls preload="none" playsinline>
-          <source src="Video ITS.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <!-- VIDEO MOBILE (verticale) -->
-      <div class="video-wrapper video-mobile">
-        <video controls preload="none" playsinline>
-          <source src="Video ITS VERTICALE.mp4" type="video/mp4">
-        </video>
-      </div>
-
-    </div>
-
-    <div class="testo-testimonianze">
-      <p>Le testimonianze raccontano un percorso concreto, formativo e orientato al lavoro.</p>
-      <a href="https://www.instagram.com/fondazioneitsmaker/">Scopri di più →</a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section id="iscrizioni" class="cta">
-<h2>Costruisci il Tuo Futuro Oggi</h2>
-<p>Il momento giusto è adesso.</p>
-<a href="https://itsmaker.it/guida-pratica/">Invia Richiesta</a>
-</section>
-
-<!-- FOOTER -->
 <footer>
-<div class="footer-left">
-<a href="https://itsmaker.it/" style="color:#fff;text-decoration:none;display:flex;align-items:center;gap:15px;">
-<img src="https://itsmaker.it/wp-content/uploads/2025/04/ITSMAKERACADEMY-Logo_w.svg" alt="Logo ITS Maker">
-<div>© 2026 ITS Maker – Digital Automation Maker</div>
-</a>
-</div>
-<div class="footer-right">
-<div>© 2026 Maker Future – Sviluppo e Innovazione</div>
-<div class="footer-logo">
-<img src="logo digital.png" loading="lazy" alt="Logo Digital">
-</div>
-</div>
+<p>© 2026 Pizzeria Bella Napoli</p>
 </footer>
-</div>
 
+</body>
+</html>
 
-</div> <!-- /#mainContent -->
+    <section id="contatti">
+        <h2>Contattaci</h2>
+        <p style="text-align:center;">📞 Telefono: 123-456-789<br>
+           📍 Indirizzo: Via Roma 10, Napoli<br>
+           📧 Email: info@bellanapoli.it
+        </p>
+    </section>
 
-<!-- Mobile Menu fuori dal mainContent -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#top" class="mobile-logo">
-    <img src="https://itsmaker.it/wp-content/uploads/2025/04/ITSMAKERACADEMY-Logo_w.svg" alt="Logo Digital">
-  </a>
-  <a href="#corso">Corso</a>
-  <a href="#competenze">Competenze</a>
-  <a href="#sbocchi">Sbocchi</a>
-  <a href="#testimonianze">Testimonianze</a>
-  <a href="#iscrizioni">Iscrizioni</a>
-</div>
-
-<script>
-// NAV SHRINK PC & MOBILE
-const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",()=>{window.scrollY>80?navbar.classList.add("shrink"):navbar.classList.remove("shrink")},{passive:true});
-
-// SMOOTH SCROLL
-document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link=>{
-link.addEventListener("click",e=>{
-const href=link.getAttribute("href");
-if(!href.startsWith("#"))return;
-const target=document.querySelector(href);
-if(!target)return;
-e.preventDefault();
-const offset=navbar.offsetHeight+20;
-window.scrollTo({top:target.offsetTop-offset,behavior:"smooth"});
-
-// Chiudi menu mobile se aperto
-if(window.innerWidth<600){
-document.getElementById("mobileMenu").style.transform="translateY(-100%)";
-document.getElementById("hamburger").classList.remove("open");
-document.getElementById("mainContent").classList.remove("content-blur");
-}
-});
-});
-
-// HAMBURGER TOGGLE
-const hamburger=document.getElementById("hamburger");
-const mobileMenu=document.getElementById("mobileMenu");
-const mainContent=document.getElementById("mainContent");
-
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("open");
-
-  if (hamburger.classList.contains("open")) {
-    mobileMenu.style.transform = "translateY(0)";
-    mainContent.classList.add("content-blur"); // SFOCATURA SOLO SUL CONTENUTO
-  } else {
-    mobileMenu.style.transform = "translateY(-100%)";
-    mainContent.classList.remove("content-blur");
-  }
-});
-</script>
-
+    <footer>
+        <p>&copy; 2026 Pizzeria Bella Napoli | <a href="#home">Torna su</a></p>
+    </footer>
 </body>
 </html>

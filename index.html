@@ -10,6 +10,7 @@
 
 <style>
 
+/* --- GLOBAL --- */
 *{
 margin:0;
 padding:0;
@@ -19,18 +20,27 @@ scroll-behavior:smooth;
 }
 
 body{
-background:#111;
+background:linear-gradient(180deg,#111,#000);
 color:white;
 overflow-x:hidden;
 }
 
-/* NAVBAR */
+/* --- SFONDO ANIMATO --- */
+#bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
 
+/* --- NAVBAR --- */
 nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,0.9);
+background:rgba(0,0,0,0.85);
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -55,8 +65,7 @@ nav a:hover{
 color:#ff5c00;
 }
 
-/* HERO */
-
+/* --- HERO --- */
 .hero{
 height:100vh;
 background:
@@ -98,50 +107,7 @@ background:#ff7b2f;
 box-shadow:0 10px 30px rgba(255,92,0,0.5);
 }
 
-/* PIZZA ANIMATA */
-
-.pizza-bg{
-position:fixed;
-right:40px;
-bottom:40px;
-width:300px;
-height:300px;
-pointer-events:none;
-z-index:1;
-}
-
-.pizza-base{
-width:100%;
-border-radius:50%;
-animation:rotatePizza 35s linear infinite;
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
-}
-
-@keyframes rotatePizza{
-from{transform:rotate(0deg);}
-to{transform:rotate(360deg);}
-}
-
-.ingredient{
-position:absolute;
-width:65px;
-opacity:0;
-transform:translateY(-200px);
-transition:all 1s ease;
-}
-
-.tomato{ top:25%; left:15%; }
-.cheese{ top:40%; left:60%; }
-.basil{ top:60%; left:30%; }
-.olive{ top:20%; left:55%; }
-
-.ingredient.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* SEZIONI */
-
+/* --- SEZIONI --- */
 section{
 padding:100px 10%;
 }
@@ -152,16 +118,14 @@ margin-bottom:60px;
 text-align:center;
 }
 
-/* MENU GRID */
-
+/* --- MENU GRID --- */
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 gap:30px;
 }
 
-/* CARD PIZZA */
-
+/* --- CARD PIZZA --- */
 .card{
 perspective:1000px;
 }
@@ -207,8 +171,11 @@ flex-direction:column;
 justify-content:center;
 }
 
-/* ABOUT */
+.back li{
+margin-bottom:8px;
+}
 
+/* --- ABOUT --- */
 .about{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -221,8 +188,7 @@ width:100%;
 border-radius:15px;
 }
 
-/* CONTACT */
-
+/* --- CONTACT --- */
 .contact{
 text-align:center;
 background:#181818;
@@ -237,8 +203,7 @@ border:0;
 border-radius:15px;
 }
 
-/* FOOTER */
-
+/* --- FOOTER --- */
 footer{
 text-align:center;
 padding:20px;
@@ -246,22 +211,14 @@ background:black;
 margin-top:40px;
 }
 
-/* MOBILE */
-
+/* --- MOBILE --- */
 @media(max-width:800px){
-
 .about{
 grid-template-columns:1fr;
 }
-
 .hero h1{
 font-size:40px;
 }
-
-.pizza-bg{
-display:none;
-}
-
 }
 
 </style>
@@ -269,104 +226,63 @@ display:none;
 
 <body>
 
-<!-- PIZZA ANIMATA -->
-
-<div class="pizza-bg">
-
-<img class="pizza-base" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80">
-
-<img class="ingredient tomato" src="https://pngimg.com/uploads/tomato/tomato_PNG12594.png">
-<img class="ingredient cheese" src="https://pngimg.com/uploads/cheese/cheese_PNG25287.png">
-<img class="ingredient basil" src="https://pngimg.com/uploads/basil/basil_PNG17.png">
-<img class="ingredient olive" src="https://pngimg.com/uploads/olive/olive_PNG14.png">
-
-</div>
+<!-- SFONDO ANIMATO -->
+<canvas id="bg"></canvas>
 
 <!-- NAVBAR -->
-
 <nav>
-
 <h2>Pizzeria Paradise</h2>
-
 <div>
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
 </div>
-
 </nav>
 
 <!-- HERO -->
-
 <section class="hero">
-
 <div>
-
 <h1>Pizzeria Paradise</h1>
 <p>La vera pizza italiana a Cavriago</p>
-
 <button onclick="document.getElementById('menu').scrollIntoView()">
 Scopri il menu
 </button>
-
 </div>
-
 </section>
 
 <!-- MENU -->
-
 <section id="menu">
-
 <h2 class="title">Le nostre pizze</h2>
-
 <div class="menu" id="pizza-container"></div>
-
 </section>
 
 <!-- ABOUT -->
-
 <section id="about">
-
 <h2 class="title">Chi siamo</h2>
-
 <div class="about">
-
 <img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc">
-
 <p>
-
 La Pizzeria Paradise nasce dalla passione per la pizza italiana.
 Utilizziamo impasti a lunga lievitazione e ingredienti freschi
 per garantire qualità e sapore autentico.
-
 </p>
-
 </div>
-
 </section>
 
 <!-- CONTATTI -->
-
 <section id="contact" class="contact">
-
 <h2 class="title">Contatti</h2>
-
 <p>Cavriago (RE)</p>
-
 <iframe src="https://www.google.com/maps?q=Pizzeria+Paradise+Cavriago&output=embed"></iframe>
-
 </section>
 
+<!-- FOOTER -->
 <footer>
-
 © 2026 Pizzeria Paradise
-
 </footer>
 
+<!-- SCRIPT PIZZE -->
 <script>
-
-/* GENERAZIONE 12 PIZZE */
-
 const pizze=[
 "Margherita","Diavola","Capricciosa","Prosciutto Funghi",
 "Quattro Formaggi","Bufala","Napoli","Vegetariana",
@@ -376,17 +292,13 @@ const pizze=[
 const container=document.getElementById("pizza-container");
 
 pizze.forEach(nome=>{
-
 container.innerHTML+=`
-
 <div class="card">
 <div class="inner">
-
 <div class="front">
 <img src="https://source.unsplash.com/400x300/?pizza">
 <h3>${nome}</h3>
 </div>
-
 <div class="back">
 <h3>Preparazione</h3>
 <ul>
@@ -397,27 +309,47 @@ container.innerHTML+=`
 <li>Servita calda</li>
 </ul>
 </div>
-
 </div>
 </div>
-
 `;
-
 });
+</script>
 
-/* INGREDIENTI CHE CADONO */
+<!-- SCRIPT SFONDO ANIMATO -->
+<script>
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-window.addEventListener("scroll",()=>{
-
-let scroll=window.scrollY
-
-if(scroll>300) document.querySelector(".tomato").classList.add("show")
-if(scroll>700) document.querySelector(".cheese").classList.add("show")
-if(scroll>1100) document.querySelector(".basil").classList.add("show")
-if(scroll>1500) document.querySelector(".olive").classList.add("show")
-
+let particles=[];
+for(let i=0;i<100;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2+1,
+speed:Math.random()*0.5
 })
+}
 
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,90,0,0.8)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y-=p.speed;
+if(p.y<0){ p.y=canvas.height; p.x=Math.random()*canvas.width; }
+});
+requestAnimationFrame(draw);
+}
+draw();
+
+window.addEventListener("resize",()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
 </script>
 
 </body>

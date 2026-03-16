@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizzeria E80</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Pizzeria Renato</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -13,23 +14,51 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-scroll-behavior:smooth;
 }
 
 body{
 font-family:"Inter",sans-serif;
-background:#0f0f0f;
+background:#111;
 color:white;
-overflow-x:hidden;
+line-height:1.6;
+}
+
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 10%;
+background:black;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+nav h1{
+font-family:"Playfair Display";
+font-size:28px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:30px;
+font-weight:500;
+}
+
+nav a:hover{
+color:#ff4d00;
 }
 
 /* HERO */
 
 .hero{
-height:100vh;
+height:85vh;
 background:
 linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.7)),
-url("https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=2000&q=80");
+url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=2000&q=80");
 background-size:cover;
 background-position:center;
 display:flex;
@@ -39,211 +68,133 @@ text-align:center;
 padding:20px;
 }
 
-.hero-content{
-max-width:900px;
-animation:fadeUp 1.5s ease;
-}
-
-.hero h1{
-font-family:"Orbitron";
-font-size:80px;
-letter-spacing:3px;
+.hero h2{
+font-size:60px;
+font-family:"Playfair Display";
 margin-bottom:20px;
-background:linear-gradient(90deg,#ff3c00,#ff9100);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
 }
 
 .hero p{
-font-size:22px;
-opacity:0.8;
-margin-bottom:40px;
+font-size:20px;
+opacity:0.9;
+margin-bottom:30px;
 }
 
 .hero a{
-padding:16px 40px;
-border-radius:40px;
-background:linear-gradient(90deg,#ff3c00,#ff6a00);
+padding:14px 35px;
+background:#ff4d00;
+border-radius:30px;
 text-decoration:none;
 color:white;
 font-weight:600;
-transition:0.3s;
 }
 
 .hero a:hover{
-transform:translateY(-3px);
-box-shadow:0 10px 30px rgba(255,90,0,0.5);
+background:#ff6a00;
+}
+
+/* SECTIONS */
+
+section{
+padding:80px 10%;
+}
+
+.title{
+text-align:center;
+font-size:40px;
+margin-bottom:50px;
+font-family:"Playfair Display";
 }
 
 /* MENU */
 
-section{
-padding:100px 20px;
-}
-
-.menu-title{
-text-align:center;
-font-size:40px;
-margin-bottom:60px;
-font-family:"Orbitron";
-letter-spacing:2px;
-}
-
 .menu-grid{
-max-width:1300px;
-margin:auto;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:40px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:35px;
 }
 
-.menu-item{
-background:#151515;
-border-radius:20px;
+.pizza{
+background:#1a1a1a;
+border-radius:15px;
 overflow:hidden;
 transition:0.4s;
-position:relative;
 }
 
-.menu-item:hover{
-transform:translateY(-10px);
-box-shadow:0 20px 60px rgba(0,0,0,0.7);
+.pizza:hover{
+transform:translateY(-8px);
+box-shadow:0 15px 40px rgba(0,0,0,0.6);
 }
 
-.menu-item img{
+.pizza img{
 width:100%;
-height:220px;
+height:200px;
 object-fit:cover;
-transition:0.6s;
 }
 
-.menu-item:hover img{
-transform:scale(1.1);
-filter:brightness(1.2);
+.pizza-content{
+padding:20px;
 }
 
-.menu-content{
-padding:30px;
-}
-
-.menu-content h3{
-font-size:24px;
+.pizza-content h3{
 margin-bottom:10px;
 }
 
-.menu-content p{
-opacity:0.7;
-margin-bottom:20px;
-}
-
 .price{
+color:#ff4d00;
 font-weight:600;
-font-size:20px;
-color:#ff6a00;
-}
-
-.order-btn{
-display:inline-block;
-margin-top:20px;
-padding:10px 24px;
-border-radius:30px;
-background:#ff3c00;
-text-decoration:none;
-color:white;
-font-weight:600;
-transition:0.3s;
-}
-
-.order-btn:hover{
-background:#ff6a00;
+font-size:18px;
 }
 
 /* ABOUT */
 
 .about{
-max-width:1100px;
-margin:auto;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:60px;
+gap:50px;
 align-items:center;
 }
 
 .about img{
 width:100%;
-border-radius:20px;
-}
-
-.about h2{
-font-family:"Orbitron";
-font-size:40px;
-margin-bottom:20px;
+border-radius:15px;
 }
 
 .about p{
-opacity:0.8;
-line-height:1.7;
+opacity:0.85;
 }
 
 /* CONTACT */
 
 .contact{
 text-align:center;
-background:#111;
-}
-
-.contact h2{
-font-size:36px;
-margin-bottom:20px;
-font-family:"Orbitron";
-}
-
-.contact p{
-margin-bottom:10px;
-opacity:0.8;
-}
-
-.map{
-margin-top:40px;
+background:#181818;
 }
 
 iframe{
+margin-top:30px;
 width:100%;
 max-width:700px;
 height:350px;
-border:none;
-border-radius:20px;
+border:0;
+border-radius:15px;
 }
 
 /* FOOTER */
 
 footer{
-padding:30px;
-text-align:center;
 background:black;
+text-align:center;
+padding:25px;
 opacity:0.7;
-font-size:14px;
 }
 
-/* ANIMATIONS */
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(40px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* RESPONSIVE */
+/* MOBILE */
 
 @media(max-width:900px){
 
-.hero h1{
-font-size:50px;
+.hero h2{
+font-size:42px;
 }
 
 .about{
@@ -257,143 +208,195 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- HERO -->
+<nav>
+
+<h1>Pizzeria Renato</h1>
+
+<div>
+<a href="#menu">Menu</a>
+<a href="#about">Chi siamo</a>
+<a href="#contact">Contatti</a>
+</div>
+
+</nav>
+
 
 <section class="hero">
 
-<div class="hero-content">
+<div>
 
-<h1>Pizzeria E80</h1>
+<h2>La Vera Pizza Italiana</h2>
 
-<p>Tradizione italiana. Design moderno. La pizza del futuro.</p>
+<p>Ingredienti freschi, forno tradizionale e passione dal 1998</p>
 
-<a href="#menu">Scopri il Menu</a>
+<a href="#menu">Guarda il Menu</a>
 
 </div>
 
 </section>
 
-<!-- MENU -->
 
 <section id="menu">
 
-<h2 class="menu-title">Il Nostro Menu</h2>
+<h2 class="title">Il Nostro Menu</h2>
 
 <div class="menu-grid">
 
-<div class="menu-item">
+<!-- 12 PIZZE -->
 
+<div class="pizza">
 <img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5">
-
-<div class="menu-content">
-
-<h3>Pizza Bufala</h3>
-
-<p>Pomodoro San Marzano, mozzarella di bufala, basilico fresco</p>
-
-<span class="price">€8</span>
-
-<br>
-
-<a class="order-btn" href="#">Ordina</a>
-
+<div class="pizza-content">
+<h3>Margherita</h3>
+<p>Pomodoro, mozzarella, basilico</p>
+<span class="price">€7</span>
+</div>
 </div>
 
-</div>
-
-<div class="menu-item">
-
+<div class="pizza">
 <img src="https://images.unsplash.com/photo-1594007654729-407eedc4fe24">
-
-<div class="menu-content">
-
-<h3>Pizza Salamino</h3>
-
-<p>Mozzarella fior di latte e salame piccante artigianale</p>
-
+<div class="pizza-content">
+<h3>Diavola</h3>
+<p>Pomodoro, mozzarella, salame piccante</p>
 <span class="price">€9</span>
-
-<br>
-
-<a class="order-btn" href="#">Ordina</a>
-
+</div>
 </div>
 
-</div>
-
-<div class="menu-item">
-
+<div class="pizza">
 <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3">
-
-<div class="menu-content">
-
-<h3>Pizza Diavola</h3>
-
-<p>Pomodoro, mozzarella e salame piccante</p>
-
-<span class="price">€9</span>
-
-<br>
-
-<a class="order-btn" href="#">Ordina</a>
-
+<div class="pizza-content">
+<h3>Capricciosa</h3>
+<p>Prosciutto cotto, funghi, carciofi</p>
+<span class="price">€10</span>
+</div>
 </div>
 
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1548365328-9f547fb0953d">
+<div class="pizza-content">
+<h3>Quattro Formaggi</h3>
+<p>Mozzarella, gorgonzola, fontina, parmigiano</p>
+<span class="price">€10</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1593560708920-61dd98c46a4e">
+<div class="pizza-content">
+<h3>Prosciutto e Funghi</h3>
+<p>Pomodoro, mozzarella, prosciutto</p>
+<span class="price">€9</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c">
+<div class="pizza-content">
+<h3>Bufala</h3>
+<p>Mozzarella di bufala e basilico</p>
+<span class="price">€10</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38">
+<div class="pizza-content">
+<h3>Napoli</h3>
+<p>Acciughe e capperi</p>
+<span class="price">€9</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1566843972142-a7fcb70de55a">
+<div class="pizza-content">
+<h3>Vegetariana</h3>
+<p>Verdure grigliate</p>
+<span class="price">€9</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002">
+<div class="pizza-content">
+<h3>Boscaiola</h3>
+<p>Salsiccia e funghi</p>
+<span class="price">€10</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1603079847914-4d2fcb9f7e89">
+<div class="pizza-content">
+<h3>Calzone</h3>
+<p>Prosciutto e mozzarella</p>
+<span class="price">€9</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212">
+<div class="pizza-content">
+<h3>Tonno e Cipolla</h3>
+<p>Tonno, cipolla, mozzarella</p>
+<span class="price">€9</span>
+</div>
+</div>
+
+<div class="pizza">
+<img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5">
+<div class="pizza-content">
+<h3>Renato Special</h3>
+<p>Ingredienti segreti della casa</p>
+<span class="price">€12</span>
+</div>
 </div>
 
 </div>
 
 </section>
 
-<!-- ABOUT -->
 
-<section>
+<section id="about">
+
+<h2 class="title">Chi Siamo</h2>
 
 <div class="about">
 
 <img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc">
 
-<div>
-
-<h2>Chi Siamo</h2>
-
 <p>
 
-Da oltre vent'anni portiamo avanti la tradizione della vera pizza italiana.
+La Pizzeria Renato nasce dalla passione per la vera pizza italiana.
 
-Ingredienti selezionati, forno ad alta temperatura e una passione che
+Utilizziamo ingredienti selezionati, impasti a lunga lievitazione e
+un forno tradizionale per garantire sapori autentici.
 
-si tramanda da generazioni.
+Ogni pizza viene preparata al momento con cura e attenzione.
 
 </p>
 
 </div>
 
-</div>
-
 </section>
 
-<!-- CONTACT -->
 
-<section class="contact">
+<section id="contact" class="contact">
 
-<h2>Contattaci</h2>
+<h2 class="title">Contatti</h2>
 
 <p>Telefono: +39 0123 456789</p>
 
-<p>Email: info@pizzeriae80.it</p>
-
-<div class="map">
+<p>Email: info@pizzeriarenato.it</p>
 
 <iframe src="https://www.google.com/maps?q=Rome&output=embed"></iframe>
 
-</div>
-
 </section>
+
 
 <footer>
 
-© 2026 Pizzeria E80
+© 2026 Pizzeria Renato
 
 </footer>
 

@@ -3,29 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pizzeria Top</title>
+<title>Pizzeria Suprema</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* --- STILE GENERALE --- */
-body {
+/* --- Reset e stile generale --- */
+body, h1, h2, h3, p {
     margin:0;
+    padding:0;
+}
+body {
     font-family: 'Roboto', sans-serif;
-    background: #fff5f0;
-    color: #333;
+    background:#fff5f0;
+    color:#333;
 }
+a {text-decoration:none;}
+section {padding:50px 20px;}
+h1,h2 {text-align:center; color:#c62828;}
 
-h1, h2 {
-    text-align: center;
-    color: #c62828;
-    margin-bottom: 20px;
+/* --- HERO --- */
+.hero {
+    background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+    height: 90vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    position:relative;
 }
-
-section {
-    padding: 50px 20px;
+.hero h1 {
+    font-size:4em;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
 }
+.hero p {
+    font-size:1.5em;
+    margin:20px 0;
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.7);
+}
+.hero a {
+    background:#c62828;
+    color:white;
+    padding:15px 30px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:0.3s;
+}
+.hero a:hover {background:#ff5722;}
 
-/* --- GRIGLIA MENU --- */
+/* --- MENU --- */
 .menu-items{
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -44,109 +71,92 @@ section {
     position: relative;
     text-align: center;
 }
-
 .menu-item:hover{
     transform: scale(1.05);
     box-shadow:0 10px 25px rgba(198,40,40,0.5);
 }
-
 .menu-item img{
     width:100%;
     height:200px;
     object-fit:cover;
     transition: transform 0.4s;
-    border-bottom: 5px solid #c62828;
+    border-bottom:5px solid #c62828;
 }
-
-.menu-item:hover img{
-    transform: scale(1.1);
-}
-
-.menu-content{
-    padding:15px;
-}
-
-.price{
-    font-size:18px;
-    font-weight:bold;
-    color:#c62828;
-    margin:5px 0;
-    transition: color 0.3s;
-}
-
-.menu-item:hover .price{
-    color:#ff5722;
-}
-
-/* --- ALLERGENI --- */
+.menu-item:hover img{transform:scale(1.1);}
+.menu-content{padding:15px;}
+.price{font-size:18px; font-weight:bold; color:#c62828; margin:5px 0; transition:0.3s;}
+.menu-item:hover .price{color:#ff5722;}
 .allergeni{
-    opacity:0;
-    max-height:0;
-    overflow:hidden;
+    opacity:0; max-height:0; overflow:hidden;
     transition: all 0.4s ease;
-    background:#ffe0e0;
-    margin-top:10px;
-    padding:0 10px;
-    border-radius:8px;
-    font-size:14px;
+    background:#ffe0e0; margin-top:10px; padding:0 10px; border-radius:8px; font-size:14px;
 }
-
-.menu-item:hover .allergeni{
-    opacity:1;
-    max-height:100px;
-    padding:10px;
-}
-
-/* --- BADGE SPECIALI --- */
+.menu-item:hover .allergeni{opacity:1; max-height:100px; padding:10px;}
 .badge{
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background:#ff5722;
-    color:white;
-    font-size:12px;
-    font-weight:bold;
-    padding:5px 10px;
-    border-radius:8px;
-    text-transform: uppercase;
-    box-shadow:0 2px 5px rgba(0,0,0,0.3);
+    position:absolute; top:10px; left:10px;
+    background:#ff5722; color:white; font-size:12px; font-weight:bold;
+    padding:5px 10px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.3);
+    text-transform:uppercase;
+}
+.button-order{
+    display:inline-block; margin-top:10px; padding:8px 15px;
+    background:#c62828; color:white; border-radius:8px; font-weight:bold;
+    transition:0.3s;
+}
+.button-order:hover{background:#ff5722;}
+
+/* --- CHI SIAMO --- */
+.about {
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+}
+.about img{
+    width:80%;
+    border-radius:15px;
+    margin:20px 0;
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* --- PULSANTE ORDINA --- */
-.button-order{
-    display:inline-block;
-    margin-top:10px;
-    padding:8px 15px;
+/* --- CONTATTI --- */
+.contact {
     background:#c62828;
     color:white;
-    text-decoration:none;
-    border-radius:8px;
-    font-weight:bold;
-    transition: background 0.3s;
+    text-align:center;
 }
+.contact a {color:white; font-weight:bold;}
+.contact iframe{border:0; width:100%; max-width:600px; height:300px; margin-top:20px; border-radius:10px;}
 
-.button-order:hover{
-    background:#ff5722;
+/* --- FOOTER --- */
+footer{
+    text-align:center;
+    padding:20px;
+    background:#333;
+    color:white;
 }
 
 /* --- RESPONSIVE --- */
-@media (max-width:600px){
-    .menu-item img{
-        height:180px;
-    }
+@media(max-width:600px){
+    .menu-item img{height:180px;}
+    .hero h1{font-size:2.5em;}
+    .hero p{font-size:1.2em;}
 }
 </style>
-
 </head>
 <body>
 
-<h1>Pizzeria Top</h1>
+<!-- HERO -->
+<section class="hero">
+    <h1>Pizzeria Suprema</h1>
+    <p>Il gusto autentico della tradizione italiana 🍕</p>
+    <a href="#menu">Scopri il Menu</a>
+</section>
+
+<!-- MENU -->
 <section id="menu">
 <h2>Il nostro Menu</h2>
-
 <div class="menu-items">
 
-<!-- PIZZA 1 -->
 <div class="menu-item">
     <span class="badge">Speciale</span>
     <img src="https://images.unsplash.com/photo-1601924582975-7e06d8fdf0b5" alt="Pizza Bufala">
@@ -159,7 +169,6 @@ section {
     </div>
 </div>
 
-<!-- PIZZA 2 -->
 <div class="menu-item">
     <span class="badge">Piccante</span>
     <img src="https://raw.githubusercontent.com/davideiacuzio005-source/Ristorante/main/Pizza%20Con%20Salame.jpg" alt="Pizza Salamino">
@@ -172,7 +181,6 @@ section {
     </div>
 </div>
 
-<!-- PIZZA 3 -->
 <div class="menu-item">
     <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3" alt="Pizza Diavola">
     <div class="menu-content">
@@ -184,44 +192,32 @@ section {
     </div>
 </div>
 
-<!-- PIZZA 4 -->
-<div class="menu-item">
-    <span class="badge">Speciale</span>
-    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002" alt="Pizza Paradise">
-    <div class="menu-content">
-        <h3>Pizza Paradise</h3>
-        <p>Pomodoro, mozzarella e frutti di mare</p>
-        <p class="price">€11</p>
-        <div class="allergeni">Allergeni: glutine, latte, molluschi</div>
-        <a href="#" class="button-order">Ordina ora</a>
-    </div>
-</div>
-
-<!-- PIZZA 5 -->
-<div class="menu-item">
-    <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65" alt="Pizza Margherita">
-    <div class="menu-content">
-        <h3>Pizza Margherita</h3>
-        <p>Pomodoro, mozzarella e basilico</p>
-        <p class="price">€7</p>
-        <div class="allergeni">Allergeni: glutine, latte</div>
-        <a href="#" class="button-order">Ordina ora</a>
-    </div>
-</div>
-
-<!-- PIZZA 6 -->
-<div class="menu-item">
-    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591" alt="Pizza Quattro Formaggi">
-    <div class="menu-content">
-        <h3>Pizza Quattro Formaggi</h3>
-        <p>Mozzarella, gorgonzola, fontina e parmigiano</p>
-        <p class="price">€10</p>
-        <div class="allergeni">Allergeni: glutine, latte</div>
-        <a href="#" class="button-order">Ordina ora</a>
-    </div>
-</div>
-
 </div>
 </section>
+
+<!-- CHI SIAMO -->
+<section class="about">
+<h2>Chi Siamo</h2>
+<p>Da oltre 20 anni portiamo la vera pizza italiana direttamente a casa vostra. Ingredienti freschi, amore per la tradizione e innovazione nel gusto!</p>
+<img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc" alt="Chi Siamo">
+</section>
+
+<!-- CONTATTI -->
+<section class="contact">
+<h2>Contattaci</h2>
+<p>Telefono: <a href="tel:+390123456789">+39 0123 456789</a></p>
+<p>Email: <a href="mailto:info@pizzeriasuprema.it">info@pizzeriasuprema.it</a></p>
+<p>Seguici sui social!</p>
+<p>
+<a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">TikTok</a>
+</p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2904.4167945858826!2d12.496365315232504!3d41.902783079219024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f61aa6c68cd07%3A0xefa1b30f2ff61e8f!2sRome%2C%20Italy!5e0!3m2!1sen!2sit!4v1690000000000" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<p>&copy; 2026 Pizzeria Suprema | Tutti i diritti riservati</p>
+</footer>
+
 </body>
 </html>

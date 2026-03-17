@@ -7,430 +7,72 @@
 <title>Pizzeria Paradise Cavriago</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
 <style>
-
 /* --- GLOBAL --- */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Poppins;
-scroll-behavior:smooth;
-}
-
-body{
-background:linear-gradient(180deg,#111,#000);
-color:white;
-overflow-x:hidden;
-}
-
-/* --- SFONDO ANIMATO --- */
-#bg{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;scroll-behavior:smooth;}
+body{background:linear-gradient(180deg,#111,#000);color:white;overflow-x:hidden;transition:background .3s;color .3s;}
+.dark{background:#111;color:white;}
 
 /* --- NAVBAR --- */
-nav{
-position:fixed;
-top:0;
-width:100%;
-background:rgba(0,0,0,0.85);
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 10%;
-z-index:1000;
-backdrop-filter:blur(10px);
-}
-
-nav h2{
-font-size:28px;
-font-weight:600;
-background:linear-gradient(45deg,#ff5c00,#ff9a3c,#ff2d00);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-letter-spacing:1px;
-text-shadow:0 0 10px rgba(255,92,0,0.7),
-             0 0 20px rgba(255,92,0,0.5),
-             0 0 40px rgba(255,92,0,0.3);
-transition:.3s;
-}
-
-nav h2:hover{
-transform:scale(1.1);
-text-shadow:0 0 20px #ff5c00,
-             0 0 40px #ff5c00,
-             0 0 60px #ff5c00;
-}
-
-nav a{
-color:white;
-margin-left:25px;
-text-decoration:none;
-font-weight:500;
-transition:.3s;
-}
-
-nav a:hover{
-color:#ff5c00;
-}
+nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;padding:20px 10%;z-index:1000;backdrop-filter:blur(10px);transition:background .3s;}
+nav h2{font-size:28px;font-weight:600;background:linear-gradient(45deg,#ff5c00,#ff9a3c,#ff2d00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;text-shadow:0 0 10px rgba(255,92,0,0.7),0 0 20px rgba(255,92,0,0.5),0 0 40px rgba(255,92,0,0.3);cursor:pointer;transition:.3s;}
+nav h2:hover{transform:scale(1.1);text-shadow:0 0 20px #ff5c00,0 0 40px #ff5c00,0 0 60px #ff5c00;}
+nav a{color:white;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
+nav a:hover{color:#ff5c00;}
+.nav-right{display:flex;align-items:center;gap:20px;}
 
 /* --- HERO --- */
-.hero{
-  height:100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
-    url("https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc?auto=format&fit=crop&w=1600&q=80");
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-
-.hero h1{
-font-size:65px;
-margin-bottom:20px;
-}
-
-.hero p{
-font-size:20px;
-margin-bottom:25px;
-opacity:.9;
-}
-
-.hero button{
-padding:15px 35px;
-background:#ff5c00;
-border:none;
-color:white;
-font-size:18px;
-border-radius:40px;
-cursor:pointer;
-transition:.3s;
-}
-
-.hero button:hover{
-transform:scale(1.08);
-background:#ff7b2f;
-box-shadow:0 10px 30px rgba(255,92,0,0.5);
-}
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5);}
+#bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.4;}
+.hero-content{position:relative;z-index:2;color:white;}
+.hero-title{font-size:70px;background: linear-gradient(90deg,#ff5c00,#ff9a3c,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(255,92,0,0.6);animation: shine 3s infinite linear;}
+@keyframes shine{0%{background-position:0%;}100%{background-position:200%;}}
+.hero p{font-size:20px;margin:20px 0;opacity:.9;}
+.hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
+.hero-buttons button{padding:15px 35px;background:#ff5c00;border:none;color:white;font-size:18px;border-radius:40px;cursor:pointer;transition:.3s;box-shadow:0 0 10px #ff5c00;}
+.hero-buttons button:hover{transform:scale(1.08);background:#ff7b2f;box-shadow:0 10px 30px rgba(255,92,0,0.5);}
 
 /* --- SEZIONI --- */
-section{
-padding:100px 10%;
-}
-
-.title{
-font-size:42px;
-margin-bottom:60px;
-text-align:center;
-}
+section{padding:100px 10%;}
+.title{font-size:42px;margin-bottom:60px;text-align:center;}
 
 /* --- MENU GRID --- */
-.menu{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-}
-
-/* --- CARD PIZZA --- */
-.card{
-perspective:1000px;
-position:relative;
-}
-
-.inner{
-position:relative;
-width:100%;
-height:300px;
-transition:transform .6s;
-transform-style:preserve-3d;
-}
-
-.card:hover .inner{
-transform:rotateY(180deg);
-}
-
-.front,.back{
-position:absolute;
-width:100%;
-height:100%;
-backface-visibility:hidden;
-border-radius:15px;
-overflow:hidden;
-background:#1a1a1a;
-box-shadow:0 10px 25px rgba(0,0,0,0.6);
-}
-
-.front img{
-width:100%;
-height:200px;
-object-fit:cover;
-}
-
-.front h3{
-padding:15px;
-position:relative;
-z-index:2;
-}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
+.card{perspective:1000px;position:relative;transition:transform .3s;}
+.inner{position:relative;width:100%;height:350px;transition:transform .6s;transform-style:preserve-3d;}
+.card:hover .inner{transform:rotateY(10deg);}
+.front,.back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:15px;overflow:hidden;background:#1a1a1a;box-shadow:0 10px 25px rgba(0,0,0,0.6);}
+.front img{width:100%;height:200px;object-fit:cover;}
+.front h3{padding:15px;position:relative;z-index:2;}
+.back{transform:rotateY(180deg);padding:20px;display:flex;flex-direction:column;justify-content:center;}
+.back li{margin-bottom:8px;}
 
 /* --- TAGS --- */
-.tag{
-position:absolute;
-top:10px;
-left:10px;
-padding:5px 12px;
-border-radius:12px;
-font-size:12px;
-font-weight:bold;
-color:white;
-text-transform:uppercase;
-z-index:3;
-}
-
-.tag.speciale{
-background:#ff5c00;
-}
-
-.tag.piccante{
-background:#e53935;
-}
-
-.tag + .tag{
-left:auto;
-right:10px;
-}
-
-/* BACK CARD */
-.back{
-transform:rotateY(180deg);
-padding:20px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-.back li{
-margin-bottom:8px;
-}
+.tag{position:absolute;top:10px;left:10px;padding:5px 12px;border-radius:12px;font-size:12px;font-weight:bold;color:white;text-transform:uppercase;z-index:3;}
+.tag.speciale{background:#ff5c00;}
+.tag.piccante{background:#e53935;}
+.tag.vegetariana{background:#43a047;}
+.tag + .tag{left:auto;right:10px;}
 
 /* --- ABOUT --- */
-.about{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-align-items:center;
-}
-
-.about img{
-width:100%;
-border-radius:15px;
-}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.about img{width:100%;border-radius:15px;}
 
 /* --- CONTACT --- */
-.contact{
-text-align:center;
-background:#181818;
-}
-
-iframe{
-margin-top:30px;
-width:100%;
-max-width:700px;
-height:350px;
-border:0;
-border-radius:15px;
-}
+.contact{text-align:center;background:#181818;}
+iframe{margin-top:30px;width:100%;max-width:700px;height:350px;border:0;border-radius:15px;}
 
 /* --- FOOTER --- */
-footer{
-text-align:center;
-padding:20px;
-background:black;
-margin-top:40px;
-}
+footer{text-align:center;padding:20px;background:black;margin-top:40px;}
+.social-icons{margin-top:10px;display:flex;gap:15px;justify-content:center;}
+.social-icons a{color:white;font-size:20px;transition:.3s;}
+.social-icons a:hover{color:#ff5c00;}
 
 /* --- MOBILE --- */
-@media(max-width:800px){
-.about{
-grid-template-columns:1fr;
-}
-.hero h1{
-font-size:40px;
-}
-}
-
-  /* --- ADATTAMENTO MOBILE --- */
-@media(max-width:800px){
-
-    /* Navbar: titolo più piccolo e glow più delicato */
-    nav h2 {
-        font-size:22px;           /* leggermente più piccolo */
-        letter-spacing:0.5px;     /* spaziatura più stretta */
-        text-shadow:0 0 5px rgba(255,92,0,0.7),
-                    0 0 10px rgba(255,92,0,0.5),
-                    0 0 20px rgba(255,92,0,0.3);
-    }
-
-    /* Hero: titolo più piccolo e glow più delicato */
-    .hero h1 {
-        font-size:36px;          /* riduce la dimensione del titolo */
-        text-shadow:0 0 15px rgba(255,92,0,0.6);
-    }
-
-    /* Hero: testo descrittivo più piccolo */
-    .hero p {
-        font-size:16px;
-    }
-
-    /* Hero: bottone più piccolo */
-    .hero button {
-        padding:12px 25px;
-        font-size:16px;
-    }
-}
-
-.hero-title{
-  font-size:70px;
-  background: linear-gradient(90deg,#ff5c00,#ff9a3c,#ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:0 0 30px rgba(255,92,0,0.6);
-  animation: shine 3s infinite linear;
-}
-
-@keyframes shine{
-  0%{background-position:0%;}
-  100%{background-position:200%;}
-}
-
-@media(max-width:800px){
-  .hero-title{
-    font-size:36px; /* più piccolo su mobile */
-  }
-}
-
-.hero-buttons{
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  flex-wrap:wrap; /* i bottoni vanno a capo su mobile */
-  margin-top:20px;
-}
-
-.hero-buttons button{
-  padding:15px 35px;
-  background:#ff5c00;
-  border:none;
-  color:white;
-  font-size:18px;
-  border-radius:40px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.hero-buttons button:hover{
-  transform:scale(1.08);
-  background:#ff7b2f;
-  box-shadow:0 10px 30px rgba(255,92,0,0.5);
-}
-
-.hero{
-  height:100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
-    url("https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc?auto=format&fit=crop&w=1600&q=80");
-  background-size:cover;
-  background-position:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.hero{
-  position:relative;
-  height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
-}
-
-.hero-video{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:0;
-}
-
-#bg{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:1;
-  pointer-events:none;
-  opacity:0.5;
-}
-
-.hero-content{
-  position:relative;
-  z-index:2;
-  color:white;
-}
-
-.hero-title{
-  font-size:70px;
-  background: linear-gradient(90deg,#ff5c00,#ff9a3c,#ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:0 0 30px rgba(255,92,0,0.6);
-  animation: shine 3s infinite linear;
-}
-
-@keyframes shine{
-  0%{background-position:0%;}
-  100%{background-position:200%;}
-}
-
-.hero-buttons{
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-
-.hero-buttons button{
-  padding:15px 35px;
-  background:#ff5c00;
-  border:none;
-  color:white;
-  font-size:18px;
-  border-radius:40px;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.hero-buttons button:hover{
-  transform:scale(1.08);
-  background:#ff7b2f;
-  box-shadow:0 10px 30px rgba(255,92,0,0.5);
-}
-  
+@media(max-width:800px){.about{grid-template-columns:1fr;}.hero-title{font-size:36px;}.hero p{font-size:16px;}.hero-buttons button{padding:12px 25px;font-size:16px;}nav h2{font-size:22px;letter-spacing:0.5px;text-shadow:0 0 5px rgba(255,92,0,0.7),0 0 10px rgba(255,92,0,0.5),0 0 20px rgba(255,92,0,0.3);}}
 </style>
 </head>
 
@@ -441,23 +83,27 @@ font-size:40px;
 
 <!-- NAVBAR -->
 <nav>
-<h2 onclick="window.scrollTo({top:0, behavior:'smooth'})">
-Pizzeria Paradise
-</h2>
-<div>
+<h2 onclick="window.scrollTo({top:0, behavior:'smooth'})">Pizzeria Paradise</h2>
+<div class="nav-right">
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
+<button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#ff5c00;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
 </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+  <video autoplay muted loop class="hero-video">
+    <source src="https://cdn.pixabay.com/vimeo/665245474/pexels-pizza.mp4" type="video/mp4">
+  </video>
+  <div id="bg"></div>
   <div class="hero-content">
     <h1 class="hero-title">Pizzeria Paradise</h1>
     <p>La vera pizza italiana a Cavriago</p>
     <div class="hero-buttons">
       <button onclick="document.getElementById('menu').scrollIntoView()">Scopri il menu</button>
+      <button onclick="document.getElementById('reservation').scrollIntoView()">Prenota un tavolo</button>
     </div>
   </div>
 </section>
@@ -473,12 +119,25 @@ Pizzeria Paradise
 <h2 class="title">Chi siamo</h2>
 <div class="about">
 <img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc">
-<p>
-La Pizzeria Paradise nasce dalla passione per la pizza italiana.
-Utilizziamo impasti a lunga lievitazione e ingredienti freschi
-per garantire qualità e sapore autentico.
-</p>
+<p>La Pizzeria Paradise nasce dalla passione per la pizza italiana. Utilizziamo impasti a lunga lievitazione e ingredienti freschi per garantire qualità e sapore autentico.</p>
 </div>
+</section>
+
+<!-- PRENOTAZIONI -->
+<section id="reservation">
+<h2 class="title">Prenota un tavolo</h2>
+<form action="https://formspree.io/f/mayvlqgr" method="POST" style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:15px;">
+<input type="text" name="name" placeholder="Nome" required style="padding:10px;border-radius:8px;border:none;">
+<input type="email" name="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:none;">
+<input type="tel" name="phone" placeholder="Telefono" required style="padding:10px;border-radius:8px;border:none;">
+<select name="guests" required style="padding:10px;border-radius:8px;border:none;">
+<option value="">Numero di persone</option>
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
+</select>
+<input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;">
+<input type="time" name="time" required style="padding:10px;border-radius:8px;border:none;">
+<button type="submit" style="padding:12px;background:#ff5c00;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
+</form>
 </section>
 
 <!-- CONTATTI -->
@@ -486,135 +145,47 @@ per garantire qualità e sapore autentico.
 <h2 class="title">Contatti</h2>
 <p>Cavriago (RE)</p>
 <iframe src="https://www.google.com/maps?q=Pizzeria+Paradise+Cavriago&output=embed"></iframe>
+<div class="social-icons">
+<a href="#"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-tiktok"></i></a>
+</div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-© 2026 Pizzeria Paradise
-</footer>
+<footer>© 2026 Pizzeria Paradise</footer>
 
-<!-- SCRIPT PIZZE -->
+<!-- SCRIPT PIZZE + FILTRI -->
 <script>
 const pizze=[
-{
-name:"Margherita",
-tags:[],
-preparazione:[
-"Pomodoro",
-"Mozzarella",
-]
-},
-{
-name:"Salamino",
-tags:["piccante"],
-preparazione:[
-"Pomodoro",
-"Mozzarella",
-"Salamino piccante",
-]
-},
-{
-name:"Capricciosa",
-tags:[],
-preparazione:[
-"Pomodoro",
-"Mozzarella",
-"Carciofi",
-"Funghi",
-"Prosciutto Cotto",
-"Salsiccia",
-"Olive", 
-"Würstel"
-]
-},
-{
-name:"Paradise",
-tags:["speciale"],
-preparazione:[
-"Pomodoro",
-"Mozzarella",
-"Frutti di mare"
-]
-},
-{
-name:"Diavola",
-tags:["speciale","piccante"],
-preparazione:[
-"Pomodoro",
-"Mozzarella",
-"Salamino", 
-"Olive", 
-"Peperoni"
-]
-},
-// fai così per tutte le pizze
-];
+{name:"Margherita",tags:["vegetariana"],preparazione:["Pomodoro","Mozzarella"],prezzo:"6€",dimensione:"Media"},
+{name:"Salamino",tags:["piccante"],preparazione:["Pomodoro","Mozzarella","Salamino piccante"],prezzo:"7€",dimensione:"Media"},
+{name:"Capricciosa",tags:[],preparazione:["Pomodoro","Mozzarella","Carciofi","Funghi","Prosciutto Cotto","Salsiccia","Olive","Würstel"],prezzo:"8€",dimensione:"Media"},
+{name:"Paradise",tags:["speciale"],preparazione:["Pomodoro","Mozzarella","Frutti di mare"],prezzo:"12€",dimensione:"Grande"},
+{name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salamino","Olive","Peperoni"],prezzo:"9€",dimensione:"Media"}];
+
 const container=document.getElementById("pizza-container");
 
 pizze.forEach(pizza=>{
-let tagsHTML = pizza.tags.map(tag=>{
-return `<div class="tag ${tag}">${tag}</div>`;
-}).join("");
-  
-const preparazioneHTML = pizza.preparazione.map(step=>{
-return `<li>${step}</li>`;
-}).join("");
-
+let tagsHTML = pizza.tags.map(tag=>`<div class="tag ${tag}">${tag}</div>`).join("");
+const preparazioneHTML = pizza.preparazione.map(i=>`<li>${i}</li>`).join("");
 container.innerHTML+=`
 <div class="card">
 <div class="inner">
-<div class="front">
-${tagsHTML}
-<img src="https://source.unsplash.com/400x300/?pizza">
-<h3>${pizza.name}</h3>
+<div class="front">${tagsHTML}<img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}"><h3>${pizza.name}</h3><p>${pizza.dimensione} - ${pizza.prezzo}</p></div>
+<div class="back"><h3>INGREDIENTI</h3><ul>${preparazioneHTML}</ul></div>
 </div>
-<div class="back">
-<h3>INGREDIENTI</h3>
-<ul>
-${preparazioneHTML}
-</ul>
-</div>
-</div>
-</div>
-`;
-});
+</div>`;});
 </script>
 
-<!-- SCRIPT SFONDO ANIMATO -->
+<!-- SCRIPT SFONDO PARTICELLE -->
 <script>
 const canvas=document.getElementById("bg");
 const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<100;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2+1,
-speed:Math.random()*0.5
-})
-}
-
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,90,0,0.8)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y-=p.speed;
-if(p.y<0){ p.y=canvas.height; p.x=Math.random()*canvas.width; }
-});
-requestAnimationFrame(draw);
-}
-draw();
-
-window.addEventListener("resize",()=>{
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-});
+canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let particles=[];for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.5})}
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="rgba(255,90,0,0.8)";particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y-=p.speed;if(p.y<0){p.y=canvas.height;p.x=Math.random()*canvas.width;}});requestAnimationFrame(draw);}
+draw();window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>
 
 </body>

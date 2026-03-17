@@ -3,39 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Pizzeria Paradise Cavriago: vera pizza italiana con ingredienti freschi e impasti a lunga lievitazione. Prenota online e scopri il nostro menu.">
 <title>Pizzeria Paradise Cavriago</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
+/* Reset e font */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;scroll-behavior:smooth;}
 body{background:#f5f5f5;color:#000;overflow-x:hidden;transition:background .3s,color .3s;}
-
+a{cursor:pointer;}
 /* Navbar */
-nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);display:flex;justify-content:space-between;align-items:center;padding:15px 10%;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,0.12);transition:.3s;}
+nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 10%;z-index:1000;transition:.3s;background:rgba(255,255,255,0.95);box-shadow:0 2px 12px rgba(0,0,0,0.12);}
+nav.scrolled{background:#fff;padding:10px 10%;box-shadow:0 2px 20px rgba(0,0,0,0.15);}
 nav h2{font-size:28px;font-weight:600;background:linear-gradient(90deg,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;cursor:pointer;transition:.3s;}
 nav h2:hover{transform:scale(1.05);}
-nav a{color:#000;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
-nav a:hover{color:#ff5c00;}
 .nav-right{display:flex;align-items:center;gap:15px;}
+nav a{color:#000;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
+nav a.active{color:#ff5c00;font-weight:600;}
+nav a:hover{color:#ff5c00;}
+.hamburger{display:none;flex-direction:column;cursor:pointer;gap:4px;}
+.hamburger div{width:25px;height:3px;background:#000;transition:.3s;}
+.nav-links{display:flex;align-items:center;gap:15px;}
+.nav-mobile{display:none;flex-direction:column;background:#fff;position:absolute;top:70px;right:10%;width:200px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,0.2);overflow:hidden;}
+.nav-mobile a{padding:10px;display:block;border-bottom:1px solid #ddd;}
+.nav-mobile a:last-child{border:none;}
 
 /* Hero */
-.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#fff;}
-.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5);}
-.hero-content{position:relative;z-index:2;color:#fff;max-width:90%;}
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#000;}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4);}
+.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:1;}
+.hero-content{position:relative;z-index:2;color:#fff;max-width:90%;opacity:0;animation:fadeIn 1.5s forwards;}
 .hero-title{font-size:70px;background: linear-gradient(90deg,#fff,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 20px rgba(0,0,0,0.4);}
 .hero p{font-size:20px;margin:20px 0;opacity:.9;}
 .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
 .hero-buttons button{padding:15px 35px;background:#ff5c00;color:#fff;border:none;font-size:18px;border-radius:50px;cursor:pointer;transition:.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);}
 .hero-buttons button:hover{transform:scale(1.05);background:#e04b00;}
+@keyframes fadeIn{to{opacity:1;}}
 
 /* Sections */
 section{padding:100px 10%;}
-.title{font-size:42px;margin-bottom:60px;text-align:center;}
+.title{font-size:42px;margin-bottom:60px;text-align:center;opacity:0;transform:translateY(50px);transition:all .8s;}
+.title.visible{opacity:1;transform:translateY(0);}
 
 /* Menu grid */
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
-.card{background:#fff;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.12);padding:10px;text-align:center;transition:.4s;position:relative;}
-.card:hover{transform:translateY(-5px);}
+.card{background:#fff;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.12);padding:10px;text-align:center;transition:.4s;position:relative;cursor:pointer;overflow:hidden;}
+.card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,0.2);}
 .card img{width:100%;height:200px;object-fit:cover;border-radius:12px;}
 .card h3{margin:10px 0;}
 .card-buttons{display:flex;justify-content:center;gap:10px;margin:10px 0;}
@@ -48,7 +61,13 @@ section{padding:100px 10%;}
 
 /* About */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
-.about img{width:100%;border-radius:15px;}
+.about img{width:100%;border-radius:15px;transition:transform .3s;}
+.about img:hover{transform:scale(1.05);}
+
+/* Reservation */
+#reservation form input,#reservation form select,#reservation form button{width:100%;font-size:16px;transition:.3s;}
+#reservation form button:hover{background:#e04b00;transform:scale(1.03);}
+#reservation .confirmation{display:none;color:green;text-align:center;margin-top:15px;opacity:0;transition:.5s;}
 
 /* Contact */
 .contact{text-align:center;background:#e0e0e0;padding:50px 0;}
@@ -58,20 +77,48 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 .social-icons a{color:white;font-size:20px;transition:.3s;}
 .social-icons a:hover{color:#ff5c00;}
 
-/* Mobile */
-@media(max-width:800px){.about{grid-template-columns:1fr;}.hero-title{font-size:36px;}.hero p{font-size:16px;}.hero-buttons button{padding:12px 25px;font-size:16px;}nav h2{font-size:22px;}}
+/* Particle background */
+#bg{position:fixed;top:0;left:0;z-index:-1;pointer-events:none;}
+
+/* Responsive */
+@media(max-width:800px){
+  .about{grid-template-columns:1fr;}
+  .hero-title{font-size:36px;}
+  .hero p{font-size:16px;}
+  .hero-buttons button{padding:12px 25px;font-size:16px;}
+  nav h2{font-size:22px;}
+  .hamburger{display:flex;}
+  .nav-links{display:none;}
+  .nav-mobile{display:flex;}
+}
+
+/* Dark mode */
+body.dark{background:#121212;color:#f5f5f5;}
+body.dark nav{background:rgba(18,18,18,0.95);}
+body.dark footer{background:#222;color:#fff;}
+body.dark .card{background:#1e1e1e;color:#f5f5f5;}
+body.dark .hero p{color:#fff;}
+body.dark .hero-buttons button{background:#ff8000;color:#fff;}
 </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav>
-<h2 onclick="window.scrollTo({top:0, behavior:'smooth'})">Pizzeria Paradise</h2>
+<nav id="navbar">
+<h2 onclick="window.scrollTo({top:0,behavior:'smooth'})">Pizzeria Paradise</h2>
 <div class="nav-right">
+<div class="nav-links">
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
 <button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#ff5c00;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
+</div>
+<div class="hamburger" id="hamburger">
+<div></div>
+<div></div>
+<div></div>
+</div>
+<div class="nav-mobile" id="nav-mobile"></div>
 </div>
 </nav>
 
@@ -80,6 +127,7 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
   <video autoplay muted loop>
     <source src="https://cdn.pixabay.com/vimeo/665245474/pexels-pizza.mp4" type="video/mp4">
   </video>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1 class="hero-title">Pizzeria Paradise</h1>
     <p>La vera pizza italiana a Cavriago</p>
@@ -93,6 +141,12 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 <!-- Menu -->
 <section id="menu">
 <h2 class="title">Le nostre pizze</h2>
+<div style="text-align:center;margin-bottom:30px;">
+<button onclick="filterPizza('tutte')">Tutte</button>
+<button onclick="filterPizza('vegetariana')">Vegetariana</button>
+<button onclick="filterPizza('piccante')">Piccante</button>
+<button onclick="filterPizza('speciale')">Speciale</button>
+</div>
 <div class="menu" id="pizza-container"></div>
 </section>
 
@@ -100,15 +154,21 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 <section id="about">
 <h2 class="title">Chi siamo</h2>
 <div class="about">
-<img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc">
-<p>La Pizzeria Paradise nasce dalla passione per la pizza italiana. Utilizziamo impasti a lunga lievitazione e ingredienti freschi per garantire qualità e sapore autentico.</p>
+<img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc" alt="Pizzeria Paradise">
+<div>
+<p>La Pizzeria Paradise nasce dalla passione per la pizza italiana, con impasti a lunga lievitazione e ingredienti freschi selezionati quotidianamente. Il nostro team porta amore e cura in ogni pizza che serviamo.</p>
+<div style="display:flex;gap:15px;margin-top:20px;">
+<img src="https://source.unsplash.com/100x100/?chef" alt="Chef" style="border-radius:50%;">
+<img src="https://source.unsplash.com/100x100/?team" alt="Staff" style="border-radius:50%;">
+</div>
+</div>
 </div>
 </section>
 
 <!-- Reservation -->
 <section id="reservation">
 <h2 class="title">Prenota un tavolo</h2>
-<form action="https://formspree.io/f/mayvlqgr" method="POST" style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:15px;">
+<form id="reservationForm" style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:15px;">
 <input type="text" name="name" placeholder="Nome" required style="padding:10px;border-radius:8px;border:none;">
 <input type="email" name="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:none;">
 <input type="tel" name="phone" placeholder="Telefono" required style="padding:10px;border-radius:8px;border:none;">
@@ -116,9 +176,10 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 <option value="">Numero di persone</option>
 <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
 </select>
-<input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;">
+<input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;" min="">
 <input type="time" name="time" required style="padding:10px;border-radius:8px;border:none;">
 <button type="submit" style="padding:12px;background:#ff5c00;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
+<div class="confirmation" id="confirmation">Prenotazione ricevuta!</div>
 </form>
 </section>
 
@@ -131,12 +192,14 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 <a href="#"><i class="fab fa-instagram"></i></a>
 <a href="#"><i class="fab fa-facebook"></i></a>
 <a href="#"><i class="fab fa-tiktok"></i></a>
+<a href="tel:+390522123456"><i class="fas fa-phone"></i></a>
+<a href="https://wa.me/390522123456"><i class="fab fa-whatsapp"></i></a>
 </div>
 </section>
 
-<footer>© 2026 Pizzeria Paradise</footer>
+<footer>© 2026 Pizzeria Paradise | <a href="#">Privacy</a> | <a href="#">Termini</a></footer>
 
-<!-- Script pizze -->
+<!-- Script pizze e filtraggio -->
 <script>
 const pizze=[
 {name:"Margherita",tags:["vegetariana"],preparazione:["Pomodoro","Mozzarella"],allergeni:["Lattosio","Glutine"]},
@@ -151,8 +214,9 @@ function createCard(pizza){
   const allHTML = pizza.allergeni.map(i=>`<li>${i}</li>`).join("");
   const card=document.createElement("div");
   card.className="card";
+  card.dataset.tags = pizza.tags.join(",");
   card.innerHTML=`
-    <img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}">
+    <img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}" alt="${pizza.name}" loading="lazy">
     <h3>${pizza.name}</h3>
     <div class="card-buttons">
       <button class="ingredienti-btn">Ingredienti</button>
@@ -165,51 +229,96 @@ function createCard(pizza){
   const allBtn = card.querySelector(".allergeni-btn");
   const ingContent = card.querySelector(".ingredienti");
   const allContent = card.querySelector(".allergeni");
-
   ingBtn.addEventListener("click",()=>{
-    ingContent.style.display="block";
-    allContent.style.display="none";
-    ingBtn.classList.add("active");
-    allBtn.classList.remove("active");
+    ingContent.style.display="block";allContent.style.display="none";
+    ingBtn.classList.add("active");allBtn.classList.remove("active");
   });
   allBtn.addEventListener("click",()=>{
-    allContent.style.display="block";
-    ingContent.style.display="none";
-    allBtn.classList.add("active");
-    ingBtn.classList.remove("active");
+    allContent.style.display="block";ingContent.style.display="none";
+    allBtn.classList.add("active");ingBtn.classList.remove("active");
   });
-
   container.appendChild(card);
 }
 pizze.forEach(createCard);
+
+function filterPizza(tag){
+  const cards=document.querySelectorAll(".card");
+  cards.forEach(c=>{
+    if(tag==="tutte"||c.dataset.tags.includes(tag)) c.style.display="block";
+    else c.style.display="none";
+  });
+}
 </script>
 
-<!-- Sfondo particelle leggero -->
+<!-- Navbar scroll e mobile -->
+<script>
+const navbar=document.getElementById("navbar");
+window.addEventListener("scroll",()=>{navbar.classList.toggle("scrolled",window.scrollY>50);});
+
+const hamburger=document.getElementById("hamburger");
+const navMobile=document.getElementById("nav-mobile");
+const links=document.querySelectorAll(".nav-links a");
+hamburger.addEventListener("click",()=>{
+  navMobile.innerHTML="";
+  links.forEach(l=>{const a=l.cloneNode(true);a.addEventListener("click",()=>{navMobile.style.display="none";});navMobile.appendChild(a);});
+  navMobile.style.display=navMobile.style.display==="flex"?"none":"flex";
+});
+</script>
+
+<!-- Scroll animations -->
+<script>
+const sections=document.querySelectorAll(".title");
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add("visible");}
+  });
+},{threshold:0.2});
+sections.forEach(s=>observer.observe(s));
+</script>
+
+<!-- Reservation form -->
+<script>
+const form=document.getElementById("reservationForm");
+const confirmation=document.getElementById("confirmation");
+const today=new Date().toISOString().split("T")[0];
+form.date.min=today;
+form.addEventListener("submit",(e)=>{
+  e.preventDefault();
+  confirmation.style.display="block";
+  setTimeout(()=>{confirmation.style.opacity=1;},50);
+  form.reset();
+});
+</script>
+
+<!-- Particle background -->
 <script>
 const canvas=document.createElement('canvas');
 canvas.id='bg';
-canvas.style.position='fixed';
-canvas.style.top='0';
-canvas.style.left='0';
-canvas.style.zIndex='-1';
-canvas.style.pointerEvents='none';
 document.body.appendChild(canvas);
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
 let particles=[];
 for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-particles.forEach(p=>{
-ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fill();
-p.y-=p.speed;p.x+=p.dx;
-if(p.y<0)p.y=canvas.height;
-if(p.x<0)p.x=canvas.width;
-if(p.x>canvas.width)p.x=0;
-});
-requestAnimationFrame(draw);}
-draw();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fill();p.y-=p.speed;p.x+=p.dx;if(p.y<0)p.y=canvas.height;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;});requestAnimationFrame(draw);}
+draw();window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+</script>
+
+<!-- Dark/light toggle -->
+<script>
+const darkModeBtn=document.createElement("button");
+darkModeBtn.innerText="🌙";
+darkModeBtn.style.position="fixed";
+darkModeBtn.style.bottom="20px";
+darkModeBtn.style.right="20px";
+darkModeBtn.style.zIndex="10000";
+darkModeBtn.style.padding="10px";
+darkModeBtn.style.borderRadius="50%";
+darkModeBtn.style.border="none";
+darkModeBtn.style.cursor="pointer";
+darkModeBtn.style.background="#ff5c00";
+darkModeBtn.style.color="#fff";
+document.body.appendChild(darkModeBtn);
+darkModeBtn.addEventListener("click",()=>{document.body.classList.toggle("dark");});
 </script>
 
 </body>

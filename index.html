@@ -5,20 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Pizzeria Paradise Cavriago: vera pizza italiana con ingredienti freschi e impasti a lunga lievitazione. Prenota online e scopri il nostro menu.">
 <title>Pizzeria Paradise Cavriago</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
 /* Reset e font */
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins, sans-serif;scroll-behavior:smooth;}
 body{background:#f5f5f5;color:#000;overflow-x:hidden;transition:background .3s,color .3s;}
-a{cursor:pointer;}
+a{cursor:pointer;text-decoration:none;}
+
 /* Navbar */
 nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 10%;z-index:1000;transition:.3s;background:rgba(255,255,255,0.95);box-shadow:0 2px 12px rgba(0,0,0,0.12);}
 nav.scrolled{background:#fff;padding:10px 10%;box-shadow:0 2px 20px rgba(0,0,0,0.15);}
-nav h2{font-size:28px;font-weight:600;background:linear-gradient(90deg,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;cursor:pointer;transition:.3s;}
+nav h2{font-size:28px;font-weight:700;letter-spacing:1px;cursor:pointer;color:#ff5c00;transition:.3s;}
 nav h2:hover{transform:scale(1.05);}
 .nav-right{display:flex;align-items:center;gap:15px;}
-nav a{color:#000;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
+nav a{color:#000;margin-left:25px;font-weight:500;transition:.3s;}
 nav a.active{color:#ff5c00;font-weight:600;}
 nav a:hover{color:#ff5c00;}
 .hamburger{display:none;flex-direction:column;cursor:pointer;gap:4px;}
@@ -33,8 +34,8 @@ nav a:hover{color:#ff5c00;}
 .hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4);}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:1;}
 .hero-content{position:relative;z-index:2;color:#fff;max-width:90%;opacity:0;animation:fadeIn 1.5s forwards;}
-.hero-title{font-size:70px;background: linear-gradient(90deg,#fff,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 20px rgba(0,0,0,0.4);}
-.hero p{font-size:20px;margin:20px 0;opacity:.9;}
+.hero-title{font-size:72px;font-weight:700;color:#ffd700;text-transform:uppercase;letter-spacing:3px;text-shadow:2px 2px 10px rgba(0,0,0,0.6);font-family:'Poppins',sans-serif;margin-bottom:10px;}
+.hero p{font-size:22px;margin:20px 0;opacity:.9;}
 .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
 .hero-buttons button{padding:15px 35px;background:#ff5c00;color:#fff;border:none;font-size:18px;border-radius:50px;cursor:pointer;transition:.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);}
 .hero-buttons button:hover{transform:scale(1.05);background:#e04b00;}
@@ -50,13 +51,9 @@ section{padding:100px 10%;}
 .card{background:#fff;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.12);padding:10px;text-align:center;transition:.4s;position:relative;cursor:pointer;overflow:hidden;}
 .card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,0.2);}
 .card img{width:100%;height:200px;object-fit:cover;border-radius:12px;}
-.card h3{margin:10px 0;}
-.card-buttons{display:flex;justify-content:center;gap:10px;margin:10px 0;}
-.card-buttons button{padding:5px 12px;border:none;border-radius:20px;background:#000;color:#fff;cursor:pointer;transition:.3s;font-size:14px;}
-.card-buttons button.active{background:#ff5c00;color:#fff;}
-.card-buttons button:hover{background:#333;}
-.card-content{margin-top:10px;display:none;text-align:left;font-size:14px;line-height:1.5;transition:.3s;}
-.card-content ul{list-style:none;margin-left:15px;padding-left:0;}
+.card h3{margin:10px 0;font-weight:600;}
+.card-content{margin-top:10px;text-align:left;font-size:14px;line-height:1.5;transition:.3s;}
+.card-content ul{list-style:disc;margin-left:20px;}
 .card-content ul li{margin-bottom:4px;}
 
 /* About */
@@ -83,7 +80,7 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 /* Responsive */
 @media(max-width:800px){
   .about{grid-template-columns:1fr;}
-  .hero-title{font-size:36px;}
+  .hero-title{font-size:48px;}
   .hero p{font-size:16px;}
   .hero-buttons button{padding:12px 25px;font-size:16px;}
   nav h2{font-size:22px;}
@@ -129,7 +126,7 @@ body.dark .hero-buttons button{background:#ff8000;color:#fff;}
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title">Pizzeria Paradise</h1>
+    <h1 class="hero-title">PIZZERIA PARADISE</h1>
     <p>La vera pizza italiana a Cavriago</p>
     <div class="hero-buttons">
       <button onclick="document.getElementById('menu').scrollIntoView()">Scopri il menu</button>
@@ -202,51 +199,24 @@ body.dark .hero-buttons button{background:#ff8000;color:#fff;}
 <!-- Script pizze e filtraggio -->
 <script>
 const pizze=[
-{name:"Margherita",tags:["vegetariana"],preparazione:["Pomodoro","Mozzarella"],allergeni:["Lattosio","Glutine"]},
-{name:"Salamino",tags:["piccante"],preparazione:["Pomodoro","Mozzarella","Salamino piccante"],allergeni:["Lattosio","Glutine"]},
-{name:"Capricciosa",tags:[],preparazione:["Pomodoro","Mozzarella","Carciofi","Funghi","Prosciutto Cotto","Salsiccia","Olive","Würstel"],allergeni:["Lattosio","Glutine"]},
-{name:"Paradise",tags:["speciale"],preparazione:["Pomodoro","Mozzarella","Frutti di mare"],allergeni:["Lattosio","Frutti di mare"]},
-{name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salamino","Olive","Peperoni"],allergeni:["Lattosio","Glutine"]}];
+{name:"Margherita",tags:["vegetariana"],preparazione:["Pomodoro","Mozzarella"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1601924582975-3e8c73f98f07?auto=format&fit=crop&w=400&q=80"},
+{name:"Salamino",tags:["piccante"],preparazione:["Pomodoro","Mozzarella","Salamino piccante"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1621894881895-bc7a5cbbf0b0?auto=format&fit=crop&w=400&q=80"},
+{name:"Capricciosa",tags:[],preparazione:["Pomodoro","Mozzarella","Carciofi","Funghi","Prosciutto Cotto","Salsiccia","Olive","Würstel"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc?auto=format&fit=crop&w=400&q=80"},
+{name:"Paradise",tags:["speciale"],preparazione:["Pomodoro","Mozzarella","Frutti di mare"],allergeni:["Lattosio","Frutti di mare"],img:"https://images.unsplash.com/photo-1617196030383-86a149d1b512?auto=format&fit=crop&w=400&q=80"},
+{name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salamino","Olive","Peperoni"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1594007658015-d7889a16b7e5?auto=format&fit=crop&w=400&q=80"}];
 
 const container=document.getElementById("pizza-container");
-function createCard(pizza){
-  const prepHTML = pizza.preparazione.map(i=>`<li>${i}</li>`).join("");
-  const allHTML = pizza.allergeni.map(i=>`<li>${i}</li>`).join("");
+pizze.forEach(p=>{
   const card=document.createElement("div");
   card.className="card";
-  card.dataset.tags = pizza.tags.join(",");
-  card.innerHTML=`
-    <img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}" alt="${pizza.name}" loading="lazy">
-    <h3>${pizza.name}</h3>
-    <div class="card-buttons">
-      <button class="ingredienti-btn">Ingredienti</button>
-      <button class="allergeni-btn">Allergeni</button>
-    </div>
-    <div class="card-content ingredienti"><ul>${prepHTML}</ul></div>
-    <div class="card-content allergeni"><ul>${allHTML}</ul></div>
-  `;
-  const ingBtn = card.querySelector(".ingredienti-btn");
-  const allBtn = card.querySelector(".allergeni-btn");
-  const ingContent = card.querySelector(".ingredienti");
-  const allContent = card.querySelector(".allergeni");
-  ingBtn.addEventListener("click",()=>{
-    ingContent.style.display="block";allContent.style.display="none";
-    ingBtn.classList.add("active");allBtn.classList.remove("active");
-  });
-  allBtn.addEventListener("click",()=>{
-    allContent.style.display="block";ingContent.style.display="none";
-    allBtn.classList.add("active");ingBtn.classList.remove("active");
-  });
+  card.dataset.tags=p.tags.join(",");
+  card.innerHTML=`<img src="${p.img}" alt="${p.name}"><h3>${p.name}</h3><div class="card-content"><strong>Ingredienti:</strong><ul>${p.preparazione.map(i=>`<li>${i}</li>`).join("")}</ul><strong>Allergeni:</strong><ul>${p.allergeni.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
   container.appendChild(card);
-}
-pizze.forEach(createCard);
+});
 
 function filterPizza(tag){
   const cards=document.querySelectorAll(".card");
-  cards.forEach(c=>{
-    if(tag==="tutte"||c.dataset.tags.includes(tag)) c.style.display="block";
-    else c.style.display="none";
-  });
+  cards.forEach(c=>{c.style.display=(tag==="tutte"||c.dataset.tags.includes(tag))?"block":"none";});
 }
 </script>
 
@@ -254,7 +224,6 @@ function filterPizza(tag){
 <script>
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",()=>{navbar.classList.toggle("scrolled",window.scrollY>50);});
-
 const hamburger=document.getElementById("hamburger");
 const navMobile=document.getElementById("nav-mobile");
 const links=document.querySelectorAll(".nav-links a");
@@ -269,9 +238,7 @@ hamburger.addEventListener("click",()=>{
 <script>
 const sections=document.querySelectorAll(".title");
 const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add("visible");}
-  });
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");}});
 },{threshold:0.2});
 sections.forEach(s=>observer.observe(s));
 </script>
@@ -292,33 +259,11 @@ form.addEventListener("submit",(e)=>{
 
 <!-- Particle background -->
 <script>
-const canvas=document.createElement('canvas');
-canvas.id='bg';
-document.body.appendChild(canvas);
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-let particles=[];
-for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
+const canvas=document.createElement('canvas');canvas.id='bg';document.body.appendChild(canvas);
+const ctx=canvas.getContext("2d");canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+let particles=[];for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
 function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fill();p.y-=p.speed;p.x+=p.dx;if(p.y<0)p.y=canvas.height;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;});requestAnimationFrame(draw);}
 draw();window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-</script>
-
-<!-- Dark/light toggle -->
-<script>
-const darkModeBtn=document.createElement("button");
-darkModeBtn.innerText="🌙";
-darkModeBtn.style.position="fixed";
-darkModeBtn.style.bottom="20px";
-darkModeBtn.style.right="20px";
-darkModeBtn.style.zIndex="10000";
-darkModeBtn.style.padding="10px";
-darkModeBtn.style.borderRadius="50%";
-darkModeBtn.style.border="none";
-darkModeBtn.style.cursor="pointer";
-darkModeBtn.style.background="#ff5c00";
-darkModeBtn.style.color="#fff";
-document.body.appendChild(darkModeBtn);
-darkModeBtn.addEventListener("click",()=>{document.body.classList.toggle("dark");});
 </script>
 
 </body>

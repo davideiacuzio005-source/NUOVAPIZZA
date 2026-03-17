@@ -297,6 +297,64 @@ font-size:40px;
         font-size:16px;
     }
 }
+
+.hero-title{
+  font-size:70px;
+  background: linear-gradient(90deg,#ff5c00,#ff9a3c,#ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:0 0 30px rgba(255,92,0,0.6);
+  animation: shine 3s infinite linear;
+}
+
+@keyframes shine{
+  0%{background-position:0%;}
+  100%{background-position:200%;}
+}
+
+@media(max-width:800px){
+  .hero-title{
+    font-size:36px; /* più piccolo su mobile */
+  }
+}
+
+.hero-buttons{
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap; /* i bottoni vanno a capo su mobile */
+  margin-top:20px;
+}
+
+.hero-buttons button{
+  padding:15px 35px;
+  background:#ff5c00;
+  border:none;
+  color:white;
+  font-size:18px;
+  border-radius:40px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.hero-buttons button:hover{
+  transform:scale(1.08);
+  background:#ff7b2f;
+  box-shadow:0 10px 30px rgba(255,92,0,0.5);
+}
+
+.hero{
+  height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc?auto=format&fit=crop&w=1600&q=80");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
   
 </style>
 </head>
@@ -321,7 +379,7 @@ Pizzeria Paradise
 <!-- HERO -->
 <section class="hero">
 <div>
-<h1>Pizzeria Paradise</h1>
+<h1 class="hero-title">Pizzeria Paradise</h1>
 <p>La vera pizza italiana a Cavriago</p>
 <button onclick="document.getElementById('menu').scrollIntoView()">
 Scopri il menu

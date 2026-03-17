@@ -1,252 +1,392 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Pizzeria Paradise Cavriago: autentica pizza italiana, ingredienti freschi e impasti a lunga lievitazione. Prenota online e scopri il nostro menu.">
-<title>Pizzeria Paradise Cavriago</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<style>
-/* Reset e font */
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif;scroll-behavior:smooth;}
-body{background:#f5f5f5;color:#000;overflow-x:hidden;transition:background .3s,color .3s;}
-a{cursor:pointer;text-decoration:none;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizzeria Moderna</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & base */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+    body { overflow-x: hidden; background: #111; color: #fff; }
 
-/* Navbar */
-nav{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:15px 10%;z-index:1000;transition:.3s;background:rgba(255,255,255,0.95);box-shadow:0 2px 12px rgba(0,0,0,0.12);}
-nav.scrolled{background:#fff;padding:10px 10%;box-shadow:0 2px 20px rgba(0,0,0,0.15);}
-nav h2{font-size:28px;font-weight:700;letter-spacing:1px;cursor:pointer;color:#ff5c00;transition:.3s;}
-nav h2:hover{transform:scale(1.05);}
-.nav-right{display:flex;align-items:center;gap:15px;}
-nav a{color:#000;margin-left:25px;font-weight:500;transition:.3s;}
-nav a.active{color:#ff5c00;font-weight:600;}
-nav a:hover{color:#ff5c00;}
-.hamburger{display:none;flex-direction:column;cursor:pointer;gap:4px;}
-.hamburger div{width:25px;height:3px;background:#000;transition:.3s;}
-.nav-links{display:flex;align-items:center;gap:15px;}
-.nav-mobile{display:none;flex-direction:column;background:#fff;position:absolute;top:70px;right:10%;width:200px;border-radius:10px;box-shadow:0 5px 20px rgba(0,0,0,0.2);overflow:hidden;}
-.nav-mobile a{padding:10px;display:block;border-bottom:1px solid #ddd;}
-.nav-mobile a:last-child{border:none;}
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+      z-index: 999;
+    }
+    nav.scrolled { background: rgba(20,20,20,0.95); }
+    nav .logo { font-size: 1.5rem; font-weight: bold; }
+    nav ul { display: flex; gap: 2rem; list-style: none; }
+    nav ul li a { color: #fff; text-decoration: none; transition: color 0.3s; }
+    nav ul li a.active, nav ul li a:hover { color: #ff4d4d; }
 
-/* Hero */
-.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#000;}
-.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.4);}
-.hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:1;}
-.hero-content{position:relative;z-index:2;color:#fff;max-width:90%;opacity:0;animation:fadeIn 1.5s forwards;}
-.hero-title{font-size:72px;font-weight:700;color:#ffd700;text-transform:uppercase;letter-spacing:3px;text-shadow:2px 2px 10px rgba(0,0,0,0.6);margin-bottom:10px;}
-.hero p{font-size:22px;margin:20px 0;opacity:.9;}
-.hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
-.hero-buttons button{padding:15px 35px;background:#ff5c00;color:#fff;border:none;font-size:18px;border-radius:50px;cursor:pointer;transition:.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);}
-.hero-buttons button:hover{transform:scale(1.05);background:#e04b00;}
-@keyframes fadeIn{to{opacity:1;}}
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      transition: 0.3s;
+    }
+    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active div:nth-child(2) { opacity: 0; }
+    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* Sections */
-section{padding:100px 10%;}
-.title{font-size:42px;margin-bottom:60px;text-align:center;opacity:0;transform:translateY(50px);transition:all .8s;}
-.title.visible{opacity:1;transform:translateY(0);}
+    @media(max-width: 768px){
+      nav ul { display: none; flex-direction: column; gap: 1rem; background: #222; position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem 0; }
+      nav ul.show { display: flex; }
+      .hamburger { display: flex; }
+    }
 
-/* Menu moderno */
-.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
-.menu-card{position:relative;background:#fff;border-radius:15px;overflow:hidden;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,0.12);transition:all .3s;}
-.menu-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 12px 25px rgba(0,0,0,0.2);}
-.menu-card img{width:100%;height:200px;object-fit:cover;transition:transform .3s;}
-.menu-card:hover img{transform:scale(1.05);}
-.menu-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.65);color:#fff;opacity:0;transition:opacity .3s;padding:15px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;}
-.menu-card:hover .menu-overlay{opacity:1;}
-.menu-overlay h3{margin-bottom:10px;}
-.menu-overlay ul{list-style:disc;margin-left:0;padding-left:0;}
-.menu-overlay ul li{margin-bottom:4px;font-size:14px;}
+    /* Hero */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .hero .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeMove 1.5s forwards;
+    }
+    .hero .cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .hero .cta button {
+      padding: 1rem 2rem;
+      border: none;
+      background: #ff4d4d;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .hero .cta button:hover { transform: translateY(-3px); background: #e60000; }
 
-/* About */
-.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
-.about img{width:100%;border-radius:15px;transition:transform .3s;}
-.about img:hover{transform:scale(1.05);}
+    @keyframes fadeMove {
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* Reservation */
-#reservation form input,#reservation form select,#reservation form button{width:100%;font-size:16px;transition:.3s;}
-#reservation form button:hover{background:#e04b00;transform:scale(1.03);}
-#reservation .confirmation{display:none;color:green;text-align:center;margin-top:15px;opacity:0;transition:.5s;}
+    /* Menu */
+    .menu {
+      padding: 5rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      background: #111;
+    }
+    .menu .card {
+      position: relative;
+      background: #1a1a1a;
+      border: 2px solid #333;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .menu .card:hover { transform: translateY(-10px) rotateX(2deg); border-color: #ff4d4d; }
+    .menu img { width: 100%; display: block; border-bottom: 2px solid #333; }
+    .menu .info {
+      padding: 1rem;
+      text-align: center;
+    }
+    .menu .info h3 { margin-bottom: 0.5rem; }
+    .menu .overlay-info {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      padding: 1rem;
+      text-align: center;
+    }
+    .menu .card:hover .overlay-info { opacity: 1; }
 
-/* Contact */
-.contact{text-align:center;background:#e0e0e0;padding:50px 0;}
-iframe{margin-top:30px;width:100%;max-width:700px;height:350px;border:0;border-radius:15px;}
-footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px;}
-.social-icons{margin-top:10px;display:flex;gap:15px;justify-content:center;}
-.social-icons a{color:white;font-size:20px;transition:.3s;}
-.social-icons a:hover{color:#ff5c00;}
+    /* About */
+    .about {
+      padding: 5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      background: #222;
+    }
+    .about .team { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+    .about .team .member {
+      width: 200px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .about .team .member img { width: 100%; border-radius: 50%; }
+    .about .team .member:hover { transform: translateY(-10px); }
 
-/* Particle background */
-#bg{position:fixed;top:0;left:0;z-index:-1;pointer-events:none;}
+    /* Prenotazione */
+    .reservation {
+      padding: 5rem 2rem;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    .reservation form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    .reservation input, .reservation select, .reservation textarea {
+      padding: 0.8rem;
+      border-radius: 5px;
+      border: 1px solid #333;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .reservation button {
+      padding: 1rem;
+      border: none;
+      background: #ff4d4d;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .reservation button:hover { background: #e60000; }
 
-/* Responsive */
-@media(max-width:800px){
-  .about{grid-template-columns:1fr;}
-  .hero-title{font-size:48px;}
-  .hero p{font-size:16px;}
-  .hero-buttons button{padding:12px 25px;font-size:16px;}
-  nav h2{font-size:22px;}
-  .hamburger{display:flex;}
-  .nav-links{display:none;}
-  .nav-mobile{display:flex;}
-}
-</style>
+    /* Contatti */
+    .contact {
+      padding: 5rem 2rem;
+      background: #222;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+    .contact iframe { width: 100%; max-width: 600px; height: 300px; border: none; border-radius: 10px; }
+
+    /* Particle Background */
+    canvas#particles { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+
+  </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav id="navbar">
-<h2 onclick="window.scrollTo({top:0,behavior:'smooth'})">Pizzeria Paradise</h2>
-<div class="nav-right">
-<div class="nav-links">
-<a href="#menu">Menu</a>
-<a href="#about">Chi siamo</a>
-<a href="#contact">Contatti</a>
-<button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#ff5c00;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
-</div>
-<div class="hamburger" id="hamburger">
-<div></div>
-<div></div>
-<div></div>
-</div>
-<div class="nav-mobile" id="nav-mobile"></div>
-</div>
-</nav>
-
-<!-- Hero -->
-<section class="hero">
-  <video autoplay muted loop>
-    <source src="https://cdn.pixabay.com/vimeo/665245474/pexels-pizza.mp4" type="video/mp4">
-  </video>
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="hero-title">PIZZERIA PARADISE</h1>
-    <p>La vera pizza italiana a Cavriago</p>
-    <div class="hero-buttons">
-      <button onclick="document.getElementById('menu').scrollIntoView()">Scopri il menu</button>
-      <button onclick="document.getElementById('reservation').scrollIntoView()">Prenota un tavolo</button>
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="logo">Pizzeria Moderna</div>
+    <ul id="nav-links">
+      <li><a href="#hero" class="active">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reservation">Prenotazione</a></li>
+      <li><a href="#contact">Contatti</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <div></div><div></div><div></div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<!-- Menu -->
-<section id="menu">
-<h2 class="title">Le nostre pizze</h2>
-<div class="menu-grid" id="pizza-container"></div>
-</section>
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <video src="pizza-video.mp4" autoplay muted loop></video>
+    <div class="overlay">
+      <h1>La Migliore Pizza in Città</h1>
+      <div class="cta">
+        <button>Prenota Ora</button>
+        <button>Scopri il Menu</button>
+      </div>
+    </div>
+  </section>
 
-<!-- About -->
-<section id="about">
-<h2 class="title">Chi siamo</h2>
-<div class="about">
-<img src="https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc" alt="Pizzeria Paradise">
-<div>
-<p>La Pizzeria Paradise nasce dalla passione per la pizza italiana, con impasti a lunga lievitazione e ingredienti freschi selezionati quotidianamente. Il nostro team porta amore e cura in ogni pizza che serviamo.</p>
-<div style="display:flex;gap:15px;margin-top:20px;">
-<img src="https://source.unsplash.com/100x100/?chef" alt="Chef" style="border-radius:50%;">
-<img src="https://source.unsplash.com/100x100/?team" alt="Staff" style="border-radius:50%;">
-</div>
-</div>
-</div>
-</section>
+  <!-- Menu -->
+  <section class="menu" id="menu">
+    <div class="card">
+      <img src="margherita.jpg" alt="Pizza Margherita">
+      <div class="info">
+        <h3>Margherita</h3>
+        <p>€8.50</p>
+      </div>
+      <div class="overlay-info">
+        <p>Pomodoro, Mozzarella, Basilico</p>
+        <p>Allergeni: Latte, Glutine</p>
+        <span class="badge">Vegetariana</span>
+      </div>
+    </div>
+    <div class="card">
+      <img src="pepperoni.jpg" alt="Pizza Pepperoni">
+      <div class="info">
+        <h3>Pepperoni</h3>
+        <p>€9.50</p>
+      </div>
+      <div class="overlay-info">
+        <p>Pomodoro, Mozzarella, Pepperoni</p>
+        <p>Allergeni: Latte, Glutine</p>
+        <span class="badge">Piccante</span>
+      </div>
+    </div>
+    <!-- Aggiungi altre card qui -->
+  </section>
 
-<!-- Reservation -->
-<section id="reservation">
-<h2 class="title">Prenota un tavolo</h2>
-<form id="reservationForm" style="max-width:500px;margin:auto;display:flex;flex-direction:column;gap:15px;">
-<input type="text" name="name" placeholder="Nome" required style="padding:10px;border-radius:8px;border:none;">
-<input type="email" name="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:none;">
-<input type="tel" name="phone" placeholder="Telefono" required style="padding:10px;border-radius:8px;border:none;">
-<select name="guests" required style="padding:10px;border-radius:8px;border:none;">
-<option value="">Numero di persone</option>
-<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
-</select>
-<input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;" min="">
-<input type="time" name="time" required style="padding:10px;border-radius:8px;border:none;">
-<button type="submit" style="padding:12px;background:#ff5c00;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
-<div class="confirmation" id="confirmation">Prenotazione ricevuta!</div>
-</form>
-</section>
+  <!-- About -->
+  <section class="about" id="about">
+    <h2>Il Nostro Team</h2>
+    <div class="team">
+      <div class="member">
+        <img src="chef1.jpg" alt="Chef">
+        <h4>Mario Rossi</h4>
+        <p>Chef Capo</p>
+      </div>
+      <div class="member">
+        <img src="chef2.jpg" alt="Chef">
+        <h4>Luca Bianchi</h4>
+        <p>Chef Pizzaiolo</p>
+      </div>
+    </div>
+  </section>
 
-<!-- Contact -->
-<section id="contact" class="contact">
-<h2 class="title">Contatti</h2>
-<p>Cavriago (RE)</p>
-<iframe src="https://www.google.com/maps?q=Pizzeria+Paradise+Cavriago&output=embed"></iframe>
-<div class="social-icons">
-<a href="#"><i class="fab fa-instagram"></i></a>
-<a href="#"><i class="fab fa-facebook"></i></a>
-<a href="#"><i class="fab fa-tiktok"></i></a>
-<a href="tel:+390522123456"><i class="fas fa-phone"></i></a>
-<a href="https://wa.me/390522123456"><i class="fab fa-whatsapp"></i></a>
-</div>
-</section>
+  <!-- Prenotazione -->
+  <section class="reservation" id="reservation">
+    <h2>Prenota il Tuo Tavolo</h2>
+    <form id="reservation-form">
+      <input type="text" placeholder="Nome" required>
+      <input type="email" placeholder="Email" required>
+      <input type="tel" placeholder="Telefono" required>
+      <input type="date" required>
+      <input type="time" required>
+      <button type="submit">Prenota Ora</button>
+    </form>
+    <div id="confirmation" style="display:none; margin-top:1rem;">Prenotazione Confermata!</div>
+  </section>
 
-<footer>© 2026 Pizzeria Paradise | <a href="#">Privacy</a> | <a href="#">Termini</a></footer>
+  <!-- Contatti -->
+  <section class="contact" id="contact">
+    <h2>Contattaci</h2>
+    <iframe src="https://www.google.com/maps/embed?..."></iframe>
+    <div class="social">
+      <button onclick="window.open('https://wa.me/123456789')">WhatsApp</button>
+      <button onclick="window.location='tel:+39123456789'">Chiama</button>
+    </div>
+  </section>
 
-<!-- Script menu moderno -->
-<script>
-const pizze=[
-{name:"Margherita",tags:["vegetariana"],preparazione:["Pomodoro","Mozzarella"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1601924582975-3e8c73f98f07?auto=format&fit=crop&w=400&q=80"},
-{name:"Salamino",tags:["piccante"],preparazione:["Pomodoro","Mozzarella","Salamino piccante"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1621894881895-bc7a5cbbf0b0?auto=format&fit=crop&w=400&q=80"},
-{name:"Capricciosa",tags:[],preparazione:["Pomodoro","Mozzarella","Carciofi","Funghi","Prosciutto Cotto","Salsiccia","Olive","Würstel"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1603073507072-5a9d1d29f7fc?auto=format&fit=crop&w=400&q=80"},
-{name:"Paradise",tags:["speciale"],preparazione:["Pomodoro","Mozzarella","Frutti di mare"],allergeni:["Lattosio","Frutti di mare"],img:"https://images.unsplash.com/photo-1617196030383-86a149d1b512?auto=format&fit=crop&w=400&q=80"},
-{name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salamino","Olive","Peperoni"],allergeni:["Lattosio","Glutine"],img:"https://images.unsplash.com/photo-1594007658015-d7889a16b7e5?auto=format&fit=crop&w=400&q=80"}];
+  <!-- Particle Background -->
+  <canvas id="particles"></canvas>
 
-const container=document.getElementById("pizza-container");
-pizze.forEach(p=>{
-  const card=document.createElement("div");
-  card.className="menu-card";
-  card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="menu-overlay"><h3>${p.name}</h3><strong>Ingredienti:</strong><ul>${p.preparazione.map(i=>`<li>${i}</li>`).join("")}</ul><strong>Allergeni:</strong><ul>${p.allergeni.map(i=>`<li>${i}</li>`).join("")}</ul></div>`;
-  container.appendChild(card);
-});
-</script>
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
 
-<!-- Navbar scroll e hamburger -->
-<script>
-const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",()=>{navbar.classList.toggle("scrolled",window.scrollY>50);});
-const hamburger=document.getElementById("hamburger");
-const navMobile=document.getElementById("nav-mobile");
-const links=document.querySelectorAll(".nav-links a");
-hamburger.addEventListener("click",()=>{
-  navMobile.innerHTML="";
-  links.forEach(l=>{const a=l.cloneNode(true);a.addEventListener("click",()=>{navMobile.style.display="none";});navMobile.appendChild(a);});
-  navMobile.style.display=navMobile.style.display==="flex"?"none":"flex";
-});
-</script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('show');
+    });
 
-<!-- Scroll animations -->
-<script>
-const sections=document.querySelectorAll(".title");
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");}});
-},{threshold:0.2});
-sections.forEach(s=>observer.observe(s));
-</script>
+    // Reservation form
+    const form = document.getElementById('reservation-form');
+    const confirmation = document.getElementById('confirmation');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      confirmation.style.display = 'block';
+      form.reset();
+      setTimeout(() => confirmation.style.display = 'none', 3000);
+    });
 
-<!-- Reservation form -->
-<script>
-const form=document.getElementById("reservationForm");
-const confirmation=document.getElementById("confirmation");
-const today=new Date().toISOString().split("T")[0];
-form.date.min=today;
-form.addEventListener("submit",(e)=>{
-  e.preventDefault();
-  confirmation.style.display="block";
-  setTimeout(()=>{confirmation.style.opacity=1;},50);
-  form.reset();
-});
-</script>
+    // Simple particles
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-<!-- Particle background -->
-<script>
-const canvas=document.createElement('canvas');canvas.id='bg';document.body.appendChild(canvas);
-const ctx=canvas.getContext("2d");canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-let particles=[];for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fill();p.y-=p.speed;p.x+=p.dx;if(p.y<0)p.y=canvas.height;if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;});requestAnimationFrame(draw);}
-draw();window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-</script>
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+        if(this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      for(let i=0;i<100;i++){ particlesArray.push(new Particle()); }
+    }
+
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particlesArray.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+  </script>
 
 </body>
 </html>

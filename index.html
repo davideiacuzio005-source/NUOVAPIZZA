@@ -12,11 +12,11 @@
 <style>
 /* --- GLOBAL --- */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;scroll-behavior:smooth;}
-body{background:linear-gradient(180deg,#111,#000);color:white;overflow-x:hidden;transition:background .3s;color .3s;}
+body{background:#111;color:white;overflow-x:hidden;transition:background .3s;color .3s;}
 .dark{background:#111;color:white;}
 
 /* --- NAVBAR --- */
-nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;padding:20px 10%;z-index:1000;backdrop-filter:blur(10px);transition:background .3s;}
+nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;padding:20px 10%;z-index:1000;backdrop-filter:blur(10px);}
 nav h2{font-size:28px;font-weight:600;background:linear-gradient(45deg,#ff5c00,#ff9a3c,#ff2d00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;text-shadow:0 0 10px rgba(255,92,0,0.7),0 0 20px rgba(255,92,0,0.5),0 0 40px rgba(255,92,0,0.3);cursor:pointer;transition:.3s;}
 nav h2:hover{transform:scale(1.1);text-shadow:0 0 20px #ff5c00,0 0 40px #ff5c00,0 0 60px #ff5c00;}
 nav a{color:white;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
@@ -41,14 +41,16 @@ section{padding:100px 10%;}
 
 /* --- MENU GRID --- */
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
-.card{perspective:1000px;position:relative;transition:transform .3s;}
+.card{perspective:1000px;position:relative;}
 .inner{position:relative;width:100%;height:350px;transition:transform .6s;transform-style:preserve-3d;}
-.card:hover .inner{transform:rotateY(10deg);}
-.front,.back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:15px;overflow:hidden;background:#1a1a1a;box-shadow:0 10px 25px rgba(0,0,0,0.6);}
-.front img{width:100%;height:200px;object-fit:cover;}
-.front h3{padding:15px;position:relative;z-index:2;}
-.back{transform:rotateY(180deg);padding:20px;display:flex;flex-direction:column;justify-content:center;}
-.back li{margin-bottom:8px;}
+.card:hover .inner{transform:rotateY(180deg);}
+.front,.back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:15px;overflow:hidden;background:#1a1a1a;box-shadow:0 10px 25px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.front img{width:100%;height:200px;object-fit:cover;border-bottom:2px solid #ff5c00;}
+.front h3{padding:15px;z-index:2;}
+.back{transform:rotateY(180deg);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.back h3{margin-bottom:10px;}
+.back ul{list-style:none;margin-bottom:10px;}
+.back li{margin-bottom:5px;}
 
 /* --- TAGS --- */
 .tag{position:absolute;top:10px;left:10px;padding:5px 12px;border-radius:12px;font-size:12px;font-weight:bold;color:white;text-transform:uppercase;z-index:3;}
@@ -64,8 +66,6 @@ section{padding:100px 10%;}
 /* --- CONTACT --- */
 .contact{text-align:center;background:#181818;}
 iframe{margin-top:30px;width:100%;max-width:700px;height:350px;border:0;border-radius:15px;}
-
-/* --- FOOTER --- */
 footer{text-align:center;padding:20px;background:black;margin-top:40px;}
 .social-icons{margin-top:10px;display:flex;gap:15px;justify-content:center;}
 .social-icons a{color:white;font-size:20px;transition:.3s;}
@@ -75,7 +75,6 @@ footer{text-align:center;padding:20px;background:black;margin-top:40px;}
 @media(max-width:800px){.about{grid-template-columns:1fr;}.hero-title{font-size:36px;}.hero p{font-size:16px;}.hero-buttons button{padding:12px 25px;font-size:16px;}nav h2{font-size:22px;letter-spacing:0.5px;text-shadow:0 0 5px rgba(255,92,0,0.7),0 0 10px rgba(255,92,0,0.5),0 0 20px rgba(255,92,0,0.3);}}
 </style>
 </head>
-
 <body>
 
 <!-- SFONDO ANIMATO -->
@@ -131,8 +130,7 @@ footer{text-align:center;padding:20px;background:black;margin-top:40px;}
 <input type="email" name="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:none;">
 <input type="tel" name="phone" placeholder="Telefono" required style="padding:10px;border-radius:8px;border:none;">
 <select name="guests" required style="padding:10px;border-radius:8px;border:none;">
-<option value="">Numero di persone</option>
-<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
+<option value="">Numero di persone</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
 </select>
 <input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;">
 <input type="time" name="time" required style="padding:10px;border-radius:8px;border:none;">
@@ -155,37 +153,56 @@ footer{text-align:center;padding:20px;background:black;margin-top:40px;}
 <!-- FOOTER -->
 <footer>© 2026 Pizzeria Paradise</footer>
 
-<!-- SCRIPT PIZZE + FILTRI -->
+<!-- SCRIPT PIZZE -->
 <script>
 const pizze=[
-{name:"Margherita",tags:[],preparazione:["Pomodoro","Mozzarella"],prezzo:"6€",dimensione:"Media"},
-{name:"Salamino",tags:["piccante"],preparazione:["Pomodoro","Mozzarella","Salame piccante"],prezzo:"7€",dimensione:"Media"},
-{name:"Capricciosa",tags:[],preparazione:["Pomodoro","Mozzarella","Carciofi","Funghi","Prosciutto Cotto","Salsiccia","Olive","Würstel"],prezzo:"8€",dimensione:"Media"},
-{name:"Paradise",tags:["speciale"],preparazione:["Pomodoro","Mozzarella","Frutti di mare"],prezzo:"12€",dimensione:"Grande"},
-{name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salame Piccante","Olive","Peperoni"],prezzo:"9€",dimensione:"Media"}];
+{name:"Margherita",tags:["vegetariana"],preparazione:["Pomodoro","Mozzarella"],allergeni:["Lattosio","Glutine"]},
+{name:"Salamino",tags:["piccante"],preparazione:["Pomodoro","Mozzarella","Salamino piccante"],allergeni:["Lattosio","Glutine"]},
+{name:"Capricciosa",tags:[],preparazione:["Pomodoro","Mozzarella","Carciofi","Funghi","Prosciutto Cotto","Salsiccia","Olive","Würstel"],allergeni:["Lattosio","Glutine"]},
+{name:"Paradise",tags:["speciale"],preparazione:["Pomodoro","Mozzarella","Frutti di mare"],allergeni:["Lattosio","Frutti di mare"]},
+{name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salamino","Olive","Peperoni"],allergeni:["Lattosio","Glutine"]}];
 
 const container=document.getElementById("pizza-container");
 
 pizze.forEach(pizza=>{
 let tagsHTML = pizza.tags.map(tag=>`<div class="tag ${tag}">${tag}</div>`).join("");
 const preparazioneHTML = pizza.preparazione.map(i=>`<li>${i}</li>`).join("");
+const allergeniHTML = pizza.allergeni.map(i=>`<li>${i}</li>`).join("");
 container.innerHTML+=`
 <div class="card">
 <div class="inner">
-<div class="front">${tagsHTML}<img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}"><h3>${pizza.name}</h3><p>${pizza.dimensione} - ${pizza.prezzo}</p></div>
-<div class="back"><h3>INGREDIENTI</h3><ul>${preparazioneHTML}</ul></div>
+<div class="front">${tagsHTML}<img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}"><h3>${pizza.name}</h3></div>
+<div class="back"><h3>INGREDIENTI</h3><ul>${preparazioneHTML}</ul><h3>ALLERGENI</h3><ul>${allergeniHTML}</ul></div>
 </div>
 </div>`;});
 </script>
 
-<!-- SCRIPT SFONDO PARTICELLE -->
+<!-- SFONDO PARTICELLE DINAMICO -->
 <script>
 const canvas=document.getElementById("bg");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-let particles=[];for(let i=0;i<100;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.5})}
-function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="rgba(255,90,0,0.8)";particles.forEach(p=>{ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y-=p.speed;if(p.y<0){p.y=canvas.height;p.x=Math.random()*canvas.width;}});requestAnimationFrame(draw);}
-draw();window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+let particles=[];
+for(let i=0;i<150;i++){
+  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.5,dx:(Math.random()-0.5)*0.2});
+}
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,140,0,0.8)";
+    ctx.fill();
+    p.y-=p.speed;
+    p.x+=p.dx;
+    if(p.y<0)p.y=canvas.height;
+    if(p.x<0)p.x=canvas.width;
+    if(p.x>canvas.width)p.x=0;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>
 
 </body>

@@ -315,25 +315,64 @@ per garantire qualità e sapore autentico.
 <!-- SCRIPT PIZZE -->
 <script>
 const pizze=[
-{name:"Margherita",tags:[]},
-{name:"Salamino",tags:["piccante"]},
-{name:"Capricciosa",tags:[]},
-{name:"Prosciutto e Funghi",tags:[]},
-{name:"Paradise",tags:["speciale"]},
-{name:"Bufala",tags:[]},
-{name:"Diavola",tags:["speciale","piccante"]},
-{name:"Vegetariana",tags:[]},
-{name:"Margherita Rivista",tags:[]},
-{name:"Calzone",tags:[]},
-{name:"Tonno Cipolla",tags:[]},
-{name:"Salsiccia e Zucca",tags:["speciale"]}
+{
+name:"Margherita",
+tags:[],
+preparazione:[
+"Pomodoro",
+"Mozzarella",
+]
+},
+{
+name:"Salamino",
+tags:["piccante"],
+preparazione:[
+"Pomodoro",
+"Mozzarella",
+"Salamino piccante",
+]
+},
+{
+name:"Capricciosa",
+tags:[],
+preparazione:[
+"Pomodoro",
+"Mozzarella",
+"Carciofi",
+"Funghi",
+"Prosciutto Cotto",
+"Salsiccia",
+"Olive", 
+"Würstel"
+]
+},
+{
+name:"Paradise",
+tags:["speciale"],
+preparazione:[
+"Pomodoro",
+"Mozzarella",
+"Frutti di mare"
+]
+},
+{
+name:"Diavola",
+tags:["speciale","piccante"],
+preparazione:[
+"Pomodoro",
+"Mozzarella",
+"Salamino", 
+"Olive", 
+"Peperoni"
+]
+},
+// fai così per tutte le pizze
 ];
-
 const container=document.getElementById("pizza-container");
 
 pizze.forEach(pizza=>{
-let tagsHTML = pizza.tags.map(tag=>{
-return `<div class="tag ${tag}">${tag}</div>`;
+const preparazioneHTML = pizza.preparazione.map(step=>{
+return `<li>${step}</li>`;
 }).join("");
 
 container.innerHTML+=`
@@ -345,13 +384,9 @@ ${tagsHTML}
 <h3>${pizza.name}</h3>
 </div>
 <div class="back">
-<h3>Preparazione</h3>
+<h3>INGREDIENTI</h3>
 <ul>
-<li>Impasto steso</li>
-<li>Pomodoro San Marzano</li>
-<li>Mozzarella</li>
-<li>Cottura forno 450°</li>
-<li>Servita calda</li>
+${preparazioneHTML}
 </ul>
 </div>
 </div>

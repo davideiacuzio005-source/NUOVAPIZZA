@@ -371,6 +371,10 @@ preparazione:[
 const container=document.getElementById("pizza-container");
 
 pizze.forEach(pizza=>{
+let tagsHTML = pizza.tags.map(tag=>{
+return `<div class="tag ${tag}">${tag}</div>`;
+}).join("");
+  
 const preparazioneHTML = pizza.preparazione.map(step=>{
 return `<li>${step}</li>`;
 }).join("");

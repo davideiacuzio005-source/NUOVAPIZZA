@@ -5,30 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pizzeria Paradise Cavriago</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;scroll-behavior:smooth;}
-body{background:#111;color:white;overflow-x:hidden;transition:background .3s;color .3s;}
+body{background:#f5f5f5;color:#000;overflow-x:hidden;transition:background .3s,color .3s;}
 
 /* Navbar */
-nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;padding:20px 10%;z-index:1000;backdrop-filter:blur(10px);}
-nav h2{font-size:28px;font-weight:600;background:linear-gradient(45deg,#ff5c00,#ff9a3c,#ff2d00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;text-shadow:0 0 10px rgba(255,92,0,0.7),0 0 20px rgba(255,92,0,0.5),0 0 40px rgba(255,92,0,0.3);cursor:pointer;transition:.3s;}
-nav h2:hover{transform:scale(1.1);text-shadow:0 0 20px #ff5c00,0 0 40px #ff5c00,0 0 60px #ff5c00;}
-nav a{color:white;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
+nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);display:flex;justify-content:space-between;align-items:center;padding:20px 10%;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+nav h2{font-size:28px;font-weight:600;background:linear-gradient(90deg,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;cursor:pointer;transition:.3s;}
+nav h2:hover{transform:scale(1.05);}
+nav a{color:#000;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
 nav a:hover{color:#ff5c00;}
 .nav-right{display:flex;align-items:center;gap:20px;}
 
 /* Hero */
-.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5);}
-#bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0.4;}
-.hero-content{position:relative;z-index:2;color:white;}
-.hero-title{font-size:70px;background: linear-gradient(90deg,#ff5c00,#ff9a3c,#ffffff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 30px rgba(255,92,0,0.6);animation: shine 3s infinite linear;}
-@keyframes shine{0%{background-position:0%;}100%{background-position:200%;}}
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#fff;}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.6);}
+.hero-content{position:relative;z-index:2;color:#000;}
+.hero-title{font-size:70px;background: linear-gradient(90deg,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 10px rgba(0,0,0,0.2);}
 .hero p{font-size:20px;margin:20px 0;opacity:.9;}
 .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
-.hero-buttons button{padding:15px 35px;background:#ff5c00;border:none;color:white;font-size:18px;border-radius:40px;cursor:pointer;transition:.3s;box-shadow:0 0 10px #ff5c00;}
-.hero-buttons button:hover{transform:scale(1.08);background:#ff7b2f;box-shadow:0 10px 30px rgba(255,92,0,0.5);}
+.hero-buttons button{padding:15px 35px;background:#000;color:#fff;border:none;font-size:18px;border-radius:40px;cursor:pointer;transition:.3s;box-shadow:0 0 5px rgba(0,0,0,0.3);}
+.hero-buttons button:hover{transform:scale(1.05);background:#333;}
 
 /* Sections */
 section{padding:100px 10%;}
@@ -36,45 +33,34 @@ section{padding:100px 10%;}
 
 /* Menu grid */
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
-.card{perspective:1000px;position:relative;cursor:pointer;}
-.inner{position:relative;width:100%;height:350px;transition:transform .6s;transform-style:preserve-3d;}
-.card:hover .inner{transform:rotateY(180deg);}
-.inner.flipped{transform:rotateY(180deg);}
-.front,.back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:15px;overflow:hidden;background:#1a1a1a;box-shadow:0 10px 25px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
-.front img{width:100%;height:200px;object-fit:cover;border-bottom:2px solid #ff5c00;}
-.front h3{padding:15px;z-index:2;}
-.back{transform:rotateY(180deg);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;overflow-y:auto;max-height:330px;}
-.back h3{margin-bottom:10px;}
-.back ul{list-style:none;margin-bottom:10px;}
-.back li{margin-bottom:5px;}
-
-/* Tags */
-.tag{position:absolute;top:10px;left:10px;padding:5px 12px;border-radius:12px;font-size:12px;font-weight:bold;color:white;text-transform:uppercase;z-index:3;}
-.tag.speciale{background:#ff5c00;}
-.tag.piccante{background:#e53935;}
-.tag.vegetariana{background:#43a047;}
-.tag + .tag{left:auto;right:10px;}
+.card{background:#fff;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.1);padding:10px;text-align:center;transition:.3s;}
+.card img{width:100%;height:200px;object-fit:cover;border-radius:12px;}
+.card h3{margin:10px 0;}
+.card-buttons{display:flex;justify-content:center;gap:10px;margin:10px 0;}
+.card-buttons button{padding:5px 12px;border:none;border-radius:20px;background:#000;color:#fff;cursor:pointer;transition:.3s;font-size:14px;}
+.card-buttons button.active{background:#ff5c00;color:#fff;}
+.card-buttons button:hover{background:#333;}
+.card-content{margin-top:10px;display:none;text-align:left;font-size:14px;line-height:1.4;}
+.card-content ul{list-style:none;margin-left:15px;padding-left:0;}
+.card-content ul li{margin-bottom:4px;}
 
 /* About */
 .about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
 .about img{width:100%;border-radius:15px;}
 
 /* Contact */
-.contact{text-align:center;background:#181818;}
+.contact{text-align:center;background:#e0e0e0;padding:50px 0;}
 iframe{margin-top:30px;width:100%;max-width:700px;height:350px;border:0;border-radius:15px;}
-footer{text-align:center;padding:20px;background:black;margin-top:40px;}
+footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px;}
 .social-icons{margin-top:10px;display:flex;gap:15px;justify-content:center;}
 .social-icons a{color:white;font-size:20px;transition:.3s;}
 .social-icons a:hover{color:#ff5c00;}
 
 /* Mobile */
-@media(max-width:800px){.about{grid-template-columns:1fr;}.hero-title{font-size:36px;}.hero p{font-size:16px;}.hero-buttons button{padding:12px 25px;font-size:16px;}nav h2{font-size:22px;letter-spacing:0.5px;text-shadow:0 0 5px rgba(255,92,0,0.7),0 0 10px rgba(255,92,0,0.5),0 0 20px rgba(255,92,0,0.3);}}
+@media(max-width:800px){.about{grid-template-columns:1fr;}.hero-title{font-size:36px;}.hero p{font-size:16px;}.hero-buttons button{padding:12px 25px;font-size:16px;}nav h2{font-size:22px;}}
 </style>
 </head>
 <body>
-
-<!-- Background -->
-<canvas id="bg"></canvas>
 
 <!-- Navbar -->
 <nav>
@@ -83,16 +69,15 @@ footer{text-align:center;padding:20px;background:black;margin-top:40px;}
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
-<button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#ff5c00;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
+<button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#000;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
 </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
-  <video autoplay muted loop class="hero-video">
+  <video autoplay muted loop>
     <source src="https://cdn.pixabay.com/vimeo/665245474/pexels-pizza.mp4" type="video/mp4">
   </video>
-  <div id="bg"></div>
   <div class="hero-content">
     <h1 class="hero-title">Pizzeria Paradise</h1>
     <p>La vera pizza italiana a Cavriago</p>
@@ -126,11 +111,12 @@ footer{text-align:center;padding:20px;background:black;margin-top:40px;}
 <input type="email" name="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:none;">
 <input type="tel" name="phone" placeholder="Telefono" required style="padding:10px;border-radius:8px;border:none;">
 <select name="guests" required style="padding:10px;border-radius:8px;border:none;">
-<option value="">Numero di persone</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
+<option value="">Numero di persone</option>
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5+</option>
 </select>
 <input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;">
 <input type="time" name="time" required style="padding:10px;border-radius:8px;border:none;">
-<button type="submit" style="padding:12px;background:#ff5c00;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
+<button type="submit" style="padding:12px;background:#000;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
 </form>
 </section>
 
@@ -165,33 +151,61 @@ function createCard(pizza){
   const allHTML = pizza.allergeni.map(i=>`<li>${i}</li>`).join("");
   const card=document.createElement("div");
   card.className="card";
-  card.innerHTML=`<div class="inner"><div class="front">${tagsHTML}<img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}"><h3>${pizza.name}</h3></div><div class="back"><h3>INGREDIENTI</h3><ul>${prepHTML}</ul><h3>ALLERGENI</h3><ul>${allHTML}</ul></div></div>`;
-  // Click flip per mobile
-  card.addEventListener("click",()=>{card.querySelector(".inner").classList.toggle("flipped");});
+  card.innerHTML=`
+    ${tagsHTML}
+    <img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}">
+    <h3>${pizza.name}</h3>
+    <div class="card-buttons">
+      <button class="ingredienti-btn">Ingredienti</button>
+      <button class="allergeni-btn">Allergeni</button>
+    </div>
+    <div class="card-content ingredienti"><ul>${prepHTML}</ul></div>
+    <div class="card-content allergeni"><ul>${allHTML}</ul></div>
+  `;
+  // Gestione click su pulsanti
+  const ingBtn = card.querySelector(".ingredienti-btn");
+  const allBtn = card.querySelector(".allergeni-btn");
+  const ingContent = card.querySelector(".ingredienti");
+  const allContent = card.querySelector(".allergeni");
+
+  ingBtn.addEventListener("click",()=>{
+    ingContent.style.display="block";
+    allContent.style.display="none";
+    ingBtn.classList.add("active");
+    allBtn.classList.remove("active");
+  });
+  allBtn.addEventListener("click",()=>{
+    allContent.style.display="block";
+    ingContent.style.display="none";
+    allBtn.classList.add("active");
+    ingBtn.classList.remove("active");
+  });
+
   container.appendChild(card);
 }
 
 pizze.forEach(createCard);
 </script>
 
-<!-- Sfondo particelle -->
+<!-- Sfondo particelle leggero -->
 <script>
-const canvas=document.getElementById("bg");
+const canvas=document.createElement('canvas');
+canvas.id='bg';
+document.body.appendChild(canvas);
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
 let particles=[];
-for(let i=0;i<150;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.5,dx:(Math.random()-0.5)*0.2});}
+for(let i=0;i<120;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
 function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(255,140,0,0.8)";ctx.fill();
-    p.y-=p.speed;p.x+=p.dx;
-    if(p.y<0)p.y=canvas.height;
-    if(p.x<0)p.x=canvas.width;
-    if(p.x>canvas.width)p.x=0;
-  });
-  requestAnimationFrame(draw);
-}
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fill();
+p.y-=p.speed;p.x+=p.dx;
+if(p.y<0)p.y=canvas.height;
+if(p.x<0)p.x=canvas.width;
+if(p.x>canvas.width)p.x=0;
+});
+requestAnimationFrame(draw);}
 draw();
 window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>

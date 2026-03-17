@@ -321,15 +321,6 @@
       navLinks.classList.toggle('show');
     });
 
-    // Reservation form
-    const form = document.getElementById('reservation-form');
-    const confirmation = document.getElementById('confirmation');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      confirmation.style.display = 'block';
-      form.reset();
-      setTimeout(() => confirmation.style.display = 'none', 3000);
-    });
 
     // Simple particles
     const canvas = document.getElementById('particles');

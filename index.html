@@ -5,27 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pizzeria Paradise Cavriago</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins;scroll-behavior:smooth;}
 body{background:#f5f5f5;color:#000;overflow-x:hidden;transition:background .3s,color .3s;}
 
 /* Navbar */
-nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);display:flex;justify-content:space-between;align-items:center;padding:20px 10%;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+nav{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.95);display:flex;justify-content:space-between;align-items:center;padding:15px 10%;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,0.12);transition:.3s;}
 nav h2{font-size:28px;font-weight:600;background:linear-gradient(90deg,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:1px;cursor:pointer;transition:.3s;}
 nav h2:hover{transform:scale(1.05);}
 nav a{color:#000;margin-left:25px;text-decoration:none;font-weight:500;transition:.3s;}
 nav a:hover{color:#ff5c00;}
-.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-right{display:flex;align-items:center;gap:15px;}
 
 /* Hero */
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:#fff;}
-.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.6);}
-.hero-content{position:relative;z-index:2;color:#000;}
-.hero-title{font-size:70px;background: linear-gradient(90deg,#000,#555);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 10px rgba(0,0,0,0.2);}
+.hero video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:brightness(0.5);}
+.hero-content{position:relative;z-index:2;color:#fff;max-width:90%;}
+.hero-title{font-size:70px;background: linear-gradient(90deg,#fff,#ffd700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 20px rgba(0,0,0,0.4);}
 .hero p{font-size:20px;margin:20px 0;opacity:.9;}
 .hero-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:20px;}
-.hero-buttons button{padding:15px 35px;background:#000;color:#fff;border:none;font-size:18px;border-radius:40px;cursor:pointer;transition:.3s;box-shadow:0 0 5px rgba(0,0,0,0.3);}
-.hero-buttons button:hover{transform:scale(1.05);background:#333;}
+.hero-buttons button{padding:15px 35px;background:#ff5c00;color:#fff;border:none;font-size:18px;border-radius:50px;cursor:pointer;transition:.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);}
+.hero-buttons button:hover{transform:scale(1.05);background:#e04b00;}
 
 /* Sections */
 section{padding:100px 10%;}
@@ -33,14 +34,15 @@ section{padding:100px 10%;}
 
 /* Menu grid */
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;}
-.card{background:#fff;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,0.1);padding:10px;text-align:center;transition:.3s;}
+.card{background:#fff;border-radius:15px;box-shadow:0 8px 20px rgba(0,0,0,0.12);padding:10px;text-align:center;transition:.4s;position:relative;}
+.card:hover{transform:translateY(-5px);}
 .card img{width:100%;height:200px;object-fit:cover;border-radius:12px;}
 .card h3{margin:10px 0;}
 .card-buttons{display:flex;justify-content:center;gap:10px;margin:10px 0;}
 .card-buttons button{padding:5px 12px;border:none;border-radius:20px;background:#000;color:#fff;cursor:pointer;transition:.3s;font-size:14px;}
 .card-buttons button.active{background:#ff5c00;color:#fff;}
 .card-buttons button:hover{background:#333;}
-.card-content{margin-top:10px;display:none;text-align:left;font-size:14px;line-height:1.4;}
+.card-content{margin-top:10px;display:none;text-align:left;font-size:14px;line-height:1.5;transition:.3s;}
 .card-content ul{list-style:none;margin-left:15px;padding-left:0;}
 .card-content ul li{margin-bottom:4px;}
 
@@ -69,7 +71,7 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 <a href="#menu">Menu</a>
 <a href="#about">Chi siamo</a>
 <a href="#contact">Contatti</a>
-<button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#000;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
+<button onclick="document.getElementById('reservation').scrollIntoView()" style="padding:8px 15px;background:#ff5c00;border:none;border-radius:25px;color:white;cursor:pointer;">Prenota</button>
 </div>
 </nav>
 
@@ -116,7 +118,7 @@ footer{text-align:center;padding:20px;background:#000;color:#fff;margin-top:40px
 </select>
 <input type="date" name="date" required style="padding:10px;border-radius:8px;border:none;">
 <input type="time" name="time" required style="padding:10px;border-radius:8px;border:none;">
-<button type="submit" style="padding:12px;background:#000;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
+<button type="submit" style="padding:12px;background:#ff5c00;color:white;border:none;border-radius:25px;cursor:pointer;">Prenota</button>
 </form>
 </section>
 
@@ -144,15 +146,12 @@ const pizze=[
 {name:"Diavola",tags:["speciale","piccante"],preparazione:["Pomodoro","Mozzarella","Salamino","Olive","Peperoni"],allergeni:["Lattosio","Glutine"]}];
 
 const container=document.getElementById("pizza-container");
-
 function createCard(pizza){
-  let tagsHTML = pizza.tags.map(tag=>`<div class="tag ${tag}">${tag}</div>`).join("");
   const prepHTML = pizza.preparazione.map(i=>`<li>${i}</li>`).join("");
   const allHTML = pizza.allergeni.map(i=>`<li>${i}</li>`).join("");
   const card=document.createElement("div");
   card.className="card";
   card.innerHTML=`
-    ${tagsHTML}
     <img src="https://source.unsplash.com/400x300/?${pizza.name.replace(" ","")}">
     <h3>${pizza.name}</h3>
     <div class="card-buttons">
@@ -162,7 +161,6 @@ function createCard(pizza){
     <div class="card-content ingredienti"><ul>${prepHTML}</ul></div>
     <div class="card-content allergeni"><ul>${allHTML}</ul></div>
   `;
-  // Gestione click su pulsanti
   const ingBtn = card.querySelector(".ingredienti-btn");
   const allBtn = card.querySelector(".allergeni-btn");
   const ingContent = card.querySelector(".ingredienti");
@@ -183,7 +181,6 @@ function createCard(pizza){
 
   container.appendChild(card);
 }
-
 pizze.forEach(createCard);
 </script>
 
@@ -191,11 +188,16 @@ pizze.forEach(createCard);
 <script>
 const canvas=document.createElement('canvas');
 canvas.id='bg';
+canvas.style.position='fixed';
+canvas.style.top='0';
+canvas.style.left='0';
+canvas.style.zIndex='-1';
+canvas.style.pointerEvents='none';
 document.body.appendChild(canvas);
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;canvas.height=window.innerHeight;
 let particles=[];
-for(let i=0;i<120;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
+for(let i=0;i<80;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,speed:Math.random()*0.3,dx:(Math.random()-0.5)*0.2});}
 function draw(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 particles.forEach(p=>{

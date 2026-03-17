@@ -271,21 +271,10 @@
   </section>
 
   <!-- About -->
-  <section class="about" id="about">
-    <h2>Il Nostro Team</h2>
-    <div class="team">
-      <div class="member">
-        <img src="chef1.jpg" alt="Chef">
-        <h4>Mario Rossi</h4>
-        <p>Chef Capo</p>
-      </div>
-      <div class="member">
-        <img src="chef2.jpg" alt="Chef">
-        <h4>Luca Bianchi</h4>
-        <p>Chef Pizzaiolo</p>
-      </div>
-    </div>
-  </section>
+<section class="about" id="about">
+  <h2>Chi Siamo</h2>
+  <p>La nostra pizzeria offre pizze artigianali preparate con ingredienti freschi e di qualità, in un ambiente accogliente e familiare.</p>
+</section>
 
   <!-- Prenotazione -->
   <section class="reservation" id="reservation">
@@ -294,10 +283,13 @@
       <input type="text" placeholder="Nome" required>
       <input type="email" placeholder="Email" required>
       <input type="tel" placeholder="Telefono" required>
-      <input type="date" required>
-      <input type="time" required>
+      <input type="number" placeholder="Numero di persone" min="1" required>
+      <input type="date" id="date" required>
+      <input type="time" id="time" required>
       <button type="submit">Prenota Ora</button>
+      
     </form>
+    <div id="error" style="display:none; color:#ff4d4d; margin-top:1rem;"></div>
     <div id="confirmation" style="display:none; margin-top:1rem;">Prenotazione Confermata!</div>
   </section>
 
@@ -388,5 +380,48 @@
     });
   </script>
 
+
+<script>
+  const form = document.getElementById('reservation-form');
+  const confirmation = document.getElementById('confirmation');
+  const errorDiv = document.getElementById('error');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const dateInput = document.getElementById('date').value;
+    const timeInput = document.getElementById('time').value;
+    
+    const selectedDate = new Date(dateInput + 'T' + timeInput);
+    const day = selectedDate.getDay(); // 0=domenica, 1=lunedì, 2=martedì...
+    const hours = selectedDate.getHours();
+    const minutes = selectedDate.getMinutes();
+    const timeNumber = hours + minutes/60;
+
+    // Controllo martedì chiuso
+    if(day === 2) {
+      errorDiv.style.display = 'block';
+      errorDiv.textContent = "La pizzeria è chiusa il martedì.";
+      confirmation.style.display = 'none';
+      return;
+    }
+
+    // Controllo orario
+    const morningOpen = 11, morningClose = 14.5; // 14:30
+    const eveningOpen = 18.5, eveningClose = 23; // 23:00
+    if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || (timeNumber >= eveningOpen && timeNumber <= eveningClose))) {
+      errorDiv.style.display = 'block';
+      errorDiv.textContent = "Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
+      confirmation.style.display = 'none';
+      return;
+    }
+
+    // Se tutto ok
+    errorDiv.style.display = 'none';
+    confirmation.style.display = 'block';
+    form.reset();
+    setTimeout(() => confirmation.style.display = 'none', 3000);
+  });
+</script>
+  
 </body>
 </html>

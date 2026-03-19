@@ -267,20 +267,14 @@
   flex-wrap: wrap; /* evita problemi su mobile */
 }
 
-    .menu-header {
-  padding: 3rem 2rem 1rem 2rem;
-  text-align: center;
-  background: #111;
-}
-
 .menu-header h2 {
-  font-size: 2.5rem;
+  font-size: 2.5rem; /* grande su desktop */
   margin-bottom: 1rem;
 }
 
 .menu-filters {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* per andare a capo su mobile */
   justify-content: center;
   gap: 0.8rem;
   margin-bottom: 2rem;
@@ -302,7 +296,18 @@
   background: #ff4d4d;
   transform: translateY(-2px);
 }
-    
+
+/* Adattamento su mobile */
+@media(max-width: 768px){
+  .menu-header h2 {
+    font-size: 2rem; /* più piccolo su mobile */
+  }
+
+  .menu-filters button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
   </style>
 </head>
 <body>
@@ -334,7 +339,6 @@
     </div>
   </section>
 
-  <!-- MENU -->
   <!-- filtri -->
   <section class="menu" id="menu">
     <section class="menu-header">
@@ -346,7 +350,8 @@
     <button class="filter" data-type="piccante">Piccanti</button>
   </div>
 </section>
-
+    
+  <!-- MENU -->
     <!-- margherita -->
     <div class="card">
       <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg" alt="Pizza Prova">

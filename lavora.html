@@ -13,7 +13,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     .container {
@@ -21,8 +21,7 @@
       padding: 2rem;
       border-radius: 10px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      max-width: 450px;
     }
 
     h1 {
@@ -42,6 +41,10 @@
       border: 1px solid #333;
       background: #111;
       color: #fff;
+    }
+
+    input[type="file"] {
+      background: #111;
     }
 
     button {
@@ -67,13 +70,6 @@
       color: #ff4d4d;
       text-decoration: none;
     }
-
-    #success {
-      display: none;
-      text-align: center;
-      margin-top: 1rem;
-      color: #28a745;
-    }
   </style>
 </head>
 
@@ -82,55 +78,48 @@
   <div class="container">
     <h1>Lavora con noi 🍕</h1>
 
-    <form id="job-form">
-      <input type="text" placeholder="Nome e Cognome" required>
+    <form action="https://formsubmit.co/davideiacuzio005@gmail.com" method="POST" enctype="multipart/form-data">
 
-      <input type="number" placeholder="Anno di nascita" min="1950" max="2010" required>
+      <!-- disabilita captcha -->
+      <input type="hidden" name="_captcha" value="false">
 
-      <select required>
+      <!-- oggetto email -->
+      <input type="hidden" name="_subject" value="Nuova candidatura dal sito!">
+
+      <input type="text" name="Nome" placeholder="Nome e Cognome" required>
+
+      <input type="number" name="Anno di nascita" placeholder="Anno di nascita" min="1950" max="2010" required>
+
+      <select name="Lavoro" required>
         <option value="">Tipo di lavoro</option>
         <option>Cameriere</option>
         <option>Cuoco</option>
         <option>Pizzaiolo</option>
       </select>
 
-      <select required>
+      <select name="Orari" required>
         <option value="">Orari preferiti</option>
         <option>Mattina</option>
         <option>Sera</option>
         <option>Mattina e Sera</option>
       </select>
 
-      <select required>
+      <select name="Giorni" required>
         <option value="">Giorni di lavoro</option>
         <option>Tutti i giorni di apertura</option>
         <option>Weekend (Venerdì + Sabato + Domenica)</option>
       </select>
 
+      <!-- Upload CV -->
+      <input type="file" name="CV" accept=".pdf,.doc,.docx" required>
+
       <button type="submit">Invia candidatura</button>
     </form>
-
-    <div id="success">✅ Candidatura inviata!</div>
 
     <div class="back">
       <a href="index.html">← Torna alla home</a>
     </div>
   </div>
-
-  <script>
-    const form = document.getElementById('job-form');
-    const success = document.getElementById('success');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      success.style.display = 'block';
-      form.reset();
-
-      setTimeout(() => {
-        success.style.display = 'none';
-      }, 3000);
-    });
-  </script>
 
 </body>
 </html>

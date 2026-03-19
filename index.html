@@ -357,6 +357,7 @@
   <h2>Il nostro menu</h2>
   <div class="menu-filters">
     <button class="filter active" data-type="all">Tutte le nostre pizze</button>
+    <button class="filter" data-type="normale">Normali</button>
     <button class="filter" data-type="speciale">Speciali</button>
     <button class="filter" data-type="vegetariana">Vegetariane</button>
     <button class="filter" data-type="piccante">Piccanti</button>
@@ -652,27 +653,30 @@
 </script>
 
 <script>
-  const filterButtons = document.querySelectorAll('.menu-filters button');
-  const cards = document.querySelectorAll('.menu .card');
+const filterButtons = document.querySelectorAll('.menu-filters button');
+const cards = document.querySelectorAll('.menu .card');
 
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Rimuovi active da tutti i bottoni
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+filterButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
 
-      const type = btn.getAttribute('data-type');
+    const type = btn.getAttribute('data-type');
 
-      cards.forEach(card => {
-        if(type === 'all') {
-          card.style.display = 'block';
-        } else {
-          const badge = card.querySelector(`.badge.${type}`);
-          card.style.display = badge ? 'block' : 'none';
-        }
-      });
+    cards.forEach(card => {
+      if(type === 'all') {
+        card.style.display = 'block';
+      } else if(type === 'normale') {
+        // Mostra solo pizze senza badge speciali
+        const hasSpecialBadge = card.querySelector('.badge:not(.normale)');
+        card.style.display = hasSpecialBadge ? 'none' : 'block';
+      } else {
+        const badge = card.querySelector(`.badge.${type}`);
+        card.style.display = badge ? 'block' : 'none';
+      }
     });
   });
+});
 </script>
 
   <script>

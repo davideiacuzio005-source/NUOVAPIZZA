@@ -668,37 +668,15 @@ filterButtons.forEach(btn => {
     const type = btn.getAttribute('data-type');
 
     cards.forEach(card => {
-      if(type === 'all') {
-        card.style.display = 'block';
-      } else if(type === 'normale') {
-        // Mostra solo pizze senza badge speciali
-        const hasSpecialBadge = card.querySelector('.badge:not(.normale)');
-        card.style.display = hasSpecialBadge ? 'none' : 'block';
-      } else {
-        const badge = card.querySelector(`.badge.${type}`);
-        card.style.display = badge ? 'block' : 'none';
-      }
+  const badge = card.querySelector(`.badge.${type}`);
+  card.style.display = (type === 'all' || badge) ? 'block' : 'none';
+});
     });
   });
 });
 </script>
 
-  <script>
-const cards = document.querySelectorAll('.menu .card');
-
-cards.forEach(card => {
-  // Controlla se c'è già un badge
-  const hasBadge = card.querySelector('.badge');
-  if (!hasBadge) {
-    // Se non c'è badge, crea uno nuovo
-    const overlay = card.querySelector('.overlay-info');
-    const span = document.createElement('span');
-    span.classList.add('badge', 'normale');
-    span.textContent = 'Normale';
-    overlay.appendChild(span);
-  }
-});
-</script>
+  
   
 </body>
 </html>

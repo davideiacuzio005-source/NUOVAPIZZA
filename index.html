@@ -662,15 +662,23 @@ const cards = document.querySelectorAll('.menu .card');
 
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
+    // rimuove la classe active da tutti i bottoni
     filterButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
     const type = btn.getAttribute('data-type');
 
     cards.forEach(card => {
-  const badge = card.querySelector(`.badge.${type}`);
-  card.style.display = (type === 'all' || badge) ? 'block' : 'none';
-});
+      if(type === 'all') {
+        // mostra tutte le carte
+        card.style.display = 'block';
+      } else {
+        // prendi tutti i badge nella card
+        const badges = card.querySelectorAll('.badge');
+        // controlla se almeno uno ha la classe del tipo selezionato
+        const hasType = Array.from(badges).some(b => b.classList.contains(type));
+        card.style.display = hasType ? 'block' : 'none';
+      }
     });
   });
 });

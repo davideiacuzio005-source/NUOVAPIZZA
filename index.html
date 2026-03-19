@@ -130,6 +130,7 @@
     .menu .info h3 { margin-bottom: 0.5rem; }
     
     .menu .overlay-info {
+  align-items: flex-start;
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
@@ -258,6 +259,14 @@
   background: gold;
   color: black;
 }
+
+.badge-container {
+  display: flex;
+  gap: 0.5rem; /* spazio tra badge */
+  margin-top: 0.5rem;
+  flex-wrap: wrap; /* evita problemi su mobile */
+}
+    
   </style>
 </head>
 <body>
@@ -313,8 +322,10 @@
        <div class="overlay-info">
   <p class="ingredienti">Pomodoro, Mozzarella, Peperoni, Salame piccante e Olive</p>
   <p class="allergeni">Allergeni: Latte, Glutine</p>
+  <div class="badge-container">
   <span class="badge piccante">Piccante</span>
-<span class="badge speciale">Speciale</span>
+  <span class="badge speciale">Speciale</span>
+</div>
 </div>
     </div>
 

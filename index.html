@@ -78,12 +78,14 @@
       padding: 0 1rem;
     }
     .hero h1 {
-      font-size: 4rem;
-      margin-bottom: 1rem;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeMove 1.5s forwards;
-    }
+  font-size: 3rem; /* grande su desktop */
+}
+
+@media(max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem; /* più piccolo su mobile */
+  }
+}
     .hero .cta {
       display: flex;
       gap: 1rem;
@@ -106,13 +108,11 @@
     }
 
     /* Menu */
-    .menu {
-      padding: 5rem 2rem;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-      background: #111;
-    }
+   .menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
     .menu .card {
       position: relative;
       background: #1a1a1a;

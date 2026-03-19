@@ -108,16 +108,6 @@
     }
 
     /* Menu */
-    <section class="menu-header">
-  <h2>Il nostro menu</h2>
-  <div class="menu-filters">
-    <button class="filter active" data-type="all">Tutte le nostre pizze</button>
-    <button class="filter" data-type="speciale">Speciali</button>
-    <button class="filter" data-type="vegetariana">Vegetariane</button>
-    <button class="filter" data-type="piccante">Piccanti</button>
-  </div>
-</section>
-    
    .menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -345,8 +335,19 @@
   </section>
 
   <!-- MENU -->
-  <!-- margherita -->
+  <!-- filtri -->
   <section class="menu" id="menu">
+    <section class="menu-header">
+  <h2>Il nostro menu</h2>
+  <div class="menu-filters">
+    <button class="filter active" data-type="all">Tutte le nostre pizze</button>
+    <button class="filter" data-type="speciale">Speciali</button>
+    <button class="filter" data-type="vegetariana">Vegetariane</button>
+    <button class="filter" data-type="piccante">Piccanti</button>
+  </div>
+</section>
+
+    <!-- margherita -->
     <div class="card">
       <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg" alt="Pizza Prova">
       <div class="info">

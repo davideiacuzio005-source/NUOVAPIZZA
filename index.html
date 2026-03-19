@@ -108,6 +108,16 @@
     }
 
     /* Menu */
+    <section class="menu-header">
+  <h2>Il nostro menu</h2>
+  <div class="menu-filters">
+    <button class="filter active" data-type="all">Tutte le nostre pizze</button>
+    <button class="filter" data-type="speciale">Speciali</button>
+    <button class="filter" data-type="vegetariana">Vegetariane</button>
+    <button class="filter" data-type="piccante">Piccanti</button>
+  </div>
+</section>
+    
    .menu {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -266,6 +276,42 @@
   margin-top: 0.5rem;
   flex-wrap: wrap; /* evita problemi su mobile */
 }
+
+    .menu-header {
+  padding: 3rem 2rem 1rem 2rem;
+  text-align: center;
+  background: #111;
+}
+
+.menu-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.menu-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.menu-filters button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 20px;
+  background: #333;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.menu-filters button:hover,
+.menu-filters button.active {
+  background: #ff4d4d;
+  transform: translateY(-2px);
+}
     
   </style>
 </head>
@@ -385,6 +431,19 @@
 </div>
     </div>
 
+    <!-- Würstel -->
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg" alt="Pizza Prova">
+      <div class="info">
+        <h3>Würstel</h3>
+        <p>€7</p>
+      </div>
+      <div class="overlay-info">
+  <p class="ingredienti">Pomodoro, Mozzarella e Würstel</p>
+  <p class="allergeni">Allergeni: Latte, Glutine</p>
+</div>
+    </div>
+
      <!-- Funghi -->
     <div class="card">
       <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg" alt="Pizza Prova">
@@ -395,6 +454,34 @@
       <div class="overlay-info">
   <p class="ingredienti">Pomodoro, Mozzarella e Funghi champignon</p>
   <p class="allergeni">Allergeni: Latte, Glutine</p>
+</div>
+    </div>
+
+     <!-- margherita rivista -->
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg" alt="Pizza Prova">
+      <div class="info">
+        <h3>Margherita rivista</h3>
+        <p>€6</p>
+      </div>
+      <div class="overlay-info">
+  <p class="ingredienti">Mozzarella e Pomodoro</p>
+  <p class="allergeni">Allergeni: Latte, Glutine</p>
+  <span class="badge speciale">Speciale</span>
+</div>
+    </div>
+
+     <!-- Speciale -->
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg" alt="Pizza Prova">
+      <div class="info">
+        <h3>Speciale</h3>
+        <p>€6</p>
+      </div>
+      <div class="overlay-info">
+  <p class="ingredienti">Pomodoro, Mozzarella, Bufala, Pomodorini e Basilico</p>
+  <p class="allergeni">Allergeni: Latte, Glutine</p>
+  <span class="badge speciale">Speciale</span>
 </div>
     </div>
     
@@ -542,6 +629,30 @@
     confirmation.style.display = 'block';
     form.reset();
     setTimeout(() => confirmation.style.display = 'none', 3000);
+  });
+</script>
+
+<script>
+  const filterButtons = document.querySelectorAll('.menu-filters button');
+  const cards = document.querySelectorAll('.menu .card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Rimuovi active da tutti i bottoni
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const type = btn.getAttribute('data-type');
+
+      cards.forEach(card => {
+        if(type === 'all') {
+          card.style.display = 'block';
+        } else {
+          const badge = card.querySelector(`.badge.${type}`);
+          card.style.display = badge ? 'block' : 'none';
+        }
+      });
+    });
   });
 </script>
   

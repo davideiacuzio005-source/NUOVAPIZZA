@@ -365,6 +365,25 @@ nav ul li a.active {
 .menu .card:hover {
   transform: translateY(-10px) scale(1.02);
 }
+    .hero .cta button,
+.hero .cta a {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  background: #ff4d4d;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.hero .cta button:hover,
+.hero .cta a:hover {
+  transform: translateY(-3px);
+  background: #e60000;
+}
     
   </style>                     <! -- FINE DELLO STYLE -->
 </head>
@@ -820,7 +839,6 @@ filterButtons.forEach(btn => {
   });
 });
 </script>
-
   
   
 </body>

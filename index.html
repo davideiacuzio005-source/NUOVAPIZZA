@@ -11,26 +11,56 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
 body{background:#111;color:#fff;}
 
-nav{position:sticky;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:999;}
+/* NAVBAR */
+nav{
+position:sticky;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:1rem 2rem;
+z-index:999;
+}
 nav ul{display:flex;gap:2rem;list-style:none;}
 nav a{color:#fff;text-decoration:none;}
+nav a:hover{color:#ff4d4d;}
 .logo img{height:50px;}
 
+/* HERO */
 .hero{height:100vh;position:relative;}
 .hero video{position:absolute;width:100%;height:100%;object-fit:cover;}
-.hero .overlay{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background:rgba(0,0,0,0.4);}
+.overlay{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,0.5);
+text-align:center;
+}
 .hero h1{font-size:3rem;}
+.cta a{
+background:#ff4d4d;
+padding:1rem 2rem;
+margin:5px;
+border-radius:5px;
+text-decoration:none;
+color:#fff;
+}
 
-.cta a{background:#ff4d4d;padding:1rem 2rem;margin:5px;border-radius:5px;text-decoration:none;color:#fff;}
+/* MENU */
+.menu-header{text-align:center;padding:2rem;}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;padding:2rem;}
+.card{background:#1a1a1a;padding:1rem;border-radius:10px;text-align:center;}
 
-.menu{padding:3rem;text-align:center;}
-.menu .card{background:#1a1a1a;margin:1rem auto;padding:1rem;border-radius:10px;max-width:300px;}
+/* ABOUT */
+.about{text-align:center;padding:3rem;background:#222;}
 
-.about{padding:3rem;text-align:center;background:#222;}
-
-.reservation{padding:3rem;text-align:center;}
+/* PRENOTAZIONE */
+.reservation{text-align:center;padding:3rem;}
 .reservation form{display:flex;flex-direction:column;gap:1rem;max-width:400px;margin:auto;}
-
 input{
 padding:10px;
 background:#1a1a1a;
@@ -38,7 +68,6 @@ border:1px solid #333;
 color:white;
 border-radius:5px;
 }
-
 button{
 padding:10px;
 background:#ff4d4d;
@@ -48,7 +77,17 @@ cursor:pointer;
 border-radius:5px;
 }
 
-#error{display:none;color:red;margin-top:1rem;}
+/* CONTATTI */
+.contact{text-align:center;padding:3rem;background:#222;}
+.contact iframe{width:100%;max-width:600px;height:300px;border:none;margin-top:1rem;}
+.social button{
+margin:5px;
+padding:10px;
+background:#ff4d4d;
+color:white;
+border:none;
+cursor:pointer;
+}
 </style>
 </head>
 
@@ -59,10 +98,13 @@ border-radius:5px;
 <div class="logo">
 <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg">
 </div>
+
 <ul>
 <li><a href="#hero">Home</a></li>
 <li><a href="#menu">Menu</a></li>
-<li><a href="#reservation">Prenota</a></li>
+<li><a href="#reservation">Prenotazione</a></li>
+<li><a href="lavora.html" target="_blank">Lavora con noi</a></li>
+<li><a href="#contact">Contatti</a></li>
 </ul>
 </nav>
 
@@ -71,16 +113,21 @@ border-radius:5px;
 <video src="pizza-video.mp4" autoplay muted loop></video>
 <div class="overlay">
 <h1>La Migliore Pizza in Città</h1>
+
 <div class="cta">
 <a href="#reservation">Prenota Ora</a>
 <a href="#menu">Scopri il Menu</a>
 </div>
+
 </div>
 </section>
 
 <!-- MENU -->
-<section class="menu" id="menu">
+<section class="menu-header">
 <h2>Il nostro menu</h2>
+</section>
+
+<section class="menu" id="menu">
 
 <div class="card">
 <h3>Margherita</h3>
@@ -104,7 +151,7 @@ border-radius:5px;
 
 <!-- ABOUT -->
 <section class="about">
-<h2>Chi siamo</h2>
+<h2>Chi Siamo</h2>
 <p>Pizzeria artigianale con ingredienti freschi e di qualità.</p>
 </section>
 
@@ -121,7 +168,6 @@ border-radius:5px;
 <input type="date" name="Data" required>
 <input type="time" name="Ora" required>
 
-<!-- CONFIG FORMSUBMIT -->
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_subject" value="Nuova Prenotazione Pizzeria">
 <input type="hidden" name="_template" value="table">
@@ -129,6 +175,20 @@ border-radius:5px;
 <button type="submit">Prenota Ora</button>
 </form>
 
+</section>
+
+<!-- CONTATTI -->
+<section class="contact" id="contact">
+<h2>CONTATTACI</h2>
+<p>ORARIO: 11:00–14:30 / 18:30–23:00</p>
+<p>CHIUSO MARTEDÌ</p>
+
+<iframe src="https://www.google.com/maps?q=Italia&output=embed"></iframe>
+
+<div class="social">
+<button onclick="window.open('https://wa.me/123456789')">WhatsApp</button>
+<button onclick="window.location='tel:+39123456789'">Chiama</button>
+</div>
 </section>
 
 </body>

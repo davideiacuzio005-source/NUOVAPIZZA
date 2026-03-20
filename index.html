@@ -20,19 +20,35 @@ nav a{color:#fff;text-decoration:none;}
 .hero video{position:absolute;width:100%;height:100%;object-fit:cover;}
 .hero .overlay{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background:rgba(0,0,0,0.4);}
 .hero h1{font-size:3rem;}
+
 .cta a{background:#ff4d4d;padding:1rem 2rem;margin:5px;border-radius:5px;text-decoration:none;color:#fff;}
 
-.menu{padding:2rem;text-align:center;}
+.menu{padding:3rem;text-align:center;}
+.menu .card{background:#1a1a1a;margin:1rem auto;padding:1rem;border-radius:10px;max-width:300px;}
 
 .about{padding:3rem;text-align:center;background:#222;}
 
 .reservation{padding:3rem;text-align:center;}
 .reservation form{display:flex;flex-direction:column;gap:1rem;max-width:400px;margin:auto;}
-input{padding:10px;background:#1a1a1a;border:none;color:white;}
-button{padding:10px;background:#ff4d4d;color:white;border:none;cursor:pointer;}
+
+input{
+padding:10px;
+background:#1a1a1a;
+border:1px solid #333;
+color:white;
+border-radius:5px;
+}
+
+button{
+padding:10px;
+background:#ff4d4d;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
 
 #error{display:none;color:red;margin-top:1rem;}
-#success-message{display:none;color:lightgreen;margin-top:1rem;}
 </style>
 </head>
 
@@ -57,7 +73,7 @@ button{padding:10px;background:#ff4d4d;color:white;border:none;cursor:pointer;}
 <h1>La Migliore Pizza in Città</h1>
 <div class="cta">
 <a href="#reservation">Prenota Ora</a>
-<a href="#menu">Menu</a>
+<a href="#menu">Scopri il Menu</a>
 </div>
 </div>
 </section>
@@ -65,7 +81,25 @@ button{padding:10px;background:#ff4d4d;color:white;border:none;cursor:pointer;}
 <!-- MENU -->
 <section class="menu" id="menu">
 <h2>Il nostro menu</h2>
-<p>(qui rimane il tuo menu come prima)</p>
+
+<div class="card">
+<h3>Margherita</h3>
+<p>Pomodoro, Mozzarella</p>
+<p>€8.50</p>
+</div>
+
+<div class="card">
+<h3>Diavola</h3>
+<p>Salame piccante</p>
+<p>€9.50</p>
+</div>
+
+<div class="card">
+<h3>Vegetariana</h3>
+<p>Verdure miste</p>
+<p>€9.00</p>
+</div>
+
 </section>
 
 <!-- ABOUT -->
@@ -78,77 +112,24 @@ button{padding:10px;background:#ff4d4d;color:white;border:none;cursor:pointer;}
 <section class="reservation" id="reservation">
 <h2>Prenota il tuo tavolo</h2>
 
-<form id="reservation-form">
-<input type="text" id="nome" placeholder="Nome" required>
-<input type="email" id="email" placeholder="Email" required>
-<input type="tel" id="telefono" placeholder="Telefono" required>
-<input type="number" id="persone" placeholder="Numero persone" required>
-<input type="date" id="data" required>
-<input type="time" id="ora" required>
+<form action="https://formsubmit.co/davideiacuzio005@gmail.com" method="POST">
+
+<input type="text" name="Nome" placeholder="Nome" required>
+<input type="email" name="Email" placeholder="Email" required>
+<input type="tel" name="Telefono" placeholder="Telefono" required>
+<input type="number" name="Persone" placeholder="Numero persone" required>
+<input type="date" name="Data" required>
+<input type="time" name="Ora" required>
+
+<!-- CONFIG FORMSUBMIT -->
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_subject" value="Nuova Prenotazione Pizzeria">
+<input type="hidden" name="_template" value="table">
+
 <button type="submit">Prenota Ora</button>
 </form>
 
-<div id="error"></div>
-<div id="success-message">Prenotazione pronta! ✅</div>
 </section>
-
-<!-- SCRIPT -->
-<script>
-const form = document.getElementById("reservation-form");
-const errorDiv = document.getElementById("error");
-const successMessage = document.getElementById("success-message");
-
-form.addEventListener("submit", function(e){
-e.preventDefault();
-
-const nome = document.getElementById("nome").value;
-const email = document.getElementById("email").value;
-const telefono = document.getElementById("telefono").value;
-const persone = document.getElementById("persone").value;
-const data = document.getElementById("data").value;
-const ora = document.getElementById("ora").value;
-
-// controlli
-if(!nome || !email || !telefono || !persone || !data || !ora){
-errorDiv.style.display="block";
-errorDiv.innerText="Compila tutti i campi!";
-return;
-}
-
-const d = new Date(data+"T"+ora);
-const day = d.getDay();
-const time = d.getHours() + d.getMinutes()/60;
-
-if(day===2){
-errorDiv.style.display="block";
-errorDiv.innerText="Chiuso il martedì";
-return;
-}
-
-if(!((time>=11 && time<=14.5)||(time>=18.5 && time<=23))){
-errorDiv.style.display="block";
-errorDiv.innerText="Orario non valido";
-return;
-}
-
-// CREA EMAIL
-const subject = "Nuova Prenotazione";
-const body =
-`Nome: ${nome}
-Email: ${email}
-Telefono: ${telefono}
-Persone: ${persone}
-Data: ${data}
-Ora: ${ora}`;
-
-const mailto = `mailto:davideiacuzio005@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-window.location.href = mailto;
-
-successMessage.style.display="block";
-errorDiv.style.display="none";
-});
-</script>
 
 </body>
 </html>

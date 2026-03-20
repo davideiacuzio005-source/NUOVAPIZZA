@@ -673,18 +673,18 @@ nav ul li a.active {
 </section>
 
   <!-- Prenotazione -->
-  <section class="reservation" id="reservation">
-    <h2>Prenota il Tuo Tavolo</h2>
-    <form id="reservation-form">
-      <input type="text" placeholder="Nome" required>
-      <input type="email" placeholder="Email" required>
-      <input type="tel" placeholder="Telefono" required>
-      <input type="number" placeholder="Numero di persone" min="1" required>
-      <input type="date" id="date" required>
-      <input type="time" id="time" required>
-      <button type="submit">Prenota Ora</button>
-      
-    </form>
+ <section class="reservation" id="reservation">
+  <h2>Prenota il Tuo Tavolo</h2>
+
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLSccyMIf2ZO6GpBXWg2NVw4XG_B_HGB7YiTemt3liUh6z-1AWA/viewform?embedded=true" 
+    width="100%" 
+    height="800" 
+    style="border:none; border-radius:10px;">
+  </iframe>
+
+</section>
+     
     <div id="error" style="display:none; color:#ff4d4d; margin-top:1rem;"></div>
     <div id="confirmation" style="display:none; margin-top:1rem;">Prenotazione Confermata!</div>
   </section>
@@ -771,7 +771,6 @@ nav ul li a.active {
 
 
 <script>
-  const form = document.getElementById('reservation-form');
   const confirmation = document.getElementById('confirmation');
   const errorDiv = document.getElementById('error');
 

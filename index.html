@@ -715,16 +715,53 @@ nav ul li a.active {
 </section>
 
   <!-- Prenotazione -->
- <section class="reservation" id="reservation">
+ <!-- Prenotazione -->
+<section class="reservation" id="reservation">
   <h2>Prenota il Tuo Tavolo</h2>
 
-  <div class="reservation-box">
-    <iframe 
-      src="https://docs.google.com/forms/d/e/1FAIpQLSccyMIf2ZO6GpBXWg2NVw4XG_B_HGB7YiTemt3liUh6z-1AWA/viewform?embedded=true">
-    </iframe>
-  </div>
+  <form id="reservation-form">
+    <input type="text" id="nome" placeholder="Nome" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="tel" id="telefono" placeholder="Telefono" required>
+    <input type="number" id="persone" placeholder="Numero persone" required>
+    <input type="date" id="data" required>
+    <input type="time" id="ora" required>
+    <button type="submit">Prenota Ora</button>
+  </form>
 
+  <p id="success-message" style="display:none; color:lightgreen; margin-top:1rem;">
+    Prenotazione inviata! ✅
+  </p>
 </section>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
+const form = document.getElementById("reservation-form");
+const successMessage = document.getElementById("success-message");
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+
+  const data = {
+    nome: document.getElementById("nome").value,
+    email: document.getElementById("email").value,
+    telefono: document.getElementById("telefono").value,
+    persone: document.getElementById("persone").value,
+    data: document.getElementById("data").value,
+    ora: document.getElementById("ora").value
+  };
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    successMessage.style.display = "block";
+    form.reset();
+  })
+  .catch(error => console.error(error));
+});
+</script>
      
     <div id="error" style="display:none; color:#ff4d4d; margin-top:1rem;"></div>
     <div id="confirmation" style="display:none; margin-top:1rem;">Prenotazione Confermata!</div>

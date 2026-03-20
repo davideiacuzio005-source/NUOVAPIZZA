@@ -4,281 +4,203 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pizzeria Renato</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
-body{background:#111;color:#fff;overflow-x:hidden;}
+body{background:#111;color:#fff;}
 
 /* NAVBAR */
 nav{
-position:sticky;
+position:fixed;
 top:0;
 width:100%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:1rem 2rem;
-z-index:999;
+padding:15px 20px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+z-index:1000;
 }
-.logo img{height:50px;}
-nav ul{display:flex;gap:2rem;list-style:none;}
-nav a{color:#fff;text-decoration:none;}
-nav a:hover{color:#ff4d4d;}
-
-/* HERO */
-.hero{position:relative;height:100vh;}
-.hero video{position:absolute;width:100%;height:100%;object-fit:cover;}
-.overlay{
-position:absolute;
-width:100%;
-height:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,0.4);
-text-align:center;
-}
-.hero h1{font-size:3rem;}
-.cta a{
-background:#ff4d4d;
-padding:1rem 2rem;
-margin:5px;
-border-radius:5px;
-text-decoration:none;
-color:#fff;
-}
-
-/* MENU HEADER */
-.menu-header{text-align:center;padding:3rem;}
-.menu-filters{
-display:flex;
-justify-content:center;
-gap:1rem;
-flex-wrap:wrap;
-}
-.menu-filters button{
-background:#333;
-border:none;
-padding:0.5rem 1rem;
-color:#fff;
-border-radius:20px;
-cursor:pointer;
-}
-.menu-filters button.active,
-.menu-filters button:hover{
-background:#ff4d4d;
-}
-
-/* MENU */
-.menu{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:2rem;
-padding:2rem;
-}
-.card{
-position:relative;
-background:#1a1a1a;
-border-radius:10px;
-overflow:hidden;
-}
-.card img{width:100%;}
-.info{text-align:center;padding:1rem;}
-
-.overlay-info{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-display:flex;
-flex-direction:column;
-justify-content:center;
-padding:1rem;
-opacity:0;
-transition:0.3s;
-}
-.card:hover .overlay-info{opacity:1;}
-
-.badge{
-display:inline-block;
-padding:3px 8px;
-border-radius:20px;
-font-size:0.7rem;
-margin-top:5px;
-}
-.normale{background:#6c757d;}
-.vegetariana{background:#28a745;}
-.piccante{background:#e60000;}
-.speciale{background:gold;color:black;}
-
-/* ABOUT */
-.about{text-align:center;padding:3rem;background:#222;}
-
-/* PRENOTAZIONE */
-.reservation{text-align:center;padding:3rem;}
-.reservation form{
-display:flex;
-flex-direction:column;
-gap:1rem;
-max-width:400px;
-margin:auto;
-}
-input{
-padding:10px;
-background:#1a1a1a;
-border:1px solid #333;
-color:#fff;
-border-radius:5px;
-}
-button{
-padding:10px;
-background:#ff4d4d;
-color:#fff;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-/* CONTATTI */
-.contact{text-align:center;padding:3rem;background:#222;}
-.contact iframe{
-width:100%;
-max-width:600px;
-height:300px;
-border:none;
-margin-top:1rem;
-}
+nav .logo img{height:45px;}
+nav ul{display:flex;gap:20px;list-style:none;}
+nav a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;}
+nav a:hover, nav a.active{background:#ff4d4d;}
 
 /* MOBILE */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.hamburger div{width:25px;height:3px;background:white}
 @media(max-width:768px){
-.hero h1{font-size:2rem;}
+  nav ul{
+    position:fixed;top:0;right:-100%;height:100vh;width:70%;
+    background:#111;flex-direction:column;padding:80px 20px;transition:0.3s;
+  }
+  nav ul.show{right:0;}
+  .hamburger{display:flex;}
 }
+
+/* HERO */
+.hero{
+height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+background:url('https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b') center/cover;
+position:relative;
+}
+.hero .overlay{
+position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);
+display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 20px;
+}
+.hero h1{font-size:3rem;}
+@media(max-width:768px){.hero h1{font-size:2rem;}}
+.cta{margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.cta a{background:#ff4d4d;padding:12px 20px;border-radius:6px;color:white;text-decoration:none;}
+
+/* MENU */
+.menu-header{text-align:center;padding:40px 20px;}
+.menu-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:30px;}
+.menu-filters button{background:#333;color:white;border:none;padding:8px 15px;border-radius:20px;cursor:pointer;}
+.menu-filters button.active, .menu-filters button:hover{background:#ff4d4d;}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:0 20px 50px;}
+.card{position:relative;background:#1a1a1a;border-radius:10px;overflow:hidden;transition:transform 0.3s;border:2px solid #333;}
+.card:hover{transform:translateY(-10px) rotateX(2deg);border-color:#ff4d4d;}
+.card img{width:100%;display:block;}
+.overlay-info{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);
+color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+gap:0.5rem;padding:15px;opacity:0;transition:opacity 0.3s;}
+.card:hover .overlay-info{opacity:1;}
+.badge{padding:3px 7px;border-radius:20px;font-size:0.75rem;font-weight:bold;display:inline-block;margin-top:5px;}
+.badge.normale{background:#6c757d;color:white;}
+.badge.vegetariana{background:#28a745;color:white;}
+.badge.piccante{background:#e60000;color:white;}
+.badge.speciale{background:gold;color:black;}
+
+/* ABOUT */
+.about{padding:5rem 20px;text-align:center;background:#222;}
+
+/* LAVORA CON NOI */
+.work{padding:5rem 20px;text-align:center;background:#111;}
+.work a{display:inline-block;margin-top:20px;padding:12px 25px;background:#ff4d4d;color:white;border-radius:6px;text-decoration:none;}
+
+/* PRENOTAZIONE */
+.reservation{padding:5rem 20px;display:flex;flex-direction:column;align-items:center;gap:20px;background:#111;}
+.reservation form{display:flex;flex-direction:column;gap:10px;width:100%;max-width:400px;}
+.reservation input,.reservation select,.reservation textarea{padding:10px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#fff;}
+.reservation button{padding:12px;border:none;background:#ff4d4d;color:white;border-radius:5px;cursor:pointer;transition:background 0.3s;}
+.reservation button:hover{background:#e60000;}
+#error{display:none;color:red;margin-top:10px;}
+#success-message{display:none;color:lightgreen;margin-top:10px;}
 </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
 <nav>
-<div class="logo">
-<img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg">
-</div>
-<ul>
-<li><a href="#hero">Home</a></li>
-<li><a href="#menu">Menu</a></li>
-<li><a href="#reservation">Prenotazione</a></li>
-<li><a href="lavora.html" target="_blank">Lavora con noi</a></li>
-<li><a href="#contact">Contatti</a></li>
-</ul>
+  <div class="logo">
+    <a href="#hero"><img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo"></a>
+  </div>
+  <ul id="nav-links">
+    <li><a href="#hero" class="active">Home</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reservation">Prenotazione</a></li>
+    <li><a href="#work">Lavora con noi</a></li>
+    <li><a href="#about">Chi Siamo</a></li>
+    <li><a href="#contact">Contatti</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="hero">
-<video src="pizza-video.mp4" autoplay muted loop></video>
-<div class="overlay">
-<h1>La Migliore Pizza in Città</h1>
-<div class="cta">
-<a href="#reservation">Prenota Ora</a>
-<a href="#menu">Menu</a>
-</div>
-</div>
-</section>
-
-<!-- MENU HEADER -->
-<section class="menu-header">
-<h2>Il nostro menu</h2>
-
-<div class="menu-filters">
-<button class="active" onclick="filterMenu('all')">Tutte</button>
-<button onclick="filterMenu('normale')">Normali</button>
-<button onclick="filterMenu('vegetariana')">Vegetariane</button>
-<button onclick="filterMenu('piccante')">Piccanti</button>
-<button onclick="filterMenu('speciale')">Speciali</button>
-</div>
+  <div class="overlay">
+    <h1>La Migliore Pizza in Città</h1>
+    <div class="cta">
+      <a href="#reservation">Prenota Ora</a>
+      <a href="#menu">Scopri il Menu</a>
+    </div>
+  </div>
 </section>
 
 <!-- MENU -->
+<section class="menu-header" id="menu-header">
+  <h2>Il nostro Menu</h2>
+  <div class="menu-filters">
+    <button class="filter active" data-type="all">Tutte le pizze</button>
+    <button class="filter" data-type="normale">Normali</button>
+    <button class="filter" data-type="speciale">Speciali</button>
+    <button class="filter" data-type="vegetariana">Vegetariane</button>
+    <button class="filter" data-type="piccante">Piccanti</button>
+  </div>
+</section>
+
 <section class="menu" id="menu">
-
-<div class="card normale vegetariana">
-<img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg">
-<div class="info">
-<h3>Margherita</h3>
-<p>€8.50</p>
-</div>
-<div class="overlay-info">
-<p>Pomodoro, Mozzarella, Basilico</p>
-<span class="badge vegetariana">Vegetariana</span>
-<span class="badge normale">Normale</span>
-</div>
-</div>
-
-<div class="card piccante speciale">
-<img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg">
-<div class="info">
-<h3>Diavola</h3>
-<p>€9.50</p>
-</div>
-<div class="overlay-info">
-<p>Salame piccante</p>
-<span class="badge piccante">Piccante</span>
-<span class="badge speciale">Speciale</span>
-</div>
-</div>
-
+  <!-- Esempio card pizza -->
+  <div class="card" data-type="normale">
+    <img src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Margherita">
+    <div class="overlay-info">
+      <h3>Margherita</h3>
+      <p>Pomodoro, mozzarella, basilico fresco</p>
+      <span class="badge normale">Normale</span>
+    </div>
+  </div>
+  <div class="card" data-type="piccante">
+    <img src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Diavola">
+    <div class="overlay-info">
+      <h3>Diavola</h3>
+      <p>Pomodoro, mozzarella, salame piccante</p>
+      <span class="badge piccante">Piccante</span>
+    </div>
+  </div>
 </section>
 
 <!-- ABOUT -->
-<section class="about">
-<h2>Chi Siamo</h2>
-<p>Pizzeria artigianale con ingredienti freschi e di qualità.</p>
+<section class="about" id="about">
+  <h2>Chi Siamo</h2>
+  <p>La nostra pizzeria offre pizze artigianali preparate con ingredienti freschi e di qualità, in un ambiente accogliente e familiare.</p>
+</section>
+
+<!-- LAVORA CON NOI -->
+<section class="work" id="work">
+  <h2>Lavora con Noi</h2>
+  <p>Se vuoi far parte del nostro team inviaci il tuo CV.</p>
+  <a href="lavora.html" target="_blank">Invia il CV</a>
 </section>
 
 <!-- PRENOTAZIONE -->
 <section class="reservation" id="reservation">
-<h2>Prenota il tuo tavolo</h2>
-
-<form action="https://formsubmit.co/davideiacuzio005@gmail.com" method="POST">
-
-<input type="text" name="Nome" placeholder="Nome" required>
-<input type="email" name="Email" placeholder="Email" required>
-<input type="tel" name="Telefono" placeholder="Telefono" required>
-<input type="number" name="Persone" placeholder="Numero persone" required>
-<input type="date" name="Data" required>
-<input type="time" name="Ora" required>
-
-<input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Nuova Prenotazione">
-<input type="hidden" name="_template" value="table">
-
-<button type="submit">Prenota Ora</button>
-</form>
-</section>
-
-<!-- CONTATTI -->
-<section class="contact" id="contact">
-<h2>Contattaci</h2>
-<p>Orari: 11-14:30 / 18:30-23</p>
-
-<iframe src="https://www.google.com/maps?q=Italia&output=embed"></iframe>
+  <h2>Prenota il Tuo Tavolo</h2>
+  <form id="reservation-form" action="https://formsubmit.co/davideiacuzio005@gmail.com" method="POST">
+    <input type="text" name="Nome" placeholder="Nome" required>
+    <input type="email" name="Email" placeholder="Email" required>
+    <input type="tel" name="Telefono" placeholder="Telefono" required>
+    <input type="number" name="Persone" placeholder="Numero persone" required>
+    <input type="date" name="Data" required>
+    <input type="time" name="Ora" required>
+    <button type="submit">Prenota Ora</button>
+  </form>
+  <div id="error"></div>
+  <p id="success-message">Prenotazione inviata! ✅</p>
 </section>
 
 <script>
-function filterMenu(type){
-const cards=document.querySelectorAll(".card");
-cards.forEach(card=>{
-if(type==="all"||card.classList.contains(type)){
-card.style.display="block";
-}else{
-card.style.display="none";
-}
+// HAMBURGER
+const hamburger=document.getElementById('hamburger');
+const navLinks=document.getElementById('nav-links');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('show');});
+
+// FILTER MENU
+const filterBtns=document.querySelectorAll('.menu-filters button');
+const cards=document.querySelectorAll('.card');
+filterBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    filterBtns.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const type=btn.getAttribute('data-type');
+    cards.forEach(card=>{
+      if(type==='all'||card.getAttribute('data-type')===type){card.style.display='block';}
+      else{card.style.display='none';}
+    });
+  });
 });
-}
 </script>
 
 </body>

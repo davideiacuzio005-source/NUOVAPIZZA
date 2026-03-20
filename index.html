@@ -1,101 +1,67 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pizzeria Renato</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* Reset & base */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
-    body { overflow-x: hidden; background: #111; color: #fff; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzeria Renato</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Reset & base */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
+body{overflow-x:hidden;background:#111;color:#fff;}
 
-    /* Navbar */
-    nav { position: sticky; top: 0; width: 100%; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; z-index: 999; }
-    nav.scrolled { background: rgba(20,20,20,0.95); }
-    nav .logo { font-size: 1.5rem; font-weight: bold; }
-    nav ul { display: flex; gap: 2rem; list-style: none; }
-    nav ul li a { color: #fff; text-decoration: none; padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.3s, transform 0.2s; }
-    nav ul li a:hover, nav ul li a.active { background: #ff4d4d; transform: translateY(-2px); }
+/* Navbar */
+nav{position:sticky;top:0;width:100%;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background 0.3s;z-index:999;}
+nav.scrolled{background:rgba(20,20,20,0.95);}
+nav .logo{font-size:1.5rem;font-weight:bold;}
+nav ul{display:flex;gap:2rem;list-style:none;}
+nav ul li a{color:#fff;text-decoration:none;padding:0.5rem 1rem;border-radius:8px;transition:background 0.3s, transform 0.2s;}
+nav ul li a:hover,nav ul li a.active{background:#ff4d4d;transform:translateY(-2px);}
 
-    /* Hamburger */
-    .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-    .hamburger div { width: 25px; height: 3px; background: #fff; transition: 0.3s; }
-    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .hamburger.active div:nth-child(2) { opacity: 0; }
-    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-    @media(max-width: 768px){
-      nav ul { position: fixed; top: 0; right: -100%; width: 60%; height: 100vh; flex-direction: column; gap: 2rem; background: #222; padding: 5rem 2rem; transition: right 0.3s ease; }
-      nav ul.show { right: 0; }
-      .hamburger { display: flex; }
-    }
+/* Hamburger */
+.hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px;}
+.hamburger div{width:25px;height:3px;background:#fff;transition:0.3s;}
+.hamburger.active div:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.active div:nth-child(2){opacity:0;}
+.hamburger.active div:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+@media(max-width:768px){
+  nav ul{position:fixed;top:0;right:-100%;width:60%;height:100vh;flex-direction:column;gap:2rem;background:#222;padding:5rem 2rem;transition:right 0.3s ease;}
+  nav ul.show{right:0;}
+  .hamburger{display:flex;}
+}
 
-    /* Hero */
-    .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-    .hero video { position: absolute; width: 100%; height: 100%; object-fit: cover; z-index: -1; }
-    .hero .overlay { position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); display:flex; flex-direction: column; justify-content:center; align-items:center; text-align:center; padding: 0 1rem; }
-    .hero h1 { font-size: 3rem; }
-    @media(max-width:768px){ .hero h1 { font-size:2rem; } }
-    .hero .cta { display:flex; gap:1rem; margin-top:1rem; }
-    .hero .cta a, .hero .cta button { display:inline-block; padding:1rem 2rem; border:none; background:#ff4d4d; color:#fff; font-size:1rem; cursor:pointer; border-radius:5px; text-decoration:none; transition: transform 0.3s, background 0.3s; }
-    .hero .cta a:hover, .hero .cta button:hover { transform: translateY(-3px); background:#e60000; }
+/* Hero */
+.hero{position:relative;width:100%;height:100vh;overflow:hidden;}
+.hero video{position:absolute;width:100%;height:100%;object-fit:cover;z-index:-1;}
+.hero .overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 1rem;}
+.hero h1{font-size:3rem;}
+@media(max-width:768px){.hero h1{font-size:2rem;}}
+.hero .cta{display:flex;gap:1rem;margin-top:1rem;}
+.hero .cta a,.hero .cta button{display:inline-block;padding:1rem 2rem;border:none;background:#ff4d4d;color:#fff;font-size:1rem;cursor:pointer;border-radius:5px;text-decoration:none;transition: transform 0.3s, background 0.3s;}
+.hero .cta a:hover,.hero .cta button:hover{transform:translateY(-3px);background:#e60000;}
 
-    /* Menu */
-    .menu { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:2rem; padding:2rem; }
-    .menu .card { position: relative; background:#1a1a1a; border:2px solid #333; border-radius:10px; overflow:hidden; transition: transform 0.3s, border-color 0.3s; }
-    .menu .card:hover { transform: translateY(-10px) rotateX(2deg); border-color:#ff4d4d; }
-    .menu img { width:100%; display:block; border-bottom:2px solid #333; }
-    .menu .info { padding:1rem; text-align:center; }
-    .menu .overlay-info { position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:0.8rem; opacity:0; transition:opacity 0.3s; padding:1.5rem; text-align:left; }
-    .menu .card:hover .overlay-info { opacity:1; }
-
-    .badge { margin-top:0.8rem; padding:0.3rem 0.7rem; border-radius:20px; font-size:0.75rem; font-weight:bold; display:inline-block; }
-    .badge.normale { background:#6c757d; color:white; }
-    .badge.vegetariana { background:#28a745; color:white; }
-    .badge.piccante { background:#e60000; color:white; }
-    .badge.speciale { background:gold; color:black; }
-    .badge-container { display:flex; gap:0.5rem; margin-top:0.5rem; flex-wrap:wrap; }
-
-    /* Menu header e filtri */
-    .menu-header { padding:3rem 2rem 1rem 2rem; text-align:center; background:#111; }
-    .menu-header h2 { font-size:2.5rem; margin-bottom:1rem; text-align:center; }
-    .menu-filters { display:flex; flex-wrap:wrap; justify-content:center; gap:0.8rem; margin-bottom:2rem; }
-    .menu-filters button { padding:0.6rem 1.2rem; border:none; border-radius:20px; background:#333; color:#fff; font-weight:bold; cursor:pointer; transition:background 0.3s, transform 0.2s; }
-    .menu-filters button:hover, .menu-filters button.active { background:#ff4d4d; transform:translateY(-2px); }
-
-    /* About */
-    .about { padding:5rem 2rem; background:#222; text-align:center; }
-
-    /* Prenotazione */
-    .reservation { padding:5rem 2rem; background:#111; display:flex; flex-direction:column; align-items:center; gap:2rem; }
-    .reservation form { display:flex; flex-direction:column; gap:1rem; width:100%; max-width:400px; }
-    .reservation input, .reservation select, .reservation textarea { padding:0.8rem; border-radius:5px; border:1px solid #333; background:#1a1a1a; color:#fff; }
-    .reservation button { padding:1rem; border:none; background:#ff4d4d; color:#fff; border-radius:5px; cursor:pointer; transition:background 0.3s; }
-    .reservation button:hover { background:#e60000; }
-    #error { display:none; color:red; margin-top:1rem; }
-    #success-message { display:none; color:lightgreen; margin-top:1rem; }
-
-  </style>
+/* Prenotazione */
+.reservation{padding:5rem 2rem;background:#111;display:flex;flex-direction:column;align-items:center;gap:2rem;}
+.reservation form{display:flex;flex-direction:column;gap:1rem;width:100%;max-width:400px;}
+.reservation input,.reservation select,.reservation textarea{padding:0.8rem;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#fff;}
+.reservation button{padding:1rem;border:none;background:#ff4d4d;color:#fff;border-radius:5px;cursor:pointer;transition:background 0.3s;}
+.reservation button:hover{background:#e60000;}
+#error{display:none;color:red;margin-top:1rem;}
+#success-message{display:none;color:lightgreen;margin-top:1rem;}
+</style>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav id="navbar">
   <div class="logo">
-    <a href="#hero">
-      <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo" style="height:50px;">
-    </a>
+    <a href="#hero"><img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo" style="height:50px;"></a>
   </div>
   <ul id="nav-links">
     <li><a href="#hero" class="active">Home</a></li>
-    <li><a href="#menu">Menu</a></li>
     <li><a href="#reservation">Prenotazione</a></li>
-    <li><a href="lavora.html" target="_blank">Lavora con noi</a></li>
-    <li><a href="#contact">Contatti</a></li>
   </ul>
-  <div class="hamburger" id="hamburger">
-    <div></div><div></div><div></div>
-  </div>
+  <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
 </nav>
 
 <!-- Hero -->
@@ -105,32 +71,8 @@
     <h1>La Migliore Pizza in Città</h1>
     <div class="cta">
       <a href="#reservation" class="cta-button">Prenota Ora</a>
-      <a href="#menu" class="cta-button">Scopri il Menu</a>
     </div>
   </div>
-</section>
-
-<!-- Menu header e filtri -->
-<section class="menu-header">
-  <h2>Il nostro menu</h2>
-  <div class="menu-filters">
-    <button class="filter active" data-type="all">Tutte le pizze</button>
-    <button class="filter" data-type="normale">Normali</button>
-    <button class="filter" data-type="speciale">Speciali</button>
-    <button class="filter" data-type="vegetariana">Vegetariane</button>
-    <button class="filter" data-type="piccante">Piccanti</button>
-  </div>
-</section>
-
-<!-- Menu -->
-<section class="menu" id="menu">
-  <!-- Inserisci le card delle pizze come le avevi prima -->
-</section>
-
-<!-- About -->
-<section class="about" id="about">
-  <h2>Chi Siamo</h2>
-  <p>La nostra pizzeria offre pizze artigianali preparate con ingredienti freschi e di qualità, in un ambiente accogliente e familiare.</p>
 </section>
 
 <!-- Prenotazione -->
@@ -151,89 +93,84 @@
 
 <!-- JS -->
 <script>
-  // Navbar scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>50);});
 
-  // Hamburger toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('nav-links');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('show');
-  });
+const hamburger=document.getElementById('hamburger');
+const navLinks=document.getElementById('nav-links');
+hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('show');});
 
-  // Form Prenotazione
-  const form = document.getElementById("reservation-form");
-  const successMessage = document.getElementById("success-message");
-  const errorDiv = document.getElementById("error");
+const form=document.getElementById("reservation-form");
+const successMessage=document.getElementById("success-message");
+const errorDiv=document.getElementById("error");
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwvJcA8T9w24asM-AidAHmpo_A3I0ZFyHjBipLicVbpbZUGdbgGdjehbTF-IuFrFZVaAg/exec"; // metti il link exec giusto
+// METTI QUI IL TUO LINK EXEC GOOGLE SCRIPT
+const scriptURL="https://script.google.com/macros/s/AKfycbz8uuEx4t_lChVpe4Q4JXdFpbJbFODn2DGSQZYnlfaV/exec";
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  errorDiv.style.display="none";
   
-  form.addEventListener("submit", e => {
-    e.preventDefault();
+  const nome=document.getElementById("nome").value;
+  const email=document.getElementById("email").value;
+  const telefono=document.getElementById("telefono").value;
+  const persone=document.getElementById("persone").value;
+  const data=document.getElementById("data").value;
+  const ora=document.getElementById("ora").value;
 
-    const nome = document.getElementById("nome").value;
-    const email = document.getElementById("email").value;
-    const telefono = document.getElementById("telefono").value;
-    const persone = document.getElementById("persone").value;
-    const data = document.getElementById("data").value;
-    const ora = document.getElementById("ora").value;
+  if(!nome||!email||!telefono||!persone||!data||!ora){
+    errorDiv.style.display="block";
+    errorDiv.textContent="Compila tutti i campi!";
+    successMessage.style.display="none";
+    return;
+  }
 
-    if(!nome || !email || !telefono || !persone || !data || !ora){
-      errorDiv.style.display = 'block';
-      errorDiv.textContent = "Compila tutti i campi!";
-      successMessage.style.display = 'none';
-      return;
-    }
+  const selectedDate=new Date(data+'T'+ora);
+  const day=selectedDate.getDay();
+  const hours=selectedDate.getHours();
+  const minutes=selectedDate.getMinutes();
+  const timeNumber=hours+minutes/60;
 
-    const selectedDate = new Date(data + 'T' + ora);
-    const day = selectedDate.getDay();
-    const hours = selectedDate.getHours();
-    const minutes = selectedDate.getMinutes();
-    const timeNumber = hours + minutes/60;
+  if(day===2){
+    errorDiv.style.display="block";
+    errorDiv.textContent="La pizzeria è chiusa il martedì.";
+    successMessage.style.display="none";
+    return;
+  }
 
-    if(day===2){
-      errorDiv.style.display = 'block';
-      errorDiv.textContent = "La pizzeria è chiusa il martedì.";
-      successMessage.style.display = 'none';
-      return;
-    }
+  const morningOpen=11,morningClose=14.5,eveningOpen=18.5,eveningClose=23;
+  if(!((timeNumber>=morningOpen&&timeNumber<=morningClose)||(timeNumber>=eveningOpen&&timeNumber<=eveningClose))){
+    errorDiv.style.display="block";
+    errorDiv.textContent="Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
+    successMessage.style.display="none";
+    return;
+  }
 
-    const morningOpen=11, morningClose=14.5, eveningOpen=18.5, eveningClose=23;
-    if(!((timeNumber>=morningOpen && timeNumber<=morningClose)||(timeNumber>=eveningOpen && timeNumber<=eveningClose))){
-      errorDiv.style.display = 'block';
-      errorDiv.textContent = "Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
-      successMessage.style.display='none';
-      return;
-    }
+  const formData=new FormData();
+  formData.append("nome",nome);
+  formData.append("email",email);
+  formData.append("telefono",telefono);
+  formData.append("persone",persone);
+  formData.append("data",data);
+  formData.append("ora",ora);
 
-    const formData = new FormData();
-    formData.append("nome", nome);
-    formData.append("email", email);
-    formData.append("telefono", telefono);
-    formData.append("persone", persone);
-    formData.append("data", data);
-    formData.append("ora", ora);
-
-    fetch(scriptURL, { method:"POST", body:formData })
-      .then(response => response.json())
-      .then(result => {
-        if(result.result==="success"){
-          successMessage.style.display="block";
-          form.reset();
-          setTimeout(()=> successMessage.style.display="none",3000);
-        } else {
-          throw new Error(result.message || "Errore sconosciuto");
-        }
-      })
-      .catch(err=>{
-        console.error(err);
-        errorDiv.style.display="block";
-        errorDiv.textContent="Errore nell'invio. Riprova.";
-      });
-
-  });
+  fetch(scriptURL,{method:"POST",body:formData})
+    .then(response=>response.json())
+    .then(result=>{
+      if(result.result==="success"){
+        successMessage.style.display="block";
+        form.reset();
+        setTimeout(()=>successMessage.style.display="none",3000);
+      }else{
+        throw new Error(result.message||"Errore sconosciuto");
+      }
+    })
+    .catch(err=>{
+      console.error(err);
+      errorDiv.style.display="block";
+      errorDiv.textContent="Errore nell'invio. Riprova.";
+    });
+});
 </script>
 </body>
 </html>

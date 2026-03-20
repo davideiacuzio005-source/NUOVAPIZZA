@@ -427,7 +427,7 @@ nav ul li a.active {
   border-radius: 10px;
 }
     
-  </style>                     <! -- FINE DELLO STYLE -->
+  </style>                     <!-- FINE DELLO STYLE -->
 </head>
 <body>
 
@@ -895,16 +895,6 @@ fetch(scriptURL, {
   errorDiv.textContent = "Errore nell'invio. Riprova.";
 });
   
-  .then(() => {
-    successMessage.style.display = "block";
-    form.reset();
-    setTimeout(() => successMessage.style.display = "none", 3000);
-  })
-  .catch(err => {
-    console.error(err);
-    errorDiv.style.display = 'block';
-    errorDiv.textContent = "Errore nell'invio. Riprova.";
-  });
 });
 </script>
   

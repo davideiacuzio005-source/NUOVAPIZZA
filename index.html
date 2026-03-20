@@ -714,7 +714,7 @@ nav ul li a.active {
   <p>La nostra pizzeria offre pizze artigianali preparate con ingredienti freschi e di qualità, in un ambiente accogliente e familiare.</p>
 </section>
 
-  <!-- Prenotazione -->
+ <!-- Prenotazione -->
 <section class="reservation" id="reservation">
   <h2>Prenota il Tuo Tavolo</h2>
 
@@ -727,97 +727,26 @@ nav ul li a.active {
     <input type="time" id="ora" required>
     <button type="submit">Prenota Ora</button>
   </form>
-<div id="error" style="display:none; color:red; margin-top:1rem;"></div>
+
+  <div id="error" style="display:none; color:red; margin-top:1rem;"></div>
   <p id="success-message" style="display:none; color:lightgreen; margin-top:1rem;">
     Prenotazione inviata! ✅
   </p>
 </section>
 
-
-  <!-- Contatti -->
-  <section class="contact" id="contact">
-    <h2>CONTATTACI</h2>
-    <p>ORARIO DI APERTURA dalle 11:00–14:30 / 18:30–23:00</p>
-     <p>CHIUSO IL MARTEDI'</p>
-    <iframe src="https://www.google.com/maps/embed?..."></iframe>
-    <div class="social">
-      <button onclick="window.open('https://wa.me/123456789')">WhatsApp</button>
-      <button onclick="window.location='tel:+39123456789'">Chiama</button>
-    </div>
-  </section>
-
-  <!-- Particle Background -->
-  <canvas id="particles"></canvas>
-
-  <script>
-    // Navbar scroll
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('show');
-    });
-
-
-    // Simple particles
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let particlesArray;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if(this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
-        if(this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-        ctx.fill();
-      }
-    }
-
-    function init() {
-      particlesArray = [];
-      for(let i=0;i<100;i++){ particlesArray.push(new Particle()); }
-    }
-
-    function animate() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particlesArray.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animate);
-    }
-
-    init();
-    animate();
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      init();
-    });
-  </script>
-
-
+<!-- Contatti -->
+<section class="contact" id="contact">
+  <h2>CONTATTACI</h2>
+  <p>ORARIO DI APERTURA dalle 11:00–14:30 / 18:30–23:00</p>
+  <p>CHIUSO IL MARTEDI'</p>
+  <iframe src="https://www.google.com/maps/embed?..."></iframe>
+  <div class="social">
+    <button onclick="window.open('https://wa.me/123456789')">WhatsApp</button>
+    <button onclick="window.location='tel:+39123456789'">Chiama</button>
+  </div>
+</section>
 
 <script>
-
 const form = document.getElementById("reservation-form");
 const successMessage = document.getElementById("success-message");
 const errorDiv = document.getElementById("error");
@@ -852,7 +781,8 @@ form.addEventListener("submit", e => {
   // Controllo orari
   const morningOpen = 11, morningClose = 14.5;   // 14:30
   const eveningOpen = 18.5, eveningClose = 23;   // 23:00
-  if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || (timeNumber >= eveningOpen && timeNumber <= eveningClose))) {
+  if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || 
+       (timeNumber >= eveningOpen && timeNumber <= eveningClose))) {
     errorDiv.style.display = 'block';
     errorDiv.textContent = "Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
     successMessage.style.display = 'none';
@@ -861,77 +791,25 @@ form.addEventListener("submit", e => {
 
   // Tutto ok → invio dati
   errorDiv.style.display = 'none';
-  
-  const data = {
-    nome: document.getElementById("nome").value,
-    email: document.getElementById("email").value,
-    telefono: document.getElementById("telefono").value,
-    persone: document.getElementById("persone").value,
-    data: dateInput,
-    ora: timeInput
-  };
 
-  console.log("Invio dati prenotazione:", data);
-  
   const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
 
-  const formData = new FormData();
-formData.append("nome", document.getElementById("nome").value);
-formData.append("email", document.getElementById("email").value);
-formData.append("telefono", document.getElementById("telefono").value);
-formData.append("persone", document.getElementById("persone").value);
-formData.append("data", dateInput);
-formData.append("ora", timeInput);
+  const formData = new FormData(form);
 
-fetch(scriptURL, {
-  method: "POST",
-  body: formData
-})
-.then(() => {
-  successMessage.style.display = "block";
-  form.reset();
-  setTimeout(() => successMessage.style.display = "none", 3000);
-})
-.catch(err => {
-  console.error(err);
-  errorDiv.style.display = 'block';
-  errorDiv.textContent = "Errore nell'invio. Riprova.";
-});
-  
-});
-</script>
-
-<script>
-  // Filtri menu
-  const filterButtons = document.querySelectorAll('.menu-filters button');
-  const menuCards = document.querySelectorAll('.menu .card');
-
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Rimuovi active da tutti
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const type = btn.getAttribute('data-type');
-
-      menuCards.forEach(card => {
-        // Trova tutti i badge della card
-        const badges = card.querySelectorAll('.badge');
-        let match = type === 'all'; // se "all", mostra tutto
-
-        if(!match){
-          badges.forEach(badge => {
-            if(badge.classList.contains(type)){
-              match = true;
-            }
-          });
-        }
-
-        card.style.display = match ? 'block' : 'none';
-      });
-    });
+  fetch(scriptURL, {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json()) // legge risposta JSON dal Web App
+  .then(data => {
+    successMessage.style.display = "block";
+    form.reset();
+    setTimeout(() => successMessage.style.display = "none", 3000);
+  })
+  .catch(err => {
+    console.error(err);
+    errorDiv.style.display = 'block';
+    errorDiv.textContent = "Errore nell'invio. Riprova.";
   });
+});
 </script>
-  
-</body>
-</html>

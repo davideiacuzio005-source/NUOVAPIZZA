@@ -815,75 +815,7 @@ nav ul li a.active {
   </script>
 
 
-<script>
-  const confirmation = document.getElementById('confirmation');
-  const errorDiv = document.getElementById('error');
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const dateInput = document.getElementById('date').value;
-    const timeInput = document.getElementById('time').value;
-    
-    const selectedDate = new Date(dateInput + 'T' + timeInput);
-    const day = selectedDate.getDay(); // 0=domenica, 1=lunedì, 2=martedì...
-    const hours = selectedDate.getHours();
-    const minutes = selectedDate.getMinutes();
-    const timeNumber = hours + minutes/60;
-
-    // Controllo martedì chiuso
-    if(day === 2) {
-      errorDiv.style.display = 'block';
-      errorDiv.textContent = "La pizzeria è chiusa il martedì.";
-      confirmation.style.display = 'none';
-      return;
-    }
-
-    // Controllo orario
-    const morningOpen = 11, morningClose = 14.5; // 14:30
-    const eveningOpen = 18.5, eveningClose = 23; // 23:00
-    if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || (timeNumber >= eveningOpen && timeNumber <= eveningClose))) {
-      errorDiv.style.display = 'block';
-      errorDiv.textContent = "Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
-      confirmation.style.display = 'none';
-      return;
-    }
-
-    // Se tutto ok
-    errorDiv.style.display = 'none';
-    confirmation.style.display = 'block';
-    form.reset();
-    setTimeout(() => confirmation.style.display = 'none', 3000);
-  });
-</script>
-
-<script>
-const filterButtons = document.querySelectorAll('.menu-filters button');
-const cards = document.querySelectorAll('.menu .card');
-
-filterButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    // rimuove la classe active da tutti i bottoni
-    filterButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const type = btn.getAttribute('data-type');
-
-    cards.forEach(card => {
-      if(type === 'all') {
-        // mostra tutte le carte
-        card.style.display = 'block';
-      } else {
-        // prendi tutti i badge nella card
-        const badges = card.querySelectorAll('.badge');
-        // controlla se almeno uno ha la classe del tipo selezionato
-        const hasType = Array.from(badges).some(b => b.classList.contains(type));
-        card.style.display = hasType ? 'block' : 'none';
-      }
-    });
-  });
-});
-</script>
-  
 <script>
 const form = document.getElementById("reservation-form");
 const successMessage = document.getElementById("success-message");
@@ -894,6 +826,13 @@ form.addEventListener("submit", e => {
 
   const dateInput = document.getElementById('data').value;
   const timeInput = document.getElementById('ora').value;
+
+  if(!dateInput || !timeInput){
+    errorDiv.style.display = 'block';
+    errorDiv.textContent = "Compila la data e l'orario!";
+    successMessage.style.display = 'none';
+    return;
+  }
 
   const selectedDate = new Date(dateInput + 'T' + timeInput);
   const day = selectedDate.getDay(); // 0=domenica, 1=lunedì, 2=martedì...
@@ -919,8 +858,9 @@ form.addEventListener("submit", e => {
     return;
   }
 
-  // Tutto ok, invio dati a Google Sheet
+  // Tutto ok → invio dati
   errorDiv.style.display = 'none';
+  
   const data = {
     nome: document.getElementById("nome").value,
     email: document.getElementById("email").value,
@@ -930,7 +870,8 @@ form.addEventListener("submit", e => {
     ora: timeInput
   };
 
-  const scriptURL = "URL_DEL_TUO_SCRIPT"; // qui metti l'URL del tuo script Google
+  const scriptURL = "URL_DEL_TUO_SCRIPT"; // inserisci qui il tuo URL Google Script
+
   fetch(scriptURL, {
     method: "POST",
     body: JSON.stringify(data)

@@ -817,6 +817,7 @@ nav ul li a.active {
 
 
 <script>
+
 const form = document.getElementById("reservation-form");
 const successMessage = document.getElementById("success-message");
 const errorDiv = document.getElementById("error");
@@ -870,6 +871,8 @@ form.addEventListener("submit", e => {
     ora: timeInput
   };
 
+  console.log("Invio dati prenotazione:", data);
+  
   const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
 
   const formData = new FormData();
@@ -896,6 +899,38 @@ fetch(scriptURL, {
 });
   
 });
+</script>
+
+<script>
+  // Filtri menu
+  const filterButtons = document.querySelectorAll('.menu-filters button');
+  const menuCards = document.querySelectorAll('.menu .card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Rimuovi active da tutti
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const type = btn.getAttribute('data-type');
+
+      menuCards.forEach(card => {
+        // Trova tutti i badge della card
+        const badges = card.querySelectorAll('.badge');
+        let match = type === 'all'; // se "all", mostra tutto
+
+        if(!match){
+          badges.forEach(badge => {
+            if(badge.classList.contains(type)){
+              match = true;
+            }
+          });
+        }
+
+        card.style.display = match ? 'block' : 'none';
+      });
+    });
+  });
 </script>
   
 </body>

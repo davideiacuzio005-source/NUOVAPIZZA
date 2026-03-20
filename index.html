@@ -714,17 +714,17 @@ nav ul li a.active {
   <p>La nostra pizzeria offre pizze artigianali preparate con ingredienti freschi e di qualità, in un ambiente accogliente e familiare.</p>
 </section>
 
- <!-- Prenotazione -->
+<!-- Prenotazione -->
 <section class="reservation" id="reservation">
   <h2>Prenota il Tuo Tavolo</h2>
 
   <form id="reservation-form">
-    <input type="text" id="nome" placeholder="Nome" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="tel" id="telefono" placeholder="Telefono" required>
-    <input type="number" id="persone" placeholder="Numero persone" required>
-    <input type="date" id="data" required>
-    <input type="time" id="ora" required>
+    <input type="text" id="nome" name="nome" placeholder="Nome" required>
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="tel" id="telefono" name="telefono" placeholder="Telefono" required>
+    <input type="number" id="persone" name="persone" placeholder="Numero persone" required>
+    <input type="date" id="data" name="data" required>
+    <input type="time" id="ora" name="ora" required>
     <button type="submit">Prenota Ora</button>
   </form>
 
@@ -734,22 +734,13 @@ nav ul li a.active {
   </p>
 </section>
 
-<!-- Contatti -->
-<section class="contact" id="contact">
-  <h2>CONTATTACI</h2>
-  <p>ORARIO DI APERTURA dalle 11:00–14:30 / 18:30–23:00</p>
-  <p>CHIUSO IL MARTEDI'</p>
-  <iframe src="https://www.google.com/maps/embed?..."></iframe>
-  <div class="social">
-    <button onclick="window.open('https://wa.me/123456789')">WhatsApp</button>
-    <button onclick="window.location='tel:+39123456789'">Chiama</button>
-  </div>
-</section>
-
 <script>
 const form = document.getElementById("reservation-form");
 const successMessage = document.getElementById("success-message");
 const errorDiv = document.getElementById("error");
+
+// URL del tuo Web App
+const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
 
 form.addEventListener("submit", e => {
   e.preventDefault();
@@ -779,8 +770,8 @@ form.addEventListener("submit", e => {
   }
 
   // Controllo orari
-  const morningOpen = 11, morningClose = 14.5;   // 14:30
-  const eveningOpen = 18.5, eveningClose = 23;   // 23:00
+  const morningOpen = 11, morningClose = 14.5;
+  const eveningOpen = 18.5, eveningClose = 23;
   if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || 
        (timeNumber >= eveningOpen && timeNumber <= eveningClose))) {
     errorDiv.style.display = 'block';
@@ -789,18 +780,14 @@ form.addEventListener("submit", e => {
     return;
   }
 
-  // Tutto ok → invio dati
-  errorDiv.style.display = 'none';
-
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
-
+  // Invio dati
   const formData = new FormData(form);
 
   fetch(scriptURL, {
     method: "POST",
     body: formData
   })
-  .then(response => response.json()) // legge risposta JSON dal Web App
+  .then(response => response.text()) // riceve conferma testo dallo script
   .then(data => {
     successMessage.style.display = "block";
     form.reset();

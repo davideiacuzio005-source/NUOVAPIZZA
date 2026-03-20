@@ -9,25 +9,26 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
-body{background:#111;color:#fff;}
+body{background:#111;color:#fff;overflow-x:hidden;}
 
 /* NAVBAR */
 nav{
 position:sticky;
 top:0;
+width:100%;
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:1rem 2rem;
 z-index:999;
 }
+.logo img{height:50px;}
 nav ul{display:flex;gap:2rem;list-style:none;}
 nav a{color:#fff;text-decoration:none;}
 nav a:hover{color:#ff4d4d;}
-.logo img{height:50px;}
 
 /* HERO */
-.hero{height:100vh;position:relative;}
+.hero{position:relative;height:100vh;}
 .hero video{position:absolute;width:100%;height:100%;object-fit:cover;}
 .overlay{
 position:absolute;
@@ -37,7 +38,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-background:rgba(0,0,0,0.5);
+background:rgba(0,0,0,0.4);
 text-align:center;
 }
 .hero h1{font-size:3rem;}
@@ -50,43 +51,112 @@ text-decoration:none;
 color:#fff;
 }
 
+/* MENU HEADER */
+.menu-header{text-align:center;padding:3rem;}
+.menu-filters{
+display:flex;
+justify-content:center;
+gap:1rem;
+flex-wrap:wrap;
+}
+.menu-filters button{
+background:#333;
+border:none;
+padding:0.5rem 1rem;
+color:#fff;
+border-radius:20px;
+cursor:pointer;
+}
+.menu-filters button.active,
+.menu-filters button:hover{
+background:#ff4d4d;
+}
+
 /* MENU */
-.menu-header{text-align:center;padding:2rem;}
-.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;padding:2rem;}
-.card{background:#1a1a1a;padding:1rem;border-radius:10px;text-align:center;}
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:2rem;
+padding:2rem;
+}
+.card{
+position:relative;
+background:#1a1a1a;
+border-radius:10px;
+overflow:hidden;
+}
+.card img{width:100%;}
+.info{text-align:center;padding:1rem;}
+
+.overlay-info{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:flex;
+flex-direction:column;
+justify-content:center;
+padding:1rem;
+opacity:0;
+transition:0.3s;
+}
+.card:hover .overlay-info{opacity:1;}
+
+.badge{
+display:inline-block;
+padding:3px 8px;
+border-radius:20px;
+font-size:0.7rem;
+margin-top:5px;
+}
+.normale{background:#6c757d;}
+.vegetariana{background:#28a745;}
+.piccante{background:#e60000;}
+.speciale{background:gold;color:black;}
 
 /* ABOUT */
 .about{text-align:center;padding:3rem;background:#222;}
 
 /* PRENOTAZIONE */
 .reservation{text-align:center;padding:3rem;}
-.reservation form{display:flex;flex-direction:column;gap:1rem;max-width:400px;margin:auto;}
+.reservation form{
+display:flex;
+flex-direction:column;
+gap:1rem;
+max-width:400px;
+margin:auto;
+}
 input{
 padding:10px;
 background:#1a1a1a;
 border:1px solid #333;
-color:white;
+color:#fff;
 border-radius:5px;
 }
 button{
 padding:10px;
 background:#ff4d4d;
-color:white;
+color:#fff;
 border:none;
-cursor:pointer;
 border-radius:5px;
+cursor:pointer;
 }
 
 /* CONTATTI */
 .contact{text-align:center;padding:3rem;background:#222;}
-.contact iframe{width:100%;max-width:600px;height:300px;border:none;margin-top:1rem;}
-.social button{
-margin:5px;
-padding:10px;
-background:#ff4d4d;
-color:white;
+.contact iframe{
+width:100%;
+max-width:600px;
+height:300px;
 border:none;
-cursor:pointer;
+margin-top:1rem;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.hero h1{font-size:2rem;}
 }
 </style>
 </head>
@@ -98,7 +168,6 @@ cursor:pointer;
 <div class="logo">
 <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg">
 </div>
-
 <ul>
 <li><a href="#hero">Home</a></li>
 <li><a href="#menu">Menu</a></li>
@@ -113,38 +182,53 @@ cursor:pointer;
 <video src="pizza-video.mp4" autoplay muted loop></video>
 <div class="overlay">
 <h1>La Migliore Pizza in Città</h1>
-
 <div class="cta">
 <a href="#reservation">Prenota Ora</a>
-<a href="#menu">Scopri il Menu</a>
+<a href="#menu">Menu</a>
 </div>
+</div>
+</section>
 
+<!-- MENU HEADER -->
+<section class="menu-header">
+<h2>Il nostro menu</h2>
+
+<div class="menu-filters">
+<button class="active" onclick="filterMenu('all')">Tutte</button>
+<button onclick="filterMenu('normale')">Normali</button>
+<button onclick="filterMenu('vegetariana')">Vegetariane</button>
+<button onclick="filterMenu('piccante')">Piccanti</button>
+<button onclick="filterMenu('speciale')">Speciali</button>
 </div>
 </section>
 
 <!-- MENU -->
-<section class="menu-header">
-<h2>Il nostro menu</h2>
-</section>
-
 <section class="menu" id="menu">
 
-<div class="card">
+<div class="card normale vegetariana">
+<img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg">
+<div class="info">
 <h3>Margherita</h3>
-<p>Pomodoro, Mozzarella</p>
 <p>€8.50</p>
 </div>
-
-<div class="card">
-<h3>Diavola</h3>
-<p>Salame piccante</p>
-<p>€9.50</p>
+<div class="overlay-info">
+<p>Pomodoro, Mozzarella, Basilico</p>
+<span class="badge vegetariana">Vegetariana</span>
+<span class="badge normale">Normale</span>
+</div>
 </div>
 
-<div class="card">
-<h3>Vegetariana</h3>
-<p>Verdure miste</p>
-<p>€9.00</p>
+<div class="card piccante speciale">
+<img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/PIZZA%20PROVA.jpg">
+<div class="info">
+<h3>Diavola</h3>
+<p>€9.50</p>
+</div>
+<div class="overlay-info">
+<p>Salame piccante</p>
+<span class="badge piccante">Piccante</span>
+<span class="badge speciale">Speciale</span>
+</div>
 </div>
 
 </section>
@@ -169,27 +253,33 @@ cursor:pointer;
 <input type="time" name="Ora" required>
 
 <input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_subject" value="Nuova Prenotazione Pizzeria">
+<input type="hidden" name="_subject" value="Nuova Prenotazione">
 <input type="hidden" name="_template" value="table">
 
 <button type="submit">Prenota Ora</button>
 </form>
-
 </section>
 
 <!-- CONTATTI -->
 <section class="contact" id="contact">
-<h2>CONTATTACI</h2>
-<p>ORARIO: 11:00–14:30 / 18:30–23:00</p>
-<p>CHIUSO MARTEDÌ</p>
+<h2>Contattaci</h2>
+<p>Orari: 11-14:30 / 18:30-23</p>
 
 <iframe src="https://www.google.com/maps?q=Italia&output=embed"></iframe>
-
-<div class="social">
-<button onclick="window.open('https://wa.me/123456789')">WhatsApp</button>
-<button onclick="window.location='tel:+39123456789'">Chiama</button>
-</div>
 </section>
+
+<script>
+function filterMenu(type){
+const cards=document.querySelectorAll(".card");
+cards.forEach(card=>{
+if(type==="all"||card.classList.contains(type)){
+card.style.display="block";
+}else{
+card.style.display="none";
+}
+});
+}
+</script>
 
 </body>
 </html>

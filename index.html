@@ -719,12 +719,12 @@ nav ul li a.active {
   <h2>Prenota il Tuo Tavolo</h2>
 
   <form id="reservation-form">
-    <input type="text" id="nome" name="nome" placeholder="Nome" required>
-    <input type="email" id="email" name="email" placeholder="Email" required>
-    <input type="tel" id="telefono" name="telefono" placeholder="Telefono" required>
-    <input type="number" id="persone" name="persone" placeholder="Numero persone" required>
-    <input type="date" id="data" name="data" required>
-    <input type="time" id="ora" name="ora" required>
+    <input type="text" id="nome" placeholder="Nome" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="tel" id="telefono" placeholder="Telefono" required>
+    <input type="number" id="persone" placeholder="Numero persone" required>
+    <input type="date" id="data" required>
+    <input type="time" id="ora" required>
     <button type="submit">Prenota Ora</button>
   </form>
 
@@ -739,59 +739,74 @@ const form = document.getElementById("reservation-form");
 const successMessage = document.getElementById("success-message");
 const errorDiv = document.getElementById("error");
 
-// URL del tuo Web App
-const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
+// URL della tua Web App Apps Script
+const scriptURL = "https://script.google.com/macros/s/AKfycbz8uuEx4t_lChVpe4Q4JXdFpbJbFODn2DGSQZYnlfaV/exec";
 
 form.addEventListener("submit", e => {
   e.preventDefault();
 
-  const dateInput = document.getElementById('data').value;
-  const timeInput = document.getElementById('ora').value;
+  const nome = document.getElementById("nome").value;
+  const email = document.getElementById("email").value;
+  const telefono = document.getElementById("telefono").value;
+  const persone = document.getElementById("persone").value;
+  const data = document.getElementById("data").value;
+  const ora = document.getElementById("ora").value;
 
-  if(!dateInput || !timeInput){
+  if(!nome || !email || !telefono || !persone || !data || !ora){
     errorDiv.style.display = 'block';
-    errorDiv.textContent = "Compila la data e l'orario!";
+    errorDiv.textContent = "Compila tutti i campi!";
     successMessage.style.display = 'none';
     return;
   }
 
-  const selectedDate = new Date(dateInput + 'T' + timeInput);
+  const selectedDate = new Date(data + 'T' + ora);
   const day = selectedDate.getDay(); // 0=domenica, 1=lunedì, 2=martedì...
   const hours = selectedDate.getHours();
   const minutes = selectedDate.getMinutes();
   const timeNumber = hours + minutes/60;
 
   // Controllo martedì chiuso
-  if(day === 2) {
+  if(day === 2){
     errorDiv.style.display = 'block';
     errorDiv.textContent = "La pizzeria è chiusa il martedì.";
     successMessage.style.display = 'none';
     return;
   }
 
-  // Controllo orari
-  const morningOpen = 11, morningClose = 14.5;
-  const eveningOpen = 18.5, eveningClose = 23;
-  if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || 
-       (timeNumber >= eveningOpen && timeNumber <= eveningClose))) {
+  // Controllo orari apertura
+  const morningOpen = 11, morningClose = 14.5;   // 14:30
+  const eveningOpen = 18.5, eveningClose = 23;   // 23:00
+  if(!((timeNumber >= morningOpen && timeNumber <= morningClose) || (timeNumber >= eveningOpen && timeNumber <= eveningClose))){
     errorDiv.style.display = 'block';
     errorDiv.textContent = "Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
     successMessage.style.display = 'none';
     return;
   }
 
-  // Invio dati
-  const formData = new FormData(form);
+  // Tutto ok → invio dati
+  errorDiv.style.display = 'none';
+
+  const formData = new FormData();
+  formData.append("nome", nome);
+  formData.append("email", email);
+  formData.append("telefono", telefono);
+  formData.append("persone", persone);
+  formData.append("data", data);
+  formData.append("ora", ora);
 
   fetch(scriptURL, {
     method: "POST",
     body: formData
   })
-  .then(response => response.text()) // riceve conferma testo dallo script
-  .then(data => {
-    successMessage.style.display = "block";
-    form.reset();
-    setTimeout(() => successMessage.style.display = "none", 3000);
+  .then(response => response.json())
+  .then(result => {
+    if(result.result === "success"){
+      successMessage.style.display = "block";
+      form.reset();
+      setTimeout(() => successMessage.style.display = "none", 3000);
+    } else {
+      throw new Error(result.message || "Errore sconosciuto");
+    }
   })
   .catch(err => {
     console.error(err);
@@ -800,3 +815,6 @@ form.addEventListener("submit", e => {
   });
 });
 </script>
+  
+</body>
+</html>

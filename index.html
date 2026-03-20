@@ -4,173 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pizzeria Renato</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-/* Reset & base */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
-body{overflow-x:hidden;background:#111;color:#fff;}
+body{background:#111;color:#fff;}
 
-/* Navbar */
-nav{position:sticky;top:0;width:100%;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;transition:background 0.3s;z-index:999;}
-nav.scrolled{background:rgba(20,20,20,0.95);}
-nav .logo{font-size:1.5rem;font-weight:bold;}
+nav{position:sticky;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;z-index:999;}
 nav ul{display:flex;gap:2rem;list-style:none;}
-nav ul li a{color:#fff;text-decoration:none;padding:0.5rem 1rem;border-radius:8px;transition:background 0.3s, transform 0.2s;}
-nav ul li a:hover,nav ul li a.active{background:#ff4d4d;transform:translateY(-2px);}
+nav a{color:#fff;text-decoration:none;}
+.logo img{height:50px;}
 
-/* Hamburger */
-.hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px;}
-.hamburger div{width:25px;height:3px;background:#fff;transition:0.3s;}
-.hamburger.active div:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.hamburger.active div:nth-child(2){opacity:0;}
-.hamburger.active div:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-@media(max-width:768px){
-  nav ul{position:fixed;top:0;right:-100%;width:60%;height:100vh;flex-direction:column;gap:2rem;background:#222;padding:5rem 2rem;transition:right 0.3s ease;}
-  nav ul.show{right:0;}
-  .hamburger{display:flex;}
-}
-
-/* Hero */
-.hero{position:relative;width:100%;height:100vh;overflow:hidden;}
-.hero video{position:absolute;width:100%;height:100%;object-fit:cover;z-index:-1;}
-.hero .overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 1rem;}
+.hero{height:100vh;position:relative;}
+.hero video{position:absolute;width:100%;height:100%;object-fit:cover;}
+.hero .overlay{position:absolute;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;background:rgba(0,0,0,0.4);}
 .hero h1{font-size:3rem;}
-@media(max-width:768px){.hero h1{font-size:2rem;}}
-.hero .cta{display:flex;gap:1rem;margin-top:1rem;}
-.hero .cta a,.hero .cta button{display:inline-block;padding:1rem 2rem;border:none;background:#ff4d4d;color:#fff;font-size:1rem;cursor:pointer;border-radius:5px;text-decoration:none;transition: transform 0.3s, background 0.3s;}
-.hero .cta a:hover,.hero .cta button:hover{transform:translateY(-3px);background:#e60000;}
+.cta a{background:#ff4d4d;padding:1rem 2rem;margin:5px;border-radius:5px;text-decoration:none;color:#fff;}
 
-/* Prenotazione */
-.reservation{padding:5rem 2rem;background:#111;display:flex;flex-direction:column;align-items:center;gap:2rem;}
-.reservation form{display:flex;flex-direction:column;gap:1rem;width:100%;max-width:400px;}
-.reservation input,.reservation select,.reservation textarea{padding:0.8rem;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#fff;}
-.reservation button{padding:1rem;border:none;background:#ff4d4d;color:#fff;border-radius:5px;cursor:pointer;transition:background 0.3s;}
-.reservation button:hover{background:#e60000;}
+.menu{padding:2rem;text-align:center;}
+
+.about{padding:3rem;text-align:center;background:#222;}
+
+.reservation{padding:3rem;text-align:center;}
+.reservation form{display:flex;flex-direction:column;gap:1rem;max-width:400px;margin:auto;}
+input{padding:10px;background:#1a1a1a;border:none;color:white;}
+button{padding:10px;background:#ff4d4d;color:white;border:none;cursor:pointer;}
+
 #error{display:none;color:red;margin-top:1rem;}
 #success-message{display:none;color:lightgreen;margin-top:1rem;}
 </style>
 </head>
+
 <body>
 
-<!-- Navbar -->
-<nav id="navbar">
-  <div class="logo">
-    <a href="#hero"><img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo" style="height:50px;"></a>
-  </div>
-  <ul id="nav-links">
-    <li><a href="#hero" class="active">Home</a></li>
-    <li><a href="#reservation">Prenotazione</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
+<!-- NAVBAR -->
+<nav>
+<div class="logo">
+<img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg">
+</div>
+<ul>
+<li><a href="#hero">Home</a></li>
+<li><a href="#menu">Menu</a></li>
+<li><a href="#reservation">Prenota</a></li>
+</ul>
 </nav>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero" id="hero">
-  <video src="pizza-video.mp4" autoplay muted loop></video>
-  <div class="overlay">
-    <h1>La Migliore Pizza in Città</h1>
-    <div class="cta">
-      <a href="#reservation" class="cta-button">Prenota Ora</a>
-    </div>
-  </div>
+<video src="pizza-video.mp4" autoplay muted loop></video>
+<div class="overlay">
+<h1>La Migliore Pizza in Città</h1>
+<div class="cta">
+<a href="#reservation">Prenota Ora</a>
+<a href="#menu">Menu</a>
+</div>
+</div>
 </section>
 
-<!-- Prenotazione -->
+<!-- MENU -->
+<section class="menu" id="menu">
+<h2>Il nostro menu</h2>
+<p>(qui rimane il tuo menu come prima)</p>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+<h2>Chi siamo</h2>
+<p>Pizzeria artigianale con ingredienti freschi e di qualità.</p>
+</section>
+
+<!-- PRENOTAZIONE -->
 <section class="reservation" id="reservation">
-  <h2>Prenota il Tuo Tavolo</h2>
-  <form id="reservation-form">
-    <input type="text" id="nome" placeholder="Nome" required>
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="tel" id="telefono" placeholder="Telefono" required>
-    <input type="number" id="persone" placeholder="Numero persone" required>
-    <input type="date" id="data" required>
-    <input type="time" id="ora" required>
-    <button type="submit">Prenota Ora</button>
-  </form>
-  <div id="error"></div>
-  <p id="success-message">Prenotazione inviata! ✅</p>
+<h2>Prenota il tuo tavolo</h2>
+
+<form id="reservation-form">
+<input type="text" id="nome" placeholder="Nome" required>
+<input type="email" id="email" placeholder="Email" required>
+<input type="tel" id="telefono" placeholder="Telefono" required>
+<input type="number" id="persone" placeholder="Numero persone" required>
+<input type="date" id="data" required>
+<input type="time" id="ora" required>
+<button type="submit">Prenota Ora</button>
+</form>
+
+<div id="error"></div>
+<div id="success-message">Prenotazione pronta! ✅</div>
 </section>
 
-<!-- JS -->
+<!-- SCRIPT -->
 <script>
-const navbar=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>50);});
+const form = document.getElementById("reservation-form");
+const errorDiv = document.getElementById("error");
+const successMessage = document.getElementById("success-message");
 
-const hamburger=document.getElementById('hamburger');
-const navLinks=document.getElementById('nav-links');
-hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('show');});
+form.addEventListener("submit", function(e){
+e.preventDefault();
 
-const form=document.getElementById("reservation-form");
-const successMessage=document.getElementById("success-message");
-const errorDiv=document.getElementById("error");
+const nome = document.getElementById("nome").value;
+const email = document.getElementById("email").value;
+const telefono = document.getElementById("telefono").value;
+const persone = document.getElementById("persone").value;
+const data = document.getElementById("data").value;
+const ora = document.getElementById("ora").value;
 
-// METTI QUI IL TUO LINK EXEC GOOGLE SCRIPT
-const scriptURL="https://script.google.com/macros/s/AKfycbz8uuEx4t_lChVpe4Q4JXdFpbJbFODn2DGSQZYnlfaV/exec";
+// controlli
+if(!nome || !email || !telefono || !persone || !data || !ora){
+errorDiv.style.display="block";
+errorDiv.innerText="Compila tutti i campi!";
+return;
+}
 
-form.addEventListener("submit",e=>{
-  e.preventDefault();
-  errorDiv.style.display="none";
-  
-  const nome=document.getElementById("nome").value;
-  const email=document.getElementById("email").value;
-  const telefono=document.getElementById("telefono").value;
-  const persone=document.getElementById("persone").value;
-  const data=document.getElementById("data").value;
-  const ora=document.getElementById("ora").value;
+const d = new Date(data+"T"+ora);
+const day = d.getDay();
+const time = d.getHours() + d.getMinutes()/60;
 
-  if(!nome||!email||!telefono||!persone||!data||!ora){
-    errorDiv.style.display="block";
-    errorDiv.textContent="Compila tutti i campi!";
-    successMessage.style.display="none";
-    return;
-  }
+if(day===2){
+errorDiv.style.display="block";
+errorDiv.innerText="Chiuso il martedì";
+return;
+}
 
-  const selectedDate=new Date(data+'T'+ora);
-  const day=selectedDate.getDay();
-  const hours=selectedDate.getHours();
-  const minutes=selectedDate.getMinutes();
-  const timeNumber=hours+minutes/60;
+if(!((time>=11 && time<=14.5)||(time>=18.5 && time<=23))){
+errorDiv.style.display="block";
+errorDiv.innerText="Orario non valido";
+return;
+}
 
-  if(day===2){
-    errorDiv.style.display="block";
-    errorDiv.textContent="La pizzeria è chiusa il martedì.";
-    successMessage.style.display="none";
-    return;
-  }
+// CREA EMAIL
+const subject = "Nuova Prenotazione";
+const body =
+`Nome: ${nome}
+Email: ${email}
+Telefono: ${telefono}
+Persone: ${persone}
+Data: ${data}
+Ora: ${ora}`;
 
-  const morningOpen=11,morningClose=14.5,eveningOpen=18.5,eveningClose=23;
-  if(!((timeNumber>=morningOpen&&timeNumber<=morningClose)||(timeNumber>=eveningOpen&&timeNumber<=eveningClose))){
-    errorDiv.style.display="block";
-    errorDiv.textContent="Orario non valido. Apertura: 11:00-14:30 e 18:30-23:00.";
-    successMessage.style.display="none";
-    return;
-  }
+const mailto = `mailto:davideiacuzio005@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-  const formData=new FormData();
-  formData.append("nome",nome);
-  formData.append("email",email);
-  formData.append("telefono",telefono);
-  formData.append("persone",persone);
-  formData.append("data",data);
-  formData.append("ora",ora);
+window.location.href = mailto;
 
-  fetch(scriptURL,{method:"POST",body:formData})
-    .then(response=>response.json())
-    .then(result=>{
-      if(result.result==="success"){
-        successMessage.style.display="block";
-        form.reset();
-        setTimeout(()=>successMessage.style.display="none",3000);
-      }else{
-        throw new Error(result.message||"Errore sconosciuto");
-      }
-    })
-    .catch(err=>{
-      console.error(err);
-      errorDiv.style.display="block";
-      errorDiv.textContent="Errore nell'invio. Riprova.";
-    });
+successMessage.style.display="block";
+errorDiv.style.display="none";
 });
 </script>
+
 </body>
 </html>

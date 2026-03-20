@@ -7,6 +7,8 @@
 <title>Pizzeria Renato</title>
 
 <meta name="description" content="Pizzeria Renato - Pizza artigianale, ingredienti freschi e prenotazioni online.">
+<meta name="keywords" content="pizzeria, pizza, ristorante, prenotazione tavolo">
+<meta name="author" content="Pizzeria Renato">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,178 +18,250 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
 html{scroll-behavior:smooth;}
-body{background:#0d0d0d;color:#fff;}
+body{background:#111;color:#fff;}
 
-/* NAV */
+/* NAVBAR */
 nav{
-position:fixed;top:0;width:100%;
-display:flex;justify-content:space-between;align-items:center;
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
 padding:15px 20px;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(12px);
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
 z-index:1000;
 }
+nav .logo img{height:45px;}
 nav ul{display:flex;gap:20px;list-style:none;}
-nav a{color:#fff;text-decoration:none;padding:8px 12px;border-radius:8px;}
-nav a:hover{background:#ff4d4d;}
+nav a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;}
+nav a:hover, nav a.active{background:#ff4d4d;}
 
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
-.hamburger div{width:25px;height:3px;background:#fff;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1100;}
+.hamburger div{width:25px;height:3px;background:white;transition:0.3s;}
+.hamburger.active div:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.active div:nth-child(2){opacity:0;}
+.hamburger.active div:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
 @media(max-width:768px){
-nav ul{position:fixed;right:-100%;top:0;height:100vh;width:70%;background:#111;flex-direction:column;padding:80px 20px;transition:0.3s;}
-nav ul.show{right:0;}
-.hamburger{display:flex;}
+  nav ul{
+    position:fixed;top:0;right:-100%;height:100vh;width:70%;
+    background:#111;flex-direction:column;padding:80px 20px;transition:0.3s;
+  }
+  nav ul.show{right:0;}
+  .hamburger{display:flex;}
 }
 
 /* HERO */
 .hero{
-height:100vh;
+height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
 background:url('https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b') center/cover;
-display:flex;justify-content:center;align-items:center;text-align:center;
+position:relative;
 }
-.hero h1{font-size:3rem;animation:fadeUp 1s ease;}
-.cta{margin-top:20px;}
-.cta a{
-background:#ff4d4d;padding:12px 20px;margin:5px;
-border-radius:6px;text-decoration:none;color:#fff;
-transition:0.3s;
+.hero .overlay{
+position:absolute;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.4);
+display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 20px;
 }
-.cta a:hover{transform:scale(1.05);}
+.hero h1{font-size:3rem;}
+@media(max-width:768px){.hero h1{font-size:2rem;}}
+.cta{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;}
+.cta a{background:#ff4d4d;padding:12px 20px;border-radius:6px;color:white;text-decoration:none;}
 
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px);}
+/* MENU */
+.menu-header{text-align:center;padding:40px 20px;}
+.menu-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:30px;}
+.menu-filters button{
+background:#333;color:white;border:none;padding:8px 15px;border-radius:20px;cursor:pointer;
+}
+.menu-filters button.active, .menu-filters button:hover{background:#ff4d4d;}
+
+.menu{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;padding:0 20px 50px;
+}
+
+.card{
+position:relative;
+background:#1a1a1a;
+border-radius:10px;
+overflow:hidden;
+transition:transform 0.3s;
+border:2px solid #333;
+box-shadow:0 5px 15px rgba(0,0,0,0.5);
+opacity:0;
+transform:translateY(20px);
+animation:fadeIn 0.6s forwards;
+}
+.card:hover{transform:translateY(-10px);}
+.card img{width:100%;display:block;}
+
+@keyframes fadeIn{
 to{opacity:1;transform:translateY(0);}
 }
 
-/* MENU */
-.menu{padding:80px 20px;}
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+.overlay-info{
+position:absolute;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.85);
+display:flex;flex-direction:column;justify-content:center;
+gap:0.5rem;padding:15px;
+opacity:0;transition:opacity 0.3s;
 }
-.card{
-background:#1a1a1a;border-radius:12px;
-overflow:hidden;
-transition:0.3s;
-}
-.card:hover{transform:translateY(-10px);}
-.card img{width:100%;}
-.card h3{padding:10px;}
+.card:hover .overlay-info{opacity:1;}
 
-/* REVIEWS */
-.reviews{padding:60px 20px;background:#111;text-align:center;}
-.review{margin:20px auto;max-width:500px;font-style:italic;}
+.hidden{display:none;}
 
-/* ORARI */
-.hours{padding:60px 20px;text-align:center;}
-.hours p{margin:5px 0;}
+.badge{padding:3px 7px;border-radius:20px;font-size:0.75rem;font-weight:bold;}
+.badge.normale{background:#6c757d;}
+.badge.vegetariana{background:#28a745;}
+.badge.piccante{background:#e60000;}
+.badge.speciale{background:gold;color:black;}
 
-/* MAPPA */
-.map{padding:60px 20px;text-align:center;}
-.map iframe{width:100%;max-width:600px;height:300px;border:0;border-radius:10px;}
+/* ABOUT */
+.about{padding:5rem 20px;text-align:center;background:#222;}
+
+/* WORK */
+.work{padding:5rem 20px;text-align:center;}
+.work a{display:inline-block;margin-top:20px;padding:12px 25px;background:#ff4d4d;color:white;border-radius:6px;text-decoration:none;}
 
 /* FORM */
-.reservation{padding:60px 20px;text-align:center;}
-form{display:flex;flex-direction:column;gap:10px;max-width:400px;margin:auto;}
-input,button{
-padding:10px;border:none;border-radius:5px;
+.reservation{padding:5rem 20px;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.reservation form{display:flex;flex-direction:column;gap:10px;width:100%;max-width:400px;}
+.reservation input,.reservation select,.reservation textarea{
+padding:10px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#fff;
 }
-input{background:#1a1a1a;color:#fff;}
-button{background:#ff4d4d;color:#fff;cursor:pointer;}
-button:hover{background:#e60000;}
-
-/* WHATSAPP */
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:#fff;
-padding:15px;
-border-radius:50%;
-font-size:20px;
-text-decoration:none;
+.reservation button{
+padding:12px;border:none;background:#ff4d4d;color:white;border-radius:5px;cursor:pointer;
 }
+.reservation button:hover{background:#e60000;}
 </style>
 </head>
 
 <body>
 
 <nav>
-  <h2>🍕 Renato</h2>
+  <div class="logo">
+    <a href="#hero"><img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo Pizzeria Renato"></a>
+  </div>
+
   <ul id="nav-links">
-    <li><a href="#hero">Home</a></li>
+    <li><a href="#hero" class="active">Home</a></li>
     <li><a href="#menu">Menu</a></li>
-    <li><a href="#reservation">Prenota</a></li>
+    <li><a href="#reservation">Prenotazione</a></li>
+    <li><a href="lavora.html" target="_blank" rel="noopener noreferrer">Lavora con noi</a></li>
+    <li><a href="#about">Chi siamo</a></li>
   </ul>
-  <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
+
+  <div class="hamburger" id="hamburger">
+    <div></div><div></div><div></div>
+  </div>
 </nav>
 
 <section class="hero" id="hero">
-  <div>
-    <h1>Pizza Artigianale 🔥</h1>
+  <div class="overlay">
+    <h1>La Migliore Pizza in Città</h1>
     <div class="cta">
-      <a href="#reservation">Prenota</a>
-      <a href="#menu">Menu</a>
+      <a href="#reservation">Prenota Ora</a>
+      <a href="#menu">Scopri il Menu</a>
     </div>
   </div>
 </section>
 
-<section class="menu" id="menu">
-  <h2 style="text-align:center;margin-bottom:20px;">Menu</h2>
-  <div class="grid">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b">
+<section class="menu-header" id="menu">
+  <h2>Il nostro Menu</h2>
+  <div class="menu-filters">
+    <button class="filter active" data-type="all">Tutte</button>
+    <button class="filter" data-type="normale">Normali</button>
+    <button class="filter" data-type="piccante">Piccanti</button>
+  </div>
+</section>
+
+<section class="menu">
+  <div class="card" data-type="normale">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Pizza Margherita">
+    <div class="overlay-info">
       <h3>Margherita</h3>
+      <p>Pomodoro, mozzarella, basilico fresco</p>
+      <span class="badge normale">Normale</span>
     </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b">
+  </div>
+
+  <div class="card" data-type="piccante">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Pizza Diavola">
+    <div class="overlay-info">
       <h3>Diavola</h3>
+      <p>Pomodoro, mozzarella, salame piccante</p>
+      <span class="badge piccante">Piccante</span>
     </div>
   </div>
 </section>
 
-<section class="reviews">
-  <h2>Recensioni ⭐</h2>
-  <p class="review">"La migliore pizza della zona!"</p>
-  <p class="review">"Impasto leggerissimo e ingredienti top."</p>
+<section class="about" id="about">
+  <h2>Chi siamo</h2>
+  <p>Pizza artigianale con ingredienti freschi e ambiente familiare.</p>
 </section>
 
-<section class="hours">
-  <h2>Orari 🕒</h2>
-  <p>Lun-Dom: 18:00 - 23:30</p>
-</section>
-
-<section class="map">
-  <h2>Dove siamo 📍</h2>
-  <iframe src="https://maps.google.com/maps?q=milano&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+<section class="work">
+  <h2>Lavora con noi</h2>
+  <a href="lavora.html" target="_blank" rel="noopener noreferrer">Invia CV</a>
 </section>
 
 <section class="reservation" id="reservation">
-  <h2>Prenota</h2>
+  <h2>Prenota il tuo tavolo</h2>
+
   <form action="https://formsubmit.co/davideiacuzio005@gmail.com" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://tuosito.it/grazie.html">
+
     <input type="text" name="Nome" placeholder="Nome" required>
     <input type="email" name="Email" placeholder="Email" required>
-    <button type="submit">Invia</button>
+    <input type="tel" name="Telefono" placeholder="Telefono" required>
+    <input type="number" name="Persone" placeholder="Numero persone" required>
+    <input type="date" name="Data" required>
+    <input type="time" name="Ora" required>
+
+    <button type="submit">Prenota</button>
   </form>
 </section>
 
-<a href="https://wa.me/391234567890" class="whatsapp">💬</a>
-
 <script>
+// MENU MOBILE
 const hamburger=document.getElementById('hamburger');
 const navLinks=document.getElementById('nav-links');
 
 hamburger.addEventListener('click',()=>{
-navLinks.classList.toggle('show');
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('show');
 });
 
-document.querySelectorAll('a').forEach(link=>{
-link.addEventListener('click',()=>{
-navLinks.classList.remove('show');
+document.querySelectorAll('#nav-links a').forEach(link=>{
+  link.addEventListener('click',()=>{
+    navLinks.classList.remove('show');
+    hamburger.classList.remove('active');
+  });
 });
+
+// FILTRI
+const buttons=document.querySelectorAll('.filter');
+const cards=document.querySelectorAll('.card');
+
+buttons.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    buttons.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const type=btn.dataset.type;
+
+    cards.forEach(card=>{
+      if(type==='all'||card.dataset.type===type){
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
 });
 </script>
 

@@ -29,8 +29,11 @@ nav a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;}
 nav a:hover, nav a.active{background:#ff4d4d;}
 
 /* MOBILE */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
-.hamburger div{width:25px;height:3px;background:white}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1100;}
+.hamburger div{width:25px;height:3px;background:white;transition:0.3s;}
+.hamburger.active div:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.active div:nth-child(2){opacity:0;}
+.hamburger.active div:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 @media(max-width:768px){
   nav ul{
     position:fixed;top:0;right:-100%;height:100vh;width:70%;
@@ -102,7 +105,7 @@ gap:0.5rem;padding:15px;opacity:0;transition:opacity 0.3s;}
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="#menu">Menu</a></li>
     <li><a href="#reservation">Prenotazione</a></li>
-    <li><a href="#work">Lavora con noi</a></li>
+    <li><a href="lavora.html" target="_blank">Lavora con noi</a></li>
     <li><a href="#about">Chi Siamo</a></li>
     <li><a href="#contact">Contatti</a></li>
   </ul>
@@ -133,7 +136,7 @@ gap:0.5rem;padding:15px;opacity:0;transition:opacity 0.3s;}
 </section>
 
 <section class="menu" id="menu">
-  <!-- Esempio card pizza -->
+  <!-- Esempio pizze -->
   <div class="card" data-type="normale">
     <img src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Margherita">
     <div class="overlay-info">
@@ -185,9 +188,12 @@ gap:0.5rem;padding:15px;opacity:0;transition:opacity 0.3s;}
 // HAMBURGER
 const hamburger=document.getElementById('hamburger');
 const navLinks=document.getElementById('nav-links');
-hamburger.addEventListener('click',()=>{hamburger.classList.toggle('active');navLinks.classList.toggle('show');});
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('show');
+});
 
-// FILTER MENU
+// FILTRI MENU
 const filterBtns=document.querySelectorAll('.menu-filters button');
 const cards=document.querySelectorAll('.card');
 filterBtns.forEach(btn=>{

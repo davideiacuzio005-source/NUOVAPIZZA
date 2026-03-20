@@ -872,10 +872,29 @@ form.addEventListener("submit", e => {
 
   const scriptURL = "https://script.google.com/macros/s/AKfycbwmLvVrHj9I1YMUjnXGYXHmF5v9EfywzmGYW5-YcUQ/exec";
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  })
+  const formData = new FormData();
+formData.append("nome", document.getElementById("nome").value);
+formData.append("email", document.getElementById("email").value);
+formData.append("telefono", document.getElementById("telefono").value);
+formData.append("persone", document.getElementById("persone").value);
+formData.append("data", dateInput);
+formData.append("ora", timeInput);
+
+fetch(scriptURL, {
+  method: "POST",
+  body: formData
+})
+.then(() => {
+  successMessage.style.display = "block";
+  form.reset();
+  setTimeout(() => successMessage.style.display = "none", 3000);
+})
+.catch(err => {
+  console.error(err);
+  errorDiv.style.display = 'block';
+  errorDiv.textContent = "Errore nell'invio. Riprova.";
+});
+  
   .then(() => {
     successMessage.style.display = "block";
     form.reset();

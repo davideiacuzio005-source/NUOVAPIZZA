@@ -60,7 +60,6 @@ position:relative;z-index:2;display:flex;flex-direction:column;justify-content:c
 .cta a:hover{background:#e60000;transform:scale(1.05);}
 
 /* MENU */
-.menu-header{text-align:center;padding:40px 20px;}
 .menu-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:30px;}
 .menu-filters button{
 background:#333;color:white;border:none;padding:8px 15px;border-radius:20px;cursor:pointer;
@@ -115,6 +114,89 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
 }
 .reservation button{padding:12px;border:none;background:#ff4d4d;color:white;border-radius:5px;cursor:pointer;transition:0.3s;}
 .reservation button:hover{background:#e60000;transform:scale(1.03);}
+
+/* RECENSIONI */
+.reviews{
+  padding:5rem 20px;
+  text-align:center;
+}
+
+.review-form{
+  max-width:400px;
+  margin:20px auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea{
+  padding:10px;
+  border-radius:5px;
+  border:1px solid #333;
+  background:#1a1a1a;
+  color:white;
+}
+
+.review-form button{
+  background:#ff4d4d;
+  border:none;
+  padding:12px;
+  border-radius:5px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.review-form button:hover{
+  background:#e60000;
+}
+
+.reviews-container{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.review-card{
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:10px;
+  border:2px solid #333;
+  transition:0.3s;
+}
+
+.review-card:hover{
+  transform:translateY(-5px);
+  border-color:#ff4d4d;
+}
+
+.review-card p{
+  font-style:italic;
+  margin-bottom:10px;
+}
+
+.review-card h4{
+  color:#ff4d4d;
+}
+
+.google-reviews{
+  margin-top:40px;
+}
+
+.google-reviews a{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 20px;
+  background:#ff4d4d;
+  color:white;
+  border-radius:20px;
+  text-decoration:none;
+}
+
+
+
 </style>
 </head>
 
@@ -149,35 +231,43 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
   </div>
 </section>
 
-<section class="menu-header" id="menu">
-  <h2>Il nostro Menu</h2>
-  <div class="menu-filters">
-    <button class="filter active" data-type="all">Tutte</button>
-    <button class="filter" data-type="normale">Normali</button>
-    <button class="filter" data-type="piccante">Piccanti</button>
+  
+<section class="reviews" id="menu">
+  <h2>Recensioni dei clienti</h2>
+
+  <!-- FORM -->
+  <div class="review-form">
+    <h3>Lascia una recensione</h3>
+    <form id="reviewForm">
+      <input type="text" id="name" placeholder="Il tuo nome" required>
+
+      <select id="rating" required>
+        <option value="">Valutazione</option>
+        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+        <option value="⭐⭐⭐">⭐⭐⭐</option>
+        <option value="⭐⭐">⭐⭐</option>
+        <option value="⭐">⭐</option>
+      </select>
+
+      <textarea id="comment" placeholder="Scrivi la tua recensione..." required></textarea>
+
+      <button type="submit">Invia recensione</button>
+    </form>
+  </div>
+
+  <!-- RECENSIONI UTENTE -->
+  <div class="reviews-container" id="userReviews"></div>
+
+  <!-- GOOGLE -->
+  <div class="google-reviews">
+    <h3>Recensioni Google</h3>
+    <p>Vuoi vedere tutte le recensioni reali?</p>
+    <a href="https://www.google.com/search?q=pizzeria+renato+recensioni" target="_blank">
+      Guarda su Google ⭐
+    </a>
   </div>
 </section>
-
-<section class="menu">
-  <div class="card" data-type="normale">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Pizza Margherita">
-    <div class="overlay-info">
-      <h3>Margherita</h3>
-      <p>Pomodoro, mozzarella, basilico fresco</p>
-      <span class="badge normale">Normale</span>
-    </div>
-  </div>
-
-  <div class="card" data-type="piccante">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1601924582975-7e4c0e9c2b9b" alt="Pizza Diavola">
-    <div class="overlay-info">
-      <h3>Diavola</h3>
-      <p>Pomodoro, mozzarella, salame piccante</p>
-      <span class="badge piccante">Piccante</span>
-    </div>
-  </div>
-</section>
-
 <section class="about" id="about">
   <h2>Chi siamo</h2>
   <p>Pizza artigianale con ingredienti freschi e ambiente familiare.</p>
@@ -222,26 +312,42 @@ document.querySelectorAll('#nav-links a').forEach(link=>{
   });
 });
 
-// FILTRI MENU
-const buttons=document.querySelectorAll('.filter');
-const cards=document.querySelectorAll('.card');
+// RECENSIONI
+const form = document.getElementById('reviewForm');
+const container = document.getElementById('userReviews');
 
-buttons.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    buttons.forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
-    const type=btn.dataset.type;
-
-    cards.forEach(card=>{
-      if(type==='all'||card.dataset.type===type){
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
-    });
+function displayReviews(){
+  container.innerHTML = "";
+  reviews.forEach(r => {
+    container.innerHTML += `
+      <div class="review-card">
+        <p>"${r.comment}"</p>
+        <h4>${r.rating} - ${r.name}</h4>
+      </div>
+    `;
   });
+}
+
+displayReviews();
+
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+
+  const newReview = {
+    name: document.getElementById('name').value,
+    rating: document.getElementById('rating').value,
+    comment: document.getElementById('comment').value
+  };
+
+  reviews.push(newReview);
+  localStorage.setItem('reviews', JSON.stringify(reviews));
+
+  displayReviews();
+  form.reset();
 });
+  
 </script>
 
 </body>

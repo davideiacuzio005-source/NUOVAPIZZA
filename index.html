@@ -125,6 +125,7 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
   <p>Orario</p>
   <input type="time" name="Ora" required>
   <button type="submit">Prenota</button>
+<p id="reservationError" style="color:red; margin-top:10px;"></p>
 </form>
 </section>
 
@@ -206,14 +207,47 @@ form.addEventListener('submit', async function(e){
   
 <script>
 const form = document.getElementById('reservationForm');
+const errorMsg = document.getElementById('reservationError');
 
 form.addEventListener('submit', async function(e){
   e.preventDefault();
+  errorMsg.textContent = "";
 
-  const formData = new FormData(form);
+  const dateInput = form.querySelector('input[name="Data"]').value;
+  const timeInput = form.querySelector('input[name="Ora"]').value;
 
+  if(!dateInput || !timeInput){
+    errorMsg.textContent = "Inserisci data e orario.";
+    return;
+  }
+
+  const [year, month, day] = dateInput.split('-').map(Number);
+  const [hours, minutes] = timeInput.split(':').map(Number);
+
+  const selectedDate = new Date(year, month-1, day, hours, minutes);
+  const dayOfWeek = selectedDate.getDay();
+
+  const timeInMinutes = hours*60 + minutes;
+
+  const inMorning = timeInMinutes >= 11*60 && timeInMinutes <= 15*60;
+  const inEvening = timeInMinutes >= 18*60 && timeInMinutes <= (23*60+30);
+
+  // ❌ MARTEDÌ
+  if(dayOfWeek === 2){
+    errorMsg.textContent = "La pizzeria è chiusa il martedì.";
+    return;
+  }
+
+  // ❌ ORARIO SBAGLIATO
+  if(!inMorning && !inEvening){
+    errorMsg.textContent = "Orario non valido. Aperto 11:00-15:00 e 18:00-23:30.";
+    return;
+  }
+
+  // ✅ INVIO
   try {
-    // Invio dati a FormSubmit
+    const formData = new FormData(form);
+
     const response = await fetch("https://formsubmit.co/ajax/davideiacuzio005@gmail.com", {
       method: "POST",
       body: formData,
@@ -221,13 +255,12 @@ form.addEventListener('submit', async function(e){
     });
 
     if(response.ok){
-      // Se invio ok, vai alla tua pagina locale
       window.location.href = "grazie.html";
     } else {
-      alert("Errore durante l'invio. Riprova!");
+      errorMsg.textContent = "Errore durante l'invio.";
     }
-  } catch(err){
-    alert("Errore di rete. Riprova!");
+  } catch {
+    errorMsg.textContent = "Errore di connessione.";
   }
 });
 </script>

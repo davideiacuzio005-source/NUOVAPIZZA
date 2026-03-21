@@ -144,5 +144,47 @@ document.querySelectorAll('#nav-links a').forEach(link=>{
 });
 </script>
 
+<script>
+const reservationForm = document.querySelector('.reservation form');
+
+reservationForm.addEventListener('submit', function(e) {
+  const dateInput = document.querySelector('input[name="Data"]').value;
+  const timeInput = document.querySelector('input[name="Ora"]').value;
+
+  if (!dateInput || !timeInput) return; // sicurezza
+
+  const [year, month, day] = dateInput.split('-').map(Number);
+  const [hours, minutes] = timeInput.split(':').map(Number);
+
+  const selectedDate = new Date(year, month-1, day, hours, minutes);
+
+  const dayOfWeek = selectedDate.getDay(); // 0 = domenica, 1 = lunedì, 2 = martedì ...
+
+  // Controllo Martedì
+  if (dayOfWeek === 2) {
+    alert("Siamo chiusi il martedì. Scegli un altro giorno!");
+    e.preventDefault();
+    return;
+  }
+
+  // Controllo fascia oraria
+  const timeInMinutes = hours*60 + minutes;
+
+  const morningStart = 11*60;    // 11:00
+  const morningEnd = 15*60;      // 15:00
+  const eveningStart = 18*60;    // 18:00
+  const eveningEnd = 23*60 + 30; // 23:30
+
+  const inMorning = timeInMinutes >= morningStart && timeInMinutes <= morningEnd;
+  const inEvening = timeInMinutes >= eveningStart && timeInMinutes <= eveningEnd;
+
+  if (!inMorning && !inEvening) {
+    alert("Orario non disponibile. Scegli tra 11:00-15:00 o 18:00-23:30!");
+    e.preventDefault();
+    return;
+  }
+});
+</script>
+  
 </body>
 </html>

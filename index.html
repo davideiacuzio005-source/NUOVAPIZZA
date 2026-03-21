@@ -195,7 +195,57 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
   text-decoration:none;
 }
 
+/* STELLE */
+.stars{
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  font-size:1.8rem;
+  cursor:pointer;
+}
 
+.stars span{
+  color:#444;
+  transition:0.2s;
+}
+
+.stars span.active{
+  color:gold;
+  transform:scale(1.2);
+}
+
+/* SLIDER */
+.reviews-slider{
+  overflow:hidden;
+  margin-top:50px;
+}
+
+.reviews-track{
+  display:flex;
+  gap:20px;
+  transition:transform 0.5s ease;
+}
+
+.review-card{
+  min-width:250px;
+  background:#1a1a1a;
+  padding:20px;
+  border-radius:15px;
+  border:2px solid #333;
+  text-align:center;
+  transition:0.3s;
+}
+
+.review-card:hover{
+  transform:scale(1.05);
+  border-color:#ff4d4d;
+}
+
+.review-card h4{
+  margin-top:10px;
+  color:gold;
+}
+  
 
 </style>
 </head>
@@ -231,24 +281,24 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
   </div>
 </section>
 
-  
 <section class="reviews" id="menu">
   <h2>Recensioni dei clienti</h2>
 
   <!-- FORM -->
   <div class="review-form">
     <h3>Lascia una recensione</h3>
+
     <form id="reviewForm">
       <input type="text" id="name" placeholder="Il tuo nome" required>
 
-      <select id="rating" required>
-        <option value="">Valutazione</option>
-        <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
-        <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
-        <option value="⭐⭐⭐">⭐⭐⭐</option>
-        <option value="⭐⭐">⭐⭐</option>
-        <option value="⭐">⭐</option>
-      </select>
+      <!-- STELLE -->
+      <div class="stars" id="stars">
+        <span data-value="1">★</span>
+        <span data-value="2">★</span>
+        <span data-value="3">★</span>
+        <span data-value="4">★</span>
+        <span data-value="5">★</span>
+      </div>
 
       <textarea id="comment" placeholder="Scrivi la tua recensione..." required></textarea>
 
@@ -256,18 +306,20 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
     </form>
   </div>
 
-  <!-- RECENSIONI UTENTE -->
-  <div class="reviews-container" id="userReviews"></div>
+  <!-- SLIDER RECENSIONI -->
+  <div class="reviews-slider">
+    <div class="reviews-track" id="reviewsTrack"></div>
+  </div>
 
   <!-- GOOGLE -->
   <div class="google-reviews">
     <h3>Recensioni Google</h3>
-    <p>Vuoi vedere tutte le recensioni reali?</p>
     <a href="https://www.google.com/search?q=pizzeria+renato+recensioni" target="_blank">
       Guarda su Google ⭐
     </a>
   </div>
 </section>
+  
 <section class="about" id="about">
   <h2>Chi siamo</h2>
   <p>Pizza artigianale con ingredienti freschi e ambiente familiare.</p>
@@ -347,6 +399,87 @@ form.addEventListener('submit', e=>{
   displayReviews();
   form.reset();
 });
+
+// STELLE
+const stars = document.querySelectorAll('#stars span');
+let selectedRating = 0;
+
+stars.forEach(star => {
+  star.addEventListener('click', () => {
+    selectedRating = star.dataset.value;
+
+    stars.forEach(s => s.classList.remove('active'));
+    for(let i = 0; i < selectedRating; i++){
+      stars[i].classList.add('active');
+    }
+  });
+});
+
+// RECENSIONI
+const form = document.getElementById('reviewForm');
+const track = document.getElementById('reviewsTrack');
+
+let reviews = JSON.parse(localStorage.getItem('reviews')) || [
+  {name:"Marco", rating:5, comment:"Pizza incredibile!"},
+  {name:"Laura", rating:4, comment:"Servizio veloce e qualità top"},
+  {name:"Giuseppe", rating:5, comment:"La migliore pizzeria!"}
+];
+
+function renderReviews(){
+  track.innerHTML = "";
+
+  reviews.forEach(r => {
+    let starsHTML = "★".repeat(r.rating);
+
+    track.innerHTML += `
+      <div class="review-card">
+        <p>"${r.comment}"</p>
+        <h4>${starsHTML}</h4>
+        <small>- ${r.name}</small>
+      </div>
+    `;
+  });
+}
+
+renderReviews();
+
+// AGGIUNTA RECENSIONE
+form.addEventListener('submit', e=>{
+  e.preventDefault();
+
+  if(selectedRating == 0){
+    alert("Seleziona le stelle!");
+    return;
+  }
+
+  const newReview = {
+    name: document.getElementById('name').value,
+    rating: parseInt(selectedRating),
+    comment: document.getElementById('comment').value
+  };
+
+  reviews.push(newReview);
+  localStorage.setItem('reviews', JSON.stringify(reviews));
+
+  renderReviews();
+  form.reset();
+
+  stars.forEach(s=>s.classList.remove('active'));
+  selectedRating = 0;
+});
+
+// SLIDER AUTOMATICO
+let index = 0;
+
+setInterval(()=>{
+  const cards = document.querySelectorAll('.review-card');
+  if(cards.length === 0) return;
+
+  index++;
+  if(index >= cards.length) index = 0;
+
+  track.style.transform = `translateX(-${index * 270}px)`;
+}, 3000);
   
 </script>
 

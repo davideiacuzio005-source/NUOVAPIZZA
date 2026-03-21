@@ -85,33 +85,34 @@
 
       <!-- oggetto email -->
       <input type="hidden" name="_subject" value="Nuova candidatura dal sito!">
-
+      <p>Nome e Cognome</p>
       <input type="text" name="Nome" placeholder="Nome e Cognome" required>
-
+      <p>Anno di nascita</p>
       <input type="number" name="Anno di nascita" placeholder="Anno di nascita" min="1950" max="2010" required>
-
+      <p>Tipo di lavoro</p>
       <select name="Lavoro" required>
         <option value="">Tipo di lavoro</option>
         <option>Cameriere</option>
         <option>Cuoco</option>
         <option>Pizzaiolo</option>
       </select>
-
+      <p>Orari</p>
       <select name="Orari" required>
         <option value="">Orari preferiti</option>
         <option>Mattina</option>
         <option>Sera</option>
         <option>Mattina e Sera</option>
       </select>
-
+      <p>Giorni di lavoro</p>
       <select name="Giorni" required>
         <option value="">Giorni di lavoro</option>
         <option>Tutti i giorni di apertura</option>
         <option>Weekend (Venerdì + Sabato + Domenica)</option>
       </select>
-
+       
       <!-- Qui aggiungi il CV -->
  <div>
+   <p>CV</p>
   <label for="cv">Carica il tuo CV:</label>
   <input type="file" id="cv" name="CV" accept=".pdf" required>
   <p style="color:#ff4d4d; margin-top: 0.3rem;">

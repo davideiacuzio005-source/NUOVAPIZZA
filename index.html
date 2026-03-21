@@ -113,19 +113,26 @@ padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#f
   <h2>Prenota il tuo tavolo</h2>
   <form id="reservationForm">
   <p>Nome</p>
-  <input type="text" name="Nome" placeholder="Nome" required>
+  <input type="text" name="Nome" required>
+
   <p>Cognome</p>
-  <input type="text" name="Cognome" placeholder="Cognome" required>
-  <p>Numero di telefono</p>
-  <input type="tel" name="Telefono" placeholder="Telefono" required>
-  <p>Numero di persone</p>
-  <input type="number" name="Persone" placeholder="Numero persone" required>
+  <input type="text" name="Cognome" required>
+
+  <p>Telefono</p>
+  <input type="tel" name="Telefono" required>
+
+  <p>Persone</p>
+  <input type="number" name="Persone" required>
+
   <p>Data</p>
   <input type="date" name="Data" required>
+
   <p>Orario</p>
   <input type="time" name="Ora" required>
+
   <button type="submit">Prenota</button>
-<p id="reservationError" style="color:red; margin-top:10px;"></p>
+
+  <p id="reservationError" style="color:red; margin-top:10px;"></p>
 </form>
 </section>
 
@@ -151,63 +158,8 @@ document.querySelectorAll('#nav-links a').forEach(link=>{
 const form = document.getElementById('reservationForm');
 const errorMsg = document.getElementById('reservationError');
 
-form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  errorMsg.textContent = ""; // reset messaggio
-
-  const dateInput = form.querySelector('input[name="Data"]').value;
-  const timeInput = form.querySelector('input[name="Ora"]').value;
-
-  const [year, month, day] = dateInput.split('-').map(Number);
-  const [hours, minutes] = timeInput.split(':').map(Number);
-  const selectedDate = new Date(year, month-1, day, hours, minutes);
-
-  const dayOfWeek = selectedDate.getDay(); // 0=domenica, 2=martedì
-  const timeInMinutes = hours*60 + minutes;
-
-  const morningStart = 11*60;
-  const morningEnd = 15*60;
-  const eveningStart = 18*60;
-  const eveningEnd = 23*60+30;
-
-  const inMorning = timeInMinutes >= morningStart && timeInMinutes <= morningEnd;
-  const inEvening = timeInMinutes >= eveningStart && timeInMinutes <= eveningEnd;
-
-  // Blocca martedì
-  if(dayOfWeek === 2){
-    errorMsg.textContent = "La pizzeria è chiusa il martedì.";
-    return;
-  }
-
-  // Blocca orari non validi
-  if(!inMorning && !inEvening){
-    errorMsg.textContent = "Orario non disponibile. Siamo aperti 11:00-15:00 e 18:00-23:30.";
-    return;
-  }
-
-  // Invia dati se tutto ok
-  try {
-    const formData = new FormData(form);
-    const response = await fetch("https://formsubmit.co/ajax/davideiacuzio005@gmail.com", {
-      method: "POST",
-      body: formData,
-      headers: { "Accept": "application/json" }
-    });
-
-    if(response.ok){
-      window.location.href = "grazie.html";
-    } else {
-      errorMsg.textContent = "Errore durante l'invio. Riprova!";
-    }
-  } catch(err){
-    errorMsg.textContent = "Errore di rete. Riprova!";
-  }
-});
-</script>
-  
-<script>
-const form = document.getElementById('reservationForm');
-const errorMsg = document.getElementById('reservationError');
+// BLOCCA DATE PASSATE NEL CALENDARIO
+document.querySelector('input[name="Data"]').min = new Date().toISOString().split("T")[0];
 
 form.addEventListener('submit', async function(e){
   e.preventDefault();
@@ -225,12 +177,21 @@ form.addEventListener('submit', async function(e){
   const [hours, minutes] = timeInput.split(':').map(Number);
 
   const selectedDate = new Date(year, month-1, day, hours, minutes);
-  const dayOfWeek = selectedDate.getDay();
+  const selectedDayOnly = new Date(year, month-1, day);
+  const today = new Date();
+  today.setHours(0,0,0,0);
 
+  const dayOfWeek = selectedDate.getDay();
   const timeInMinutes = hours*60 + minutes;
 
   const inMorning = timeInMinutes >= 11*60 && timeInMinutes <= 15*60;
   const inEvening = timeInMinutes >= 18*60 && timeInMinutes <= (23*60+30);
+
+  // ❌ DATA PASSATA
+  if(selectedDayOnly < today){
+    errorMsg.textContent = "Non puoi prenotare per una data passata.";
+    return;
+  }
 
   // ❌ MARTEDÌ
   if(dayOfWeek === 2){
@@ -240,7 +201,7 @@ form.addEventListener('submit', async function(e){
 
   // ❌ ORARIO SBAGLIATO
   if(!inMorning && !inEvening){
-    errorMsg.textContent = "Orario non valido. Aperto 11:00-15:00 e 18:00-23:30.";
+    errorMsg.textContent = "Orario non disponibile. Aperto 11:00-15:00 e 18:00-23:30.";
     return;
   }
 
@@ -257,10 +218,10 @@ form.addEventListener('submit', async function(e){
     if(response.ok){
       window.location.href = "grazie.html";
     } else {
-      errorMsg.textContent = "Errore durante l'invio.";
+      errorMsg.textContent = "Errore durante l'invio. Riprova!";
     }
-  } catch {
-    errorMsg.textContent = "Errore di connessione.";
+  } catch(err){
+    errorMsg.textContent = "Errore di rete. Riprova!";
   }
 });
 </script>

@@ -3,166 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin</title>
 
-<title>Admin - Pizzeria Renato</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
 
 <style>
-body{
-  font-family:Arial;
-  background:#111;
-  color:white;
-  text-align:center;
-  padding:20px;
-}
-
-input, button{
-  padding:10px;
-  margin:5px;
-  border-radius:10px;
-  border:none;
-}
-
-button{
-  background:#ff4d4d;
-  color:white;
-  cursor:pointer;
-}
-
-.card{
-  background:#1a1a1a;
-  margin:10px;
-  padding:10px;
-  border-radius:10px;
-}
+body{background:#111;color:white;font-family:Arial;text-align:center;}
+input,button{margin:5px;padding:10px;border-radius:10px;border:none;}
+button{background:red;color:white;}
+.card{background:#1a1a1a;margin:10px;padding:10px;border-radius:10px;}
 </style>
 </head>
 
 <body>
 
-<h1>Area Admin</h1>
+<h1>Admin</h1>
 
-<!-- LOGIN -->
-<div id="login">
-  <input type="password" id="password" placeholder="Inserisci password">
-  <button onclick="login()">Login</button>
-</div>
+<input id="nome" placeholder="Nome"><br>
+<input id="ingredienti" placeholder="Ingredienti"><br>
+<input id="prezzo" placeholder="Prezzo"><br>
+<input type="file" id="file"><br>
 
-<!-- PANNELLO -->
-<div id="adminPanel" style="display:none;">
+<button onclick="aggiungi()">Aggiungi</button>
 
-  <h2>Aggiungi Pizza</h2>
-
-  <input id="nome" placeholder="Nome pizza"><br>
-  <input id="ingredienti" placeholder="Ingredienti"><br>
-  <input id="prezzo" placeholder="Prezzo"><br>
-
-  <p>Carica immagine:</p>
-  <input type="file" id="file"><br>
-
-  <p>Tipo:</p>
-  <label><input type="checkbox" value="normale"> Classica</label>
-  <label><input type="checkbox" value="piccante"> Piccante</label>
-  <label><input type="checkbox" value="vegetariana"> Vegetariana</label>
-
-  <br><br>
-  <button onclick="aggiungiPizza()">➕ Aggiungi</button>
-
-  <h2>Lista Pizze</h2>
-  <div id="lista"></div>
-
-</div>
+<div id="lista"></div>
 
 <script>
-const PASSWORD = "1234"; // CAMBIA QUI
+// 🔥 INCOLLA QUI LA CONFIG
+const firebaseConfig = {
+  apiKey: "QUI",
+  authDomain: "QUI",
+  projectId: "QUI"
+};
 
-function login(){
-  const input = document.getElementById("password").value;
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  if(input === PASSWORD){
-    document.getElementById("login").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
-    mostraLista();
-  } else {
-    alert("Password sbagliata");
-  }
-}
-
-// DATI
-let pizze = JSON.parse(localStorage.getItem("pizze")) || [];
-
-// AGGIUNGI PIZZA CON IMMAGINE
-function aggiungiPizza(){
-
-  let fileInput = document.getElementById("file");
-  let file = fileInput.files[0];
-
-  if(!file){
-    alert("Seleziona un'immagine!");
-    return;
-  }
-
-  let reader = new FileReader();
-
-  reader.onload = function(e){
-
-    let tipi = [];
-    document.querySelectorAll("input[type=checkbox]:checked")
-      .forEach(c => tipi.push(c.value));
-
-    let pizza = {
-      nome: document.getElementById("nome").value,
-      ingredienti: document.getElementById("ingredienti").value,
-      prezzo: document.getElementById("prezzo").value,
-      immagine: e.target.result,
-      tipo: tipi
-    };
-
-    pizze.push(pizza);
-
-    salva();
-    mostraLista();
-
-    alert("Pizza aggiunta!");
-
-    // reset campi
-    document.getElementById("nome").value="";
-    document.getElementById("ingredienti").value="";
-    document.getElementById("prezzo").value="";
-    document.getElementById("file").value="";
-    document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
-  };
-
-  reader.readAsDataURL(file);
-}
-
-// SALVA
-function salva(){
-  localStorage.setItem("pizze", JSON.stringify(pizze));
-}
-
-// MOSTRA LISTA
-function mostraLista(){
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
-
-  pizze.forEach((p, index)=>{
-    lista.innerHTML += `
-      <div class="card">
-        <h3>${p.nome}</h3>
-        <p>${p.ingredienti}</p>
-        <p>€${p.prezzo}</p>
-        <img src="${p.immagine}" style="width:100px;border-radius:10px;"><br><br>
-        <button onclick="elimina(${index})">❌ Elimina</button>
-      </div>
-    `;
+// CONVERTI IMMAGINE
+function toBase64(file){
+  return new Promise((res,rej)=>{
+    let reader = new FileReader();
+    reader.onload = ()=>res(reader.result);
+    reader.onerror = err=>rej(err);
+    reader.readAsDataURL(file);
   });
 }
 
+// AGGIUNGI
+async function aggiungi(){
+
+  let file = document.getElementById("file").files[0];
+  if(!file) return alert("Seleziona immagine");
+
+  let img = await toBase64(file);
+
+  await db.collection("pizze").add({
+    nome: document.getElementById("nome").value,
+    ingredienti: document.getElementById("ingredienti").value,
+    prezzo: document.getElementById("prezzo").value,
+    immagine: img
+  });
+
+  alert("Aggiunta!");
+}
+
+// MOSTRA
+db.collection("pizze").onSnapshot(snapshot=>{
+  let lista = document.getElementById("lista");
+  lista.innerHTML="";
+
+  snapshot.forEach(doc=>{
+    let p = doc.data();
+
+    lista.innerHTML += `
+      <div class="card">
+        <h3>${p.nome}</h3>
+        <img src="${p.immagine}" width="100">
+        <button onclick="elimina('${doc.id}')">Elimina</button>
+      </div>
+    `;
+  });
+});
+
 // ELIMINA
-function elimina(index){
-  pizze.splice(index,1);
-  salva();
-  mostraLista();
+function elimina(id){
+  db.collection("pizze").doc(id).delete();
 }
 </script>
 

@@ -4,12 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Pizzeria Renato</title>
-
 <style>
 body{font-family:Arial;background:#111;color:white;text-align:center;padding:20px;}
-input,button,textarea{padding:10px;margin:5px;border-radius:10px;border:none;width:300px;max-width:90%;}
+input,button,textarea,select{padding:10px;margin:5px;border-radius:10px;border:none;width:300px;max-width:90%;}
 button{background:#ff4d4d;color:white;cursor:pointer;}
-textarea{height:200px;}
+textarea{height:60px;}
+label{margin-right:10px;}
+#jsonOutput{width:90%;height:200px;margin-top:20px;}
 </style>
 </head>
 <body>
@@ -24,18 +25,24 @@ textarea{height:200px;}
 
 <!-- PANNELLO -->
 <div id="adminPanel" style="display:none;">
-
   <h2>Aggiungi nuova pizza</h2>
 
   <input id="nome" placeholder="Nome pizza"><br>
   <textarea id="ingredienti" placeholder="Ingredienti (separati da virgola)"></textarea><br>
   <input id="prezzo" placeholder="Prezzo"><br>
-  <input type="file" id="file"><br>
 
   <p>Tipo:</p>
-  <label><input type="checkbox" value="normale"> Classica</label>
-  <label><input type="checkbox" value="piccante"> Piccante</label>
-  <label><input type="checkbox" value="vegetariana"> Vegetariana</label>
+  <select id="tipo">
+    <option value="Classica">Classica</option>
+    <option value="Piccante">Piccante</option>
+    <option value="Vegetariana">Vegetariana</option>
+  </select>
+
+  <p>Allergeni (seleziona tutti quelli applicabili):</p>
+  <label><input type="checkbox" value="Glutine"> Glutine</label>
+  <label><input type="checkbox" value="Lattosio"> Lattosio</label>
+  <label><input type="checkbox" value="Frutta secca"> Frutta secca</label>
+  <label><input type="checkbox" value="Uova"> Uova</label>
 
   <br><br>
   <button onclick="aggiungiPizza()">➕ Aggiungi</button>
@@ -43,15 +50,11 @@ textarea{height:200px;}
   <h2>Anteprima JSON</h2>
   <textarea id="jsonOutput"></textarea>
 
-  <p style="color:#ff4d4d;">
-    ❗ Copia tutto il testo sopra e incollalo dentro <strong>pizze.json</strong> su GitHub!
-  </p>
-
+  <p style="color:#ff4d4d;">❗ Copia tutto il testo sopra in <strong>pizze.json</strong> su GitHub per aggiornare il menu</p>
 </div>
 
 <script>
-const PASSWORD = "1234"; // cambia questa!
-
+const PASSWORD = "1234"; // cambia a piacere
 let pizze = [];
 
 function login(){
@@ -62,36 +65,23 @@ function login(){
   } else alert("Password sbagliata");
 }
 
-function toBase64(file){
-  return new Promise((res,rej)=>{
-    let reader = new FileReader();
-    reader.onload = ()=>res(reader.result);
-    reader.onerror = err=>rej(err);
-    reader.readAsDataURL(file);
-  });
-}
-
-async function aggiungiPizza(){
-  let file = document.getElementById("file").files[0];
-  if(!file){ alert("Seleziona immagine"); return; }
-  let img = await toBase64(file);
-
-  let tipi = [];
-  document.querySelectorAll("input[type=checkbox]:checked")
-    .forEach(c=>tipi.push(c.value));
+function aggiungiPizza(){
+  let tipo = document.getElementById("tipo").value;
+  let allergeni = [];
+  document.querySelectorAll("input[type=checkbox]:checked").forEach(c=>allergeni.push(c.value));
 
   pizze.push({
     nome: document.getElementById("nome").value,
     ingredienti: document.getElementById("ingredienti").value,
     prezzo: document.getElementById("prezzo").value,
-    immagine: img,
-    tipo: tipi
+    tipo: tipo,
+    allergeni: allergeni
   });
 
+  // reset campi
   document.getElementById("nome").value="";
   document.getElementById("ingredienti").value="";
   document.getElementById("prezzo").value="";
-  document.getElementById("file").value="";
   document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
 
   aggiornaJSON();

@@ -1,10 +1,12 @@
 [
   {
     "nome": "Margherita",
-    "ingredienti": "Pomodoro e Mozzarella",
-    "prezzo": "6.00",
-    "tipo": ["normale"],
-    "immagine": ""
+    "ingredienti": "Pomodoro, Mozzarella",
+    "prezzo": "10",
+    "tipo": "Classica",
+    "allergeni": [
+      "Glutine",
+      "Lattosio"
+    ]
   }
-
 ]

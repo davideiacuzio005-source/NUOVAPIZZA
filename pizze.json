@@ -4,13 +4,6 @@
     "ingredienti": "Pomodoro e Mozzarella",
     "prezzo": "6.00",
     "tipo": ["normale"],
-    "immagine": "https://raw.githubusercontent.com/TUO_UTENTE/REPO/main/margherita.jpg"
-  },
-  {
-    "nome": "Diavola",
-    "ingredienti": "Pomodoro, Mozzarella, Salame piccante, Peperoni e Olive",
-    "prezzo": "8.00",
-    "tipo": ["piccante"],
-    "immagine": "https://raw.githubusercontent.com/TUO_UTENTE/REPO/main/diavola.jpg"
+    "immagine": ""
   }
 ]

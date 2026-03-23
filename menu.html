@@ -12,7 +12,6 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
 body{background:#111;color:white;}
 
-/* NAVBAR */
 nav{
 position:fixed;top:0;width:100%;
 display:flex;justify-content:space-between;align-items:center;
@@ -22,7 +21,6 @@ z-index:1000;
 nav a{color:white;text-decoration:none;margin:0 10px;}
 nav a:hover{color:#ff4d4d;}
 
-/* HERO */
 .hero{
 height:50vh;
 display:flex;
@@ -45,7 +43,6 @@ z-index:2;
 font-size:3rem;
 }
 
-/* FILTRI */
 .filters{
 margin-top:80px;
 display:flex;
@@ -68,7 +65,6 @@ transition:0.3s;
 background:#ff4d4d;
 }
 
-/* MENU GRID */
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -76,7 +72,6 @@ gap:25px;
 padding:30px;
 }
 
-/* CARD */
 .card{
 background:#1a1a1a;
 border-radius:15px;
@@ -96,7 +91,6 @@ height:200px;
 object-fit:cover;
 }
 
-/* INFO */
 .info{
 padding:15px;
 text-align:center;
@@ -104,7 +98,6 @@ text-align:center;
 .info h3{margin-bottom:5px;}
 .price{color:#ff4d4d;font-weight:bold;}
 
-/* BADGE */
 .badge{
 position:absolute;
 top:10px;
@@ -118,7 +111,6 @@ font-weight:bold;
 .piccante{background:#e60000;}
 .vegetariana{background:#28a745;}
 
-/* FOOTER */
 footer{
 text-align:center;
 padding:30px;
@@ -145,63 +137,59 @@ opacity:0.7;
   <button data-type="vegetariana">Vegetariane</button>
 </div>
 
-<!-- INIZIO DEL MENU --> 
-<section class="menu">
-
-  <!--margherita-->
-  <div class="card" data-type="normale">
-    <span class="badge normale">Classica</span>
-    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/fe89a36ff643106cb69cc7cb3f480ded38f04d6a/PIZZA%20PROVA.jpg" alt="Pizza Prova">
-    <div class="info">
-      <h3>Margherita</h3>
-      <p>Pomodoro e Mozzarella</p>
-      <p class="price">€6.00</p>
-    </div>
-  </div>
-
-  <!--diavola-->
-  <div class="card" data-type="piccante">
-    <span class="badge piccante">Piccante</span>
-    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/fe89a36ff643106cb69cc7cb3f480ded38f04d6a/PIZZA%20PROVA.jpg" alt="Pizza Prova">
-    <div class="info">
-      <h3>Diavola</h3>
-      <p>Pomodoro, Mozzarella, Salame piccante, Peperoni e Olive</p>
-      <p class="price">€8.00</p>
-    </div>
-  </div>
-
-  <!--vegetariana-->
-  <div class="card" data-type="vegetariana">
-    <span class="badge vegetariana">Vegetariana</span>
-    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/fe89a36ff643106cb69cc7cb3f480ded38f04d6a/PIZZA%20PROVA.jpg" alt="Pizza Prova">
-    <div class="info">
-      <h3>Vegetariana</h3>
-      <p>Verdure grigliate, mozzarella</p>
-      <p class="price">€7.50</p>
-    </div>
-  </div>
-
-<!--FINE SEZIONE PIZZE-->
-</section>
+<section class="menu" id="menu"></section>
 
 <footer>
   © 2026 Pizzeria Renato
 </footer>
 
 <script>
-// FILTRI
+let pizze = JSON.parse(localStorage.getItem("pizze")) || [];
+
+const menu = document.getElementById("menu");
+
+function mostraMenu(){
+  menu.innerHTML = "";
+
+  pizze.forEach(pizza => {
+
+    let badge = pizza.tipo.map(t =>
+      `<span class="badge ${t}">${t}</span>`
+    ).join("");
+
+    let div = document.createElement("div");
+    div.classList.add("card");
+    div.dataset.type = pizza.tipo.join(" ");
+
+    div.innerHTML = `
+      ${badge}
+      <img src="${pizza.immagine}">
+      <div class="info">
+        <h3>${pizza.nome}</h3>
+        <p>${pizza.ingredienti}</p>
+        <p class="price">€${pizza.prezzo}</p>
+      </div>
+    `;
+
+    menu.appendChild(div);
+  });
+}
+
+mostraMenu();
+
 const buttons = document.querySelectorAll('.filters button');
-const cards = document.querySelectorAll('.card');
 
 buttons.forEach(btn=>{
   btn.addEventListener('click',()=>{
+
     buttons.forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
 
     const type = btn.dataset.type;
+    const cards = document.querySelectorAll('.card');
 
     cards.forEach(card=>{
-      if(type==='all' || card.dataset.type===type){
+      if(type==='all' || card.dataset.type.includes(type)){
         card.style.display="block";
       } else {
         card.style.display="none";

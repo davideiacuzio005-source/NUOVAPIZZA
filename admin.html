@@ -55,7 +55,9 @@ button{
   <input id="nome" placeholder="Nome pizza"><br>
   <input id="ingredienti" placeholder="Ingredienti"><br>
   <input id="prezzo" placeholder="Prezzo"><br>
-  <input id="immagine" placeholder="Link immagine"><br>
+
+  <p>Carica immagine:</p>
+  <input type="file" id="file"><br>
 
   <p>Tipo:</p>
   <label><input type="checkbox" value="normale"> Classica</label>
@@ -71,7 +73,7 @@ button{
 </div>
 
 <script>
-const PASSWORD = "1234"; // CAMBIALA!
+const PASSWORD = "1234"; // CAMBIA QUI
 
 function login(){
   const input = document.getElementById("password").value;
@@ -85,37 +87,52 @@ function login(){
   }
 }
 
-// CARICA DATI
+// DATI
 let pizze = JSON.parse(localStorage.getItem("pizze")) || [];
 
-// AGGIUNGI
+// AGGIUNGI PIZZA CON IMMAGINE
 function aggiungiPizza(){
 
-  let tipi = [];
-  document.querySelectorAll("input[type=checkbox]:checked")
-    .forEach(c => tipi.push(c.value));
+  let fileInput = document.getElementById("file");
+  let file = fileInput.files[0];
 
-  let pizza = {
-    nome: document.getElementById("nome").value,
-    ingredienti: document.getElementById("ingredienti").value,
-    prezzo: document.getElementById("prezzo").value,
-    immagine: document.getElementById("immagine").value,
-    tipo: tipi
+  if(!file){
+    alert("Seleziona un'immagine!");
+    return;
+  }
+
+  let reader = new FileReader();
+
+  reader.onload = function(e){
+
+    let tipi = [];
+    document.querySelectorAll("input[type=checkbox]:checked")
+      .forEach(c => tipi.push(c.value));
+
+    let pizza = {
+      nome: document.getElementById("nome").value,
+      ingredienti: document.getElementById("ingredienti").value,
+      prezzo: document.getElementById("prezzo").value,
+      immagine: e.target.result,
+      tipo: tipi
+    };
+
+    pizze.push(pizza);
+
+    salva();
+    mostraLista();
+
+    alert("Pizza aggiunta!");
+
+    // reset campi
+    document.getElementById("nome").value="";
+    document.getElementById("ingredienti").value="";
+    document.getElementById("prezzo").value="";
+    document.getElementById("file").value="";
+    document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
   };
 
-  pizze.push(pizza);
-
-  salva();
-  mostraLista();
-
-  alert("Pizza aggiunta!");
-
-  // reset campi
-  document.getElementById("nome").value="";
-  document.getElementById("ingredienti").value="";
-  document.getElementById("prezzo").value="";
-  document.getElementById("immagine").value="";
-  document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
+  reader.readAsDataURL(file);
 }
 
 // SALVA
@@ -134,6 +151,7 @@ function mostraLista(){
         <h3>${p.nome}</h3>
         <p>${p.ingredienti}</p>
         <p>€${p.prezzo}</p>
+        <img src="${p.immagine}" style="width:100px;border-radius:10px;"><br><br>
         <button onclick="elimina(${index})">❌ Elimina</button>
       </div>
     `;

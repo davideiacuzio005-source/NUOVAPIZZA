@@ -3,44 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin</title>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+<title>Admin - Pizzeria Renato</title>
 
 <style>
-body{background:#111;color:white;font-family:Arial;text-align:center;}
-input,button{margin:5px;padding:10px;border-radius:10px;border:none;}
-button{background:red;color:white;}
-.card{background:#1a1a1a;margin:10px;padding:10px;border-radius:10px;}
+body{font-family:Arial;background:#111;color:white;text-align:center;padding:20px;}
+input,button,textarea{padding:10px;margin:5px;border-radius:10px;border:none;width:300px;max-width:90%;}
+button{background:#ff4d4d;color:white;cursor:pointer;}
+textarea{height:200px;}
 </style>
 </head>
-
 <body>
 
-<h1>Admin</h1>
+<h1>Admin - Pizzeria Renato</h1>
 
-<input id="nome" placeholder="Nome"><br>
-<input id="ingredienti" placeholder="Ingredienti"><br>
-<input id="prezzo" placeholder="Prezzo"><br>
-<input type="file" id="file"><br>
+<!-- LOGIN -->
+<div id="login">
+  <input type="password" id="password" placeholder="Inserisci password">
+  <button onclick="login()">Login</button>
+</div>
 
-<button onclick="aggiungi()">Aggiungi</button>
+<!-- PANNELLO -->
+<div id="adminPanel" style="display:none;">
 
-<div id="lista"></div>
+  <h2>Aggiungi nuova pizza</h2>
+
+  <input id="nome" placeholder="Nome pizza"><br>
+  <textarea id="ingredienti" placeholder="Ingredienti (separati da virgola)"></textarea><br>
+  <input id="prezzo" placeholder="Prezzo"><br>
+  <input type="file" id="file"><br>
+
+  <p>Tipo:</p>
+  <label><input type="checkbox" value="normale"> Classica</label>
+  <label><input type="checkbox" value="piccante"> Piccante</label>
+  <label><input type="checkbox" value="vegetariana"> Vegetariana</label>
+
+  <br><br>
+  <button onclick="aggiungiPizza()">➕ Aggiungi</button>
+
+  <h2>Anteprima JSON</h2>
+  <textarea id="jsonOutput"></textarea>
+
+  <p style="color:#ff4d4d;">
+    ❗ Copia tutto il testo sopra e incollalo dentro <strong>pizze.json</strong> su GitHub!
+  </p>
+
+</div>
 
 <script>
-// 🔥 INCOLLA QUI LA CONFIG
-const firebaseConfig = {
-  apiKey: "QUI",
-  authDomain: "QUI",
-  projectId: "QUI"
-};
+const PASSWORD = "1234"; // cambia questa!
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+let pizze = [];
 
-// CONVERTI IMMAGINE
+function login(){
+  if(document.getElementById("password").value === PASSWORD){
+    document.getElementById("login").style.display="none";
+    document.getElementById("adminPanel").style.display="block";
+    aggiornaJSON();
+  } else alert("Password sbagliata");
+}
+
 function toBase64(file){
   return new Promise((res,rej)=>{
     let reader = new FileReader();
@@ -50,45 +71,34 @@ function toBase64(file){
   });
 }
 
-// AGGIUNGI
-async function aggiungi(){
-
+async function aggiungiPizza(){
   let file = document.getElementById("file").files[0];
-  if(!file) return alert("Seleziona immagine");
-
+  if(!file){ alert("Seleziona immagine"); return; }
   let img = await toBase64(file);
 
-  await db.collection("pizze").add({
+  let tipi = [];
+  document.querySelectorAll("input[type=checkbox]:checked")
+    .forEach(c=>tipi.push(c.value));
+
+  pizze.push({
     nome: document.getElementById("nome").value,
     ingredienti: document.getElementById("ingredienti").value,
     prezzo: document.getElementById("prezzo").value,
-    immagine: img
+    immagine: img,
+    tipo: tipi
   });
 
-  alert("Aggiunta!");
+  document.getElementById("nome").value="";
+  document.getElementById("ingredienti").value="";
+  document.getElementById("prezzo").value="";
+  document.getElementById("file").value="";
+  document.querySelectorAll("input[type=checkbox]").forEach(c=>c.checked=false);
+
+  aggiornaJSON();
 }
 
-// MOSTRA
-db.collection("pizze").onSnapshot(snapshot=>{
-  let lista = document.getElementById("lista");
-  lista.innerHTML="";
-
-  snapshot.forEach(doc=>{
-    let p = doc.data();
-
-    lista.innerHTML += `
-      <div class="card">
-        <h3>${p.nome}</h3>
-        <img src="${p.immagine}" width="100">
-        <button onclick="elimina('${doc.id}')">Elimina</button>
-      </div>
-    `;
-  });
-});
-
-// ELIMINA
-function elimina(id){
-  db.collection("pizze").doc(id).delete();
+function aggiornaJSON(){
+  document.getElementById("jsonOutput").value = JSON.stringify(pizze,null,2);
 }
 </script>
 

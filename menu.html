@@ -5,52 +5,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Menu - Pizzeria Renato</title>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-
 <style>
-body{background:#111;color:white;font-family:Arial;}
-.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;}
-.card{background:#1a1a1a;border-radius:10px;padding:10px;}
-img{width:100%;height:200px;object-fit:cover;}
+body{background:#111;color:white;font-family:'Roboto',sans-serif;}
+nav{padding:15px;text-align:center;}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;padding:30px;}
+.card{background:#1a1a1a;border-radius:15px;padding:15px;position:relative;}
+.card img{width:100%;height:200px;object-fit:cover;border-radius:10px;}
+.badge{position:absolute;top:10px;left:10px;padding:5px 10px;border-radius:20px;font-size:0.8rem;font-weight:bold;}
+.normale{background:#6c757d;}
+.piccante{background:#e60000;}
+.vegetariana{background:#28a745;}
 </style>
 </head>
-
 <body>
 
-<h1 style="text-align:center;">Menu</h1>
-
-<section class="menu" id="menu"></section>
+<nav><h1>Menu Pizzeria Renato</h1></nav>
+<div class="menu" id="menu"></div>
 
 <script>
-// 🔥 INCOLLA QUI LA TUA CONFIG FIREBASE
-const firebaseConfig = {
-  apiKey: "QUI",
-  authDomain: "QUI",
-  projectId: "QUI"
-};
+// 📌 URL per leggere il JSON raw da GitHub
+const url = "https://raw.githubusercontent.com/davideiacuzio005/NUOVAPIZZA/main/pizze.json";
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// CARICA PIZZE LIVE
-db.collection("pizze").onSnapshot(snapshot => {
-  const menu = document.getElementById("menu");
-  menu.innerHTML = "";
-
-  snapshot.forEach(doc => {
-    let p = doc.data();
-
-    menu.innerHTML += `
-      <div class="card">
+fetch(url)
+  .then(res => res.json())
+  .then(pizze => {
+    const menu = document.getElementById("menu");
+    menu.innerHTML = "";
+    pizze.forEach(p => {
+      let badge = p.tipo.map(t=>`<span class="badge ${t}">${t}</span>`).join("");
+      let card = document.createElement("div");
+      card.classList.add("card");
+      card.innerHTML = `
+        ${badge}
         <img src="${p.immagine}">
         <h3>${p.nome}</h3>
         <p>${p.ingredienti}</p>
         <p>€${p.prezzo}</p>
-      </div>
-    `;
+      `;
+      menu.appendChild(card);
+    });
+  })
+  .catch(err => {
+    document.getElementById("menu").innerHTML =
+      "<p style='color:red;text-align:center;'>Errore nel caricare il menu.</p>";
   });
-});
 </script>
 
 </body>

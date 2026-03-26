@@ -84,8 +84,10 @@ body::before {
   font-size:0.95rem;
   outline:none;
   transition:border-color var(--transition), background var(--transition);
-  appearance:none; /* per select */
+  appearance:none;
 }
+
+/* Focus input/select */
 .form-group input:focus,
 .form-group select:focus {
   border-color:var(--gold);
@@ -107,10 +109,16 @@ body::before {
   padding:0 4px;
   transition:0.3s ease all;
 }
+
+/* Floating label per input */
 .form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label,
+.form-group input:not(:placeholder-shown) + label {
+  top:-10px; font-size:0.65rem; color:var(--gold);
+}
+
+/* Floating label per select con JS */
 .form-group select:focus + label,
-.form-group select option:checked + label {
+.form-group select.has-value + label {
   top:-10px; font-size:0.65rem; color:var(--gold);
 }
 
@@ -250,6 +258,17 @@ form.addEventListener('submit', async (e)=>{
   }catch(err){
     errorEl.textContent='Errore di rete. Riprova!'; btn.textContent='Invia candidatura'; btn.disabled=false;
   }
+});
+
+// Floating label per select
+document.querySelectorAll('.form-group select').forEach(select => {
+  select.addEventListener('change', () => {
+    if(select.value) {
+      select.classList.add('has-value');
+    } else {
+      select.classList.remove('has-value');
+    }
+  });
 });
 </script>
 

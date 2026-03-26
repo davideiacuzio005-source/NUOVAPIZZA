@@ -473,9 +473,25 @@ const errorEl = document.getElementById('errorMsg');
 form.addEventListener('submit', async function(e){
   e.preventDefault();
   errorEl.textContent='';
-  const dateVal = form.querySelector('[name="Data"]').value;
-  const timeVal = form.querySelector('[name="Ora"]').value;
-  if(!dateVal||!timeVal){ errorEl.textContent='Inserisci data e orario.'; return; }
+ const dateVal = form.querySelector('[name="Data"]').value;
+const timeVal = form.querySelector('[name="Ora"]').value;
+const telVal  = form.querySelector('[name="Telefono"]').value.trim();
+
+if(!dateVal || !timeVal){
+  errorEl.textContent='Inserisci data e orario.';
+  return;
+}
+
+// ✅ CONTROLLO TELEFONO (ITALIA)
+const telefonoPulito = telVal.replace(/\s+/g, ''); // rimuove spazi
+
+// accetta: +39xxxxxxxxxx oppure 3xxxxxxxxx
+const regexTelefono = /^(\+39)?3\d{9}$/;
+
+if(!regexTelefono.test(telefonoPulito)){
+  errorEl.textContent='Inserisci un numero di telefono valido (es. +39 333 1234567)';
+  return;
+}
  
   const [y,m,d] = dateVal.split('-').map(Number);
   const [h,min] = timeVal.split(':').map(Number);

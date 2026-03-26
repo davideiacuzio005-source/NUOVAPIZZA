@@ -38,27 +38,18 @@ body::before {
   opacity:0.45;
 }
 
-/* ───────── HEADER E HAMBURGER ───────── */
+/* ───────── HEADER (MENU IDENTICO) ───────── */
 .header {
   position: fixed;
   top: 0;
-  right: 0;
   width: 100%;
   padding: 20px 36px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 10000;
+  justify-content: flex-end;
+  z-index: 1000;
 }
 
-.header .logo {
-  color: var(--cream);
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.menu-toggle {
+.hamburger {
   width: 28px;
   height: 20px;
   display: flex;
@@ -67,7 +58,7 @@ body::before {
   cursor: pointer;
 }
 
-.menu-toggle span {
+.hamburger span {
   display: block;
   height: 3px;
   background: var(--gold);
@@ -75,7 +66,11 @@ body::before {
   transition: all 0.3s ease;
 }
 
-.nav {
+.hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
+.nav-menu {
   position: fixed;
   top: 0;
   right: -250px;
@@ -84,28 +79,26 @@ body::before {
   background: var(--dark2);
   padding-top: 80px;
   transition: right 0.3s ease;
+  z-index: 999;
 }
 
-.nav ul {
+.nav-menu.open { right: 0; }
+
+.nav-menu ul {
   list-style: none;
+  padding: 0 20px;
 }
 
-.nav ul li {
+.nav-menu ul li {
   margin: 20px 0;
 }
 
-.nav ul li a {
+.nav-menu ul li a {
   color: var(--text);
   text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
 }
-
-.nav.open { right: 0; }
-
-.menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-.menu-toggle.open span:nth-child(2) { opacity: 0; }
-.menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
 
 /* ───────── CONTENITORE FORM ───────── */
 .container {
@@ -156,14 +149,12 @@ body::before {
   appearance:none;
 }
 
-/* Focus input/select */
 .form-group input:focus,
 .form-group select:focus {
   border-color:var(--gold);
   background:rgba(201,168,76,0.06);
 }
 
-/* ───────── FLOATING LABEL ───────── */
 .form-group label {
   position:absolute;
   top:50%; left:14px;
@@ -179,19 +170,16 @@ body::before {
   transition:0.3s ease all;
 }
 
-/* Floating label per input */
 .form-group input:focus + label,
 .form-group input:not(:placeholder-shown) + label {
   top:-10px; font-size:0.65rem; color:var(--gold);
 }
 
-/* Floating label per select con JS */
 .form-group select:focus + label,
 .form-group select.has-value + label {
   top:-10px; font-size:0.65rem; color:var(--gold);
 }
 
-/* ───────── PULSANTE ───────── */
 .btn-submit {
   width:100%;
   padding:16px;
@@ -215,7 +203,6 @@ body::before {
 }
 .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
 
-/* ───────── MESSAGGI ERRORE ───────── */
 .error-msg {
   color:var(--red);
   font-size:0.85rem;
@@ -223,7 +210,6 @@ body::before {
   min-height:20px;
 }
 
-/* ───────── LINK TORNA INDIETRO ───────── */
 .back { margin-top:24px; text-align:center; }
 .back a {
   color:var(--gold);
@@ -233,29 +219,29 @@ body::before {
 }
 .back a:hover { text-decoration:underline; transform:scale(1.02); }
 
-/* ───────── SCROLL REVEAL ───────── */
 .reveal { opacity:0; transform:translateY(20px); transition:all 0.8s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
+
 </style>
 </head>
 <body>
 
-<!-- HEADER CON HAMBURGER -->
+<!-- HEADER IDENTICO -->
 <header class="header">
-  <div class="logo">Pizzeria Renato</div>
-  <div class="menu-toggle" id="menuToggle">
+  <div class="hamburger" id="hamburger">
     <span></span>
     <span></span>
     <span></span>
   </div>
-  <nav class="nav" id="navMenu">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="menu.html">Menu</a></li>
-      <li><a href="contatti.html">Contatti</a></li>
-    </ul>
-  </nav>
 </header>
+
+<nav class="nav-menu" id="navMenu">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="contatti.html">Contatti</a></li>
+  </ul>
+</nav>
 
 <!-- FORM -->
 <div class="container reveal">
@@ -350,20 +336,16 @@ form.addEventListener('submit', async (e)=>{
 // Floating label per select
 document.querySelectorAll('.form-group select').forEach(select => {
   select.addEventListener('change', () => {
-    if(select.value) {
-      select.classList.add('has-value');
-    } else {
-      select.classList.remove('has-value');
-    }
+    if(select.value) select.classList.add('has-value');
+    else select.classList.remove('has-value');
   });
 });
 
 // Hamburger menu
-const menuToggle = document.getElementById('menuToggle');
+const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
-
-menuToggle.addEventListener('click', () => {
-  menuToggle.classList.toggle('open');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
   navMenu.classList.toggle('open');
 });
 </script>

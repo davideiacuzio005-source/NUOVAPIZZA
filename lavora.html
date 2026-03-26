@@ -324,7 +324,12 @@ footer{
         <label for="nascita">Anno di nascita</label>
         <input type="number" id="nascita" name="Anno_di_nascita" placeholder="1995" min="1950" max="2007" required>
       </div>
- 
+
+     <div class="form-group">
+  <label for="tel">Telefono</label>
+  <input type="tel" id="tel" name="Telefono" placeholder="+39 333 1234567" required>
+</div>
+     
       <div class="form-row">
         <div class="form-group">
           <label for="ruolo">Ruolo desiderato</label>
@@ -465,6 +470,18 @@ const successBanner = document.getElementById('successBanner');
 form.addEventListener('submit', async function(e){
   e.preventDefault();
   errorMsg.textContent='';
+
+// ✅ CONTROLLO TELEFONO
+const telVal = form.querySelector('[name="Telefono"]').value.trim();
+const telefonoPulito = telVal.replace(/\s+/g, '');
+
+// accetta +39 oppure numero italiano mobile
+const regexTelefono = /^(\+39)?3\d{9}$/;
+
+if(!regexTelefono.test(telefonoPulito)){
+  errorMsg.textContent='❌ Inserisci un numero di telefono valido (es. +39 333 1234567)';
+  return;
+}
  
   // Valida CV
   if(!cvInput.files || !cvInput.files[0]){

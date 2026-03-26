@@ -11,7 +11,6 @@
 <style>
 :root{
   --red:#c0392b;
-  --red-dark:#96281b;
   --gold:#c9a84c;
   --dark:#0e0b08;
   --dark2:#1a1410;
@@ -29,7 +28,7 @@ nav{
 position:fixed;top:0;width:100%;
 display:flex;justify-content:space-between;align-items:center;
 padding:0 30px;height:70px;
-background:rgba(14,11,8,0.85);
+background:rgba(14,11,8,0.9);
 backdrop-filter:blur(20px);
 border-bottom:1px solid var(--border);
 z-index:1000;
@@ -38,35 +37,24 @@ nav a{
 color:var(--text-muted);
 text-decoration:none;
 margin:0 10px;
-font-size:0.85rem;
+font-size:0.8rem;
 letter-spacing:0.1em;
 text-transform:uppercase;
-font-weight:700;
 }
 nav a:hover{color:var(--gold);}
 
 /* HERO */
 .hero{
-height:50vh;
+height:40vh;
 display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
-background:url('https://images.unsplash.com/photo-1513104890138-7c749659a591') center/cover;
-position:relative;
-}
-.hero::after{
-content:"";
-position:absolute;
-inset:0;
-background:rgba(0,0,0,0.65);
+background:#000;
 }
 .hero h1{
-position:relative;
-z-index:2;
 font-family:'Playfair Display',serif;
-font-size:3rem;
-color:var(--text);
+font-size:2.5rem;
 }
 
 /* FILTRI */
@@ -74,38 +62,34 @@ color:var(--text);
 margin-top:90px;
 display:flex;
 justify-content:center;
-gap:12px;
+gap:10px;
 flex-wrap:wrap;
 padding:20px;
 }
 .filters button{
 background:transparent;
 border:1px solid var(--border);
-padding:10px 20px;
+padding:8px 18px;
 color:var(--text-muted);
-border-radius:30px;
+border-radius:20px;
 cursor:pointer;
-transition:0.25s;
-font-size:0.75rem;
-letter-spacing:0.1em;
+transition:0.2s;
+font-size:0.7rem;
 text-transform:uppercase;
 }
+.filters button.active,
 .filters button:hover{
-border-color:var(--gold);
-color:var(--gold);
-}
-.filters button.active{
 background:var(--red);
 color:#fff;
 border-color:var(--red);
 }
 
-/* MENU GRID */
+/* MENU */
 .menu{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:30px;
-padding:40px;
+gap:25px;
+padding:30px;
 }
 
 /* CARD */
@@ -113,74 +97,52 @@ padding:40px;
 background:var(--dark3);
 border:1px solid var(--border);
 border-radius:6px;
-overflow:hidden;
+padding:20px;
 transition:0.3s;
-position:relative;
-opacity:0;
-transform:translateY(20px);
-animation:fadeUp 0.6s forwards;
 }
 .card:hover{
-transform:translateY(-6px);
 border-color:var(--gold);
+transform:translateY(-5px);
 }
 
-/* IMG */
-.card img{
-width:100%;
-height:200px;
-object-fit:cover;
-filter:brightness(0.9);
-}
-
-/* INFO */
-.info{
-padding:20px;
-text-align:center;
-}
-.info h3{
+/* TESTO */
+h3{
 font-family:'Playfair Display',serif;
 margin-bottom:8px;
 }
-.info p{
+.desc{
 color:var(--text-muted);
 font-size:0.9rem;
-margin-bottom:8px;
+margin-bottom:10px;
+}
+.allergeni{
+font-size:0.8rem;
+color:#888;
+margin-bottom:10px;
 }
 .price{
 color:var(--gold);
-font-weight:700;
+font-weight:bold;
 }
 
 /* BADGE */
 .badge{
-position:absolute;
-top:12px;
-left:12px;
-padding:4px 10px;
-border-radius:20px;
+display:inline-block;
+padding:3px 8px;
+border-radius:12px;
 font-size:0.7rem;
-font-weight:700;
-text-transform:uppercase;
+margin-right:5px;
+margin-bottom:8px;
 }
 .normale{background:#555;}
 .piccante{background:#c0392b;}
 .vegetariana{background:#2e7d32;}
 
-/* FOOTER */
 footer{
 text-align:center;
-padding:30px;
+padding:20px;
 color:var(--text-muted);
 font-size:0.8rem;
-}
-
-/* ANIMAZIONE */
-@keyframes fadeUp{
-to{
-opacity:1;
-transform:translateY(0);
-}
 }
 </style>
 </head>
@@ -213,14 +175,46 @@ transform:translateY(0);
 </footer>
 
 <script>
-let pizze = JSON.parse(localStorage.getItem("pizze")) || [];
+
+/* ===============================
+   🍕 QUI INSERISCI LE PIZZE
+   Per aggiungerne una nuova copia questo blocco:
+   
+   {
+     nome: "Nome Pizza",
+     ingredienti: "Ingredienti...",
+     allergeni: "Allergeni...",
+     prezzo: "10.00",
+     tipo: ["normale","piccante"] // puoi metterne più di uno
+   }
+================================ */
+
+let pizze = [
+
+  {
+    nome: "Diavola",
+    ingredienti: "Pomodoro, mozzarella, salame piccante",
+    allergeni: "Glutine, latte",
+    prezzo: "9.50",
+    tipo: ["normale","piccante"]
+  },
+
+  {
+    nome: "Ortolana",
+    ingredienti: "Mozzarella, zucchine, melanzane, peperoni",
+    allergeni: "Glutine, latte",
+    prezzo: "8.50",
+    tipo: ["vegetariana"]
+  }
+
+];
 
 const menu = document.getElementById("menu");
 
 function mostraMenu(){
   menu.innerHTML = "";
 
-  pizze.forEach((pizza, index) => {
+  pizze.forEach(pizza => {
 
     let badge = pizza.tipo.map(t =>
       `<span class="badge ${t}">${t}</span>`
@@ -230,16 +224,12 @@ function mostraMenu(){
     div.classList.add("card");
     div.dataset.type = pizza.tipo.join(" ");
 
-    div.style.animationDelay = (index * 0.1) + "s";
-
     div.innerHTML = `
       ${badge}
-      <img src="${pizza.immagine}">
-      <div class="info">
-        <h3>${pizza.nome}</h3>
-        <p>${pizza.ingredienti}</p>
-        <p class="price">€${pizza.prezzo}</p>
-      </div>
+      <h3>${pizza.nome}</h3>
+      <p class="desc">${pizza.ingredienti}</p>
+      <p class="allergeni">Allergeni: ${pizza.allergeni}</p>
+      <p class="price">€${pizza.prezzo}</p>
     `;
 
     menu.appendChild(div);
@@ -248,6 +238,7 @@ function mostraMenu(){
 
 mostraMenu();
 
+/* FILTRI */
 const buttons = document.querySelectorAll('.filters button');
 
 buttons.forEach(btn=>{
@@ -268,6 +259,7 @@ buttons.forEach(btn=>{
     });
   });
 });
+
 </script>
 
 </body>

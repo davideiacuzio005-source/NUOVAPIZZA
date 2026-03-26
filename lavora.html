@@ -3,14 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lavora con noi - Pizzeria Renato</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
+<title>Lavora con noi – Pizzeria Renato</title>
+<meta name="description" content="Unisciti al team della Pizzeria Renato. Invia la tua candidatura.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+ 
 <style>
-:root {
+:root{
   --red:#c0392b;
   --red-dark:#96281b;
+  --red-glow:rgba(192,57,43,0.35);
+  --cream:#f5f0e8;
   --gold:#c9a84c;
   --dark:#0e0b08;
   --dark2:#1a1410;
@@ -19,118 +21,243 @@
   --text-muted:#a09070;
   --border:rgba(201,168,76,0.2);
 }
-
+ 
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--dark);color:var(--text);font-family:'Lato';}
-
-/* ===== NAVBAR IDENTICA ===== */
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;overflow-x:hidden;min-height:100vh;}
+ 
+/* GRAIN */
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.45;
+}
+ 
+/* ─── NAVBAR ─── */
 nav{
   position:fixed;top:0;width:100%;z-index:1000;
   padding:0 40px;
   display:flex;justify-content:space-between;align-items:center;height:70px;
-  background:rgba(14,11,8,0.82);
+  background:rgba(14,11,8,0.88);
   backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
+  transition:all 0.4s;
 }
-
-nav .logo{display:flex;align-items:center;gap:12px;}
+nav.scrolled{background:rgba(14,11,8,0.97);}
+nav .logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
 nav .logo img{height:40px;border-radius:50%;border:2px solid var(--gold);}
-nav .logo-text{font-family:'Playfair Display';color:var(--gold);}
-
+nav .logo-text{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold);letter-spacing:0.05em;}
+ 
 nav ul{display:flex;gap:5px;list-style:none;}
 nav a{
-  color:var(--text-muted);
-  text-decoration:none;
-  padding:8px 16px;
-  font-size:0.88rem;
-  text-transform:uppercase;
+  color:var(--text-muted);text-decoration:none;
+  padding:8px 16px;border-radius:6px;
+  font-size:0.88rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;
+  transition:all 0.2s;
 }
+nav a:hover{color:var(--cream);background:rgba(255,255,255,0.06);}
 nav a.active{color:var(--gold);}
-
-/* ===== HAMBURGER IDENTICO ===== */
+ 
+/* HAMBURGER */
 .hamburger{
-  display:none;
-  flex-direction:column;
-  gap:6px;
-  cursor:pointer;
+  display:none;flex-direction:column;justify-content:center;
+  gap:6px;cursor:pointer;z-index:1100;
+  padding:8px;background:transparent;border:none;
 }
-.hamburger span{
-  width:24px;height:2px;background:var(--text);
-}
+.hamburger span{width:24px;height:2px;background:var(--text);border-radius:2px;transition:0.3s;display:block;}
 .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(2){opacity:0;width:0;}
 .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-
-/* ===== OVERLAY ===== */
+ 
 .menu-overlay{
-  display:none;
-  position:fixed;inset:0;
+  display:none;position:fixed;inset:0;z-index:998;
   background:rgba(0,0,0,0.55);
-  z-index:998;
 }
 .menu-overlay.show{display:block;}
-
-/* ===== MOBILE MENU IDENTICO ===== */
+ 
 @media(max-width:768px){
+  nav{padding:0 20px;}
   nav ul{
-    position:fixed;
-    top:0;right:-100%;
-    height:100vh;width:72%;
-    background:var(--dark2);
-    flex-direction:column;
-    padding:80px 0;
-    transition:right 0.35s;
-    z-index:999;
+    position:fixed;top:0;right:-100%;
+    height:100vh;width:72%;max-width:280px;
+    background:var(--dark2);flex-direction:column;
+    padding:80px 0 40px;
+    transition:right 0.35s cubic-bezier(.77,0,.175,1);
+    border-left:1px solid var(--border);
+    gap:0;z-index:999;list-style:none;overflow-y:auto;
   }
   nav ul.show{right:0;}
+  nav ul li{width:100%;}
+  nav ul li a{
+    display:block;width:100%;padding:16px 28px;
+    font-size:1rem;letter-spacing:0.06em;
+    border-radius:0;border-bottom:1px solid rgba(201,168,76,0.1);
+    color:var(--text);
+  }
+  nav ul li:first-child a{border-top:1px solid rgba(201,168,76,0.1);}
+  nav ul li a:hover,nav ul li a.active{background:rgba(201,168,76,0.1);color:var(--gold);}
   .hamburger{display:flex;}
 }
-
-/* ===== FORM ===== */
-.container{
-  max-width:500px;
-  margin:140px auto;
-  background:var(--dark2);
-  padding:40px;
+ 
+/* ─── HERO STRIP ─── */
+.page-hero{
+  padding-top:70px;
+  position:relative;
+  height:260px;
+  display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;
+}
+.page-hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80') center 40%/cover no-repeat;
+}
+.page-hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom, rgba(14,11,8,0.5) 0%, rgba(14,11,8,0.92) 100%);
+}
+.page-hero-content{
+  position:relative;z-index:2;text-align:center;padding:0 20px 40px;
+  animation:fadeUp 0.8s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.page-eyebrow{font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px;}
+.page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--cream);}
+ 
+/* ─── MAIN ─── */
+.main{
+  max-width:1000px;margin:0 auto;
+  padding:60px 40px 100px;
+  display:grid;grid-template-columns:1fr 1.35fr;gap:60px;align-items:start;
+}
+@media(max-width:800px){.main{grid-template-columns:1fr;gap:40px;padding:40px 20px 80px;}}
+ 
+/* INFO SIDE */
+.info-side{}
+.section-label{font-size:0.72rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px;}
+.info-side h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--cream);line-height:1.2;margin-bottom:16px;}
+.divider{width:40px;height:2px;background:var(--gold);margin-bottom:24px;}
+.info-side p{color:var(--text-muted);line-height:1.8;font-size:0.95rem;font-weight:300;margin-bottom:20px;}
+ 
+.role-list{list-style:none;margin-top:10px;}
+.role-list li{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--border);
+  color:var(--text-muted);font-size:0.92rem;
+}
+.role-list li:first-child{border-top:1px solid var(--border);}
+.role-list li .icon{font-size:1.2rem;}
+.role-list li strong{color:var(--cream);}
+ 
+/* FORM CARD */
+.form-card{
+  background:var(--dark3);
   border:1px solid var(--border);
+  border-radius:4px;
+  padding:36px;
+  animation:fadeUp 0.9s ease 0.15s both;
 }
-
-.container h1{
+.form-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:28px;}
+ 
+.form-group{margin-bottom:18px;}
+.form-group label{
+  display:block;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--text-muted);font-weight:700;margin-bottom:8px;
+}
+.form-group input,
+.form-group select{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:4px;color:var(--text);
+  font-family:'Lato',sans-serif;font-size:0.95rem;
+  transition:border-color 0.2s;outline:none;-webkit-appearance:none;
+}
+.form-group input:focus,
+.form-group select:focus{border-color:var(--gold);background:rgba(201,168,76,0.05);}
+.form-group select option{background:var(--dark2);color:var(--text);}
+ 
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+ 
+/* FILE UPLOAD */
+.file-drop{
+  border:1.5px dashed rgba(201,168,76,0.35);
+  border-radius:4px;
+  padding:28px 20px;
   text-align:center;
-  font-family:'Playfair Display';
-  margin-bottom:30px;
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  margin-bottom:15px;
-  background:#111;
-  border:1px solid #333;
-  color:white;
-}
-
-button{
-  width:100%;
-  padding:14px;
-  background:var(--red);
-  color:white;
-  border:none;
   cursor:pointer;
+  transition:all 0.25s;
+  position:relative;
+  background:rgba(255,255,255,0.02);
 }
+.file-drop:hover,.file-drop.dragover{
+  border-color:var(--gold);
+  background:rgba(201,168,76,0.06);
+}
+.file-drop input[type="file"]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
+.file-icon{font-size:2rem;margin-bottom:8px;}
+.file-drop .file-label{font-size:0.88rem;color:var(--text-muted);line-height:1.5;}
+.file-drop .file-label strong{color:var(--gold);}
+.file-drop .file-hint{font-size:0.75rem;color:var(--text-muted);margin-top:6px;opacity:0.7;}
+.file-selected{
+  display:none;align-items:center;gap:10px;
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:4px;padding:12px 16px;margin-top:10px;
+}
+.file-selected.show{display:flex;}
+.file-selected .fname{font-size:0.88rem;color:var(--cream);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.file-selected .fremove{
+  background:none;border:none;color:var(--text-muted);
+  cursor:pointer;font-size:1rem;padding:0 4px;transition:color 0.2s;flex-shrink:0;
+}
+.file-selected .fremove:hover{color:var(--red);}
+ 
+/* SUBMIT */
+.btn-submit{
+  width:100%;padding:15px;
+  background:var(--red);color:#fff;border:none;border-radius:4px;
+  font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;
+  transition:all 0.25s;margin-top:8px;
+}
+.btn-submit:hover{background:var(--red-dark);transform:translateY(-1px);box-shadow:0 6px 20px var(--red-glow);}
+.btn-submit:disabled{opacity:0.55;cursor:not-allowed;transform:none;box-shadow:none;}
+ 
+.error-msg{color:var(--red);font-size:0.84rem;margin-top:12px;min-height:18px;line-height:1.4;}
+.success-banner{
+  display:none;
+  background:rgba(46,204,113,0.12);
+  border:1px solid rgba(46,204,113,0.35);
+  border-radius:4px;padding:18px 20px;margin-top:18px;
+  text-align:center;color:#2ecc71;font-size:0.92rem;line-height:1.5;
+}
+.success-banner.show{display:block;}
+ 
+/* FOOTER */
+footer{
+  background:var(--dark);border-top:1px solid var(--border);
+  padding:36px 40px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);}
+.footer-copy{color:var(--text-muted);font-size:0.82rem;}
+@media(max-width:600px){footer{flex-direction:column;text-align:center;padding:28px 20px;}}
 </style>
 </head>
-
 <body>
-
+ 
 <div class="menu-overlay" id="menuOverlay"></div>
-
-<nav>
-  <div class="logo">
-    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg">
+ 
+<!-- NAV -->
+<nav id="navbar">
+  <a class="logo" href="index.html">
+    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo">
     <span class="logo-text">Pizzeria Renato</span>
-  </div>
-
+  </a>
+ 
   <ul id="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="menu.html">Menù</a></li>
@@ -138,43 +265,133 @@ button{
     <li><a href="lavora.html" class="active">Lavora con noi</a></li>
     <li><a href="index.html#about">Chi siamo</a></li>
   </ul>
-
-  <button class="hamburger" id="hamburger">
+ 
+  <button class="hamburger" id="hamburger" aria-label="Apri menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
-
-<!-- CONTENUTO -->
-<div class="container">
-<h1>Lavora con noi</h1>
-
-<form>
-<input type="text" placeholder="Nome e Cognome" required>
-<input type="number" placeholder="Anno di nascita" required>
-
-<select required>
-<option>Tipo di lavoro</option>
-<option>Cameriere</option>
-<option>Cuoco</option>
-<option>Pizzaiolo</option>
-</select>
-
-<select required>
-<option>Orari</option>
-<option>Mattina</option>
-<option>Sera</option>
-</select>
-
-<button>Invia candidatura</button>
-</form>
+ 
+<!-- HERO STRIP -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-eyebrow">Unisciti al team</p>
+    <h1>Lavora con noi</h1>
+  </div>
 </div>
-
+ 
+<!-- MAIN CONTENT -->
+<div class="main">
+ 
+  <!-- INFO -->
+  <div class="info-side">
+    <p class="section-label">Opportunità aperte</p>
+    <h2>Entra a far parte<br>della famiglia</h2>
+    <div class="divider"></div>
+    <p>Cerchiamo persone appassionate, motivate e desiderose di crescere in un ambiente caldo e professionale. Se ami la ristorazione e vuoi lavorare con ingredienti di qualità, sei nel posto giusto.</p>
+    <p>Invia la tua candidatura con il CV in formato PDF: ti contatteremo entro pochi giorni.</p>
+ 
+    <ul class="role-list">
+      <li><span class="icon">🍕</span><div><strong>Pizzaiolo</strong> – Esperienza preferibile, passione indispensabile.</div></li>
+      <li><span class="icon">👨‍🍳</span><div><strong>Cuoco</strong> – Preparazione piatti caldi e freddi, antipasti.</div></li>
+      <li><span class="icon">🍽️</span><div><strong>Cameriere</strong> – Accoglienza clienti, servizio ai tavoli.</div></li>
+    </ul>
+  </div>
+ 
+  <!-- FORM -->
+  <div class="form-card">
+    <h3>Invia la tua candidatura</h3>
+ 
+    <form id="jobForm">
+      <!-- Nascosti per formsubmit -->
+      <input type="hidden" name="_subject" value="PRENOTAZIONE">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+ 
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="Nome" placeholder="Mario" required>
+        </div>
+        <div class="form-group">
+          <label for="cognome">Cognome</label>
+          <input type="text" id="cognome" name="Cognome" placeholder="Rossi" required>
+        </div>
+      </div>
+ 
+      <div class="form-group">
+        <label for="nascita">Anno di nascita</label>
+        <input type="number" id="nascita" name="Anno_di_nascita" placeholder="1995" min="1950" max="2007" required>
+      </div>
+ 
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ruolo">Ruolo desiderato</label>
+          <select id="ruolo" name="Ruolo" required>
+            <option value="" disabled selected>Seleziona</option>
+            <option>Cameriere</option>
+            <option>Cuoco</option>
+            <option>Pizzaiolo</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="orario">Disponibilità</label>
+          <select id="orario" name="Disponibilita" required>
+            <option value="" disabled selected>Seleziona</option>
+            <option>Mattina</option>
+            <option>Sera</option>
+            <option>Entrambi</option>
+          </select>
+        </div>
+      </div>
+ 
+      <!-- CV UPLOAD -->
+      <div class="form-group">
+        <label>Curriculum Vitae (solo PDF)</label>
+        <div class="file-drop" id="fileDrop">
+          <input type="file" id="cvFile" name="CV" accept=".pdf,application/pdf">
+          <div class="file-icon">📄</div>
+          <div class="file-label">
+            <strong>Clicca per caricare</strong> o trascina qui il tuo CV<br>
+          </div>
+          <div class="file-hint">Solo file PDF accettati</div>
+        </div>
+        <div class="file-selected" id="fileSelected">
+          <span>📄</span>
+          <span class="fname" id="fileName"></span>
+          <button type="button" class="fremove" id="fileRemove" aria-label="Rimuovi file">✕</button>
+        </div>
+      </div>
+ 
+      <button type="submit" class="btn-submit" id="submitBtn">Invia candidatura</button>
+      <p class="error-msg" id="errorMsg"></p>
+      <div class="success-banner" id="successBanner">
+        ✅ Candidatura inviata con successo!<br>
+        <span style="font-size:0.85rem;opacity:0.8;">Ti contatteremo entro pochi giorni. Grazie per l'interesse!</span>
+      </div>
+    </form>
+  </div>
+ 
+</div>
+ 
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Pizzeria Renato</div>
+  <div class="footer-copy">© 2025 Pizzeria Renato · Tutti i diritti riservati</div>
+</footer>
+ 
 <script>
-// ===== SCRIPT IDENTICO =====
+// ── NAVBAR scroll ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+});
+ 
+// ── MOBILE MENU ──
 const hamburger   = document.getElementById('hamburger');
 const navLinks    = document.getElementById('nav-links');
 const menuOverlay = document.getElementById('menuOverlay');
-
+ 
 function openMenu(){
   hamburger.classList.add('active');
   navLinks.classList.add('show');
@@ -187,15 +404,108 @@ function closeMenu(){
   menuOverlay.classList.remove('show');
   document.body.style.overflow='';
 }
-
-hamburger.addEventListener('click',()=>{
-  navLinks.classList.contains('show') ? closeMenu() : openMenu();
+hamburger.addEventListener('click',()=>navLinks.classList.contains('show')?closeMenu():openMenu());
+menuOverlay.addEventListener('click',closeMenu);
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',closeMenu));
+ 
+// ── FILE UPLOAD logic ──
+const cvInput     = document.getElementById('cvFile');
+const fileDrop    = document.getElementById('fileDrop');
+const fileSelected= document.getElementById('fileSelected');
+const fileNameEl  = document.getElementById('fileName');
+const fileRemove  = document.getElementById('fileRemove');
+ 
+function setFile(file){
+  if(!file) return;
+  // Controlla che sia PDF
+  const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+  if(!isPdf){
+    document.getElementById('errorMsg').textContent = '❌ Il file deve essere in formato PDF.';
+    cvInput.value='';
+    fileSelected.classList.remove('show');
+    return;
+  }
+  document.getElementById('errorMsg').textContent='';
+  fileNameEl.textContent = file.name;
+  fileSelected.classList.add('show');
+}
+ 
+cvInput.addEventListener('change',()=>{
+  if(cvInput.files && cvInput.files[0]) setFile(cvInput.files[0]);
 });
-menuOverlay.addEventListener('click', closeMenu);
-document.querySelectorAll('#nav-links a').forEach(a=>{
-  a.addEventListener('click', closeMenu);
+ 
+// Drag & drop
+fileDrop.addEventListener('dragover',e=>{e.preventDefault();fileDrop.classList.add('dragover');});
+fileDrop.addEventListener('dragleave',()=>fileDrop.classList.remove('dragover'));
+fileDrop.addEventListener('drop',e=>{
+  e.preventDefault();
+  fileDrop.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if(f){
+    // Assegna il file all'input tramite DataTransfer
+    const dt = new DataTransfer();
+    dt.items.add(f);
+    cvInput.files = dt.files;
+    setFile(f);
+  }
+});
+ 
+fileRemove.addEventListener('click',()=>{
+  cvInput.value='';
+  fileSelected.classList.remove('show');
+  fileNameEl.textContent='';
+});
+ 
+// ── FORM SUBMIT ──
+const form      = document.getElementById('jobForm');
+const errorMsg  = document.getElementById('errorMsg');
+const submitBtn = document.getElementById('submitBtn');
+const successBanner = document.getElementById('successBanner');
+ 
+form.addEventListener('submit', async function(e){
+  e.preventDefault();
+  errorMsg.textContent='';
+ 
+  // Valida CV
+  if(!cvInput.files || !cvInput.files[0]){
+    errorMsg.textContent='❌ Allega il tuo CV in formato PDF.';
+    return;
+  }
+  const file = cvInput.files[0];
+  const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+  if(!isPdf){
+    errorMsg.textContent='❌ Il file deve essere in formato PDF.';
+    return;
+  }
+ 
+  submitBtn.textContent='Invio in corso…';
+  submitBtn.disabled=true;
+ 
+  try{
+    const fd = new FormData(form);
+    const res = await fetch('https://formsubmit.co/ajax/davideiacuzio005@gmail.com',{
+      method:'POST',
+      body:fd,
+      headers:{Accept:'application/json'}
+    });
+ 
+    if(res.ok){
+      form.reset();
+      fileSelected.classList.remove('show');
+      fileNameEl.textContent='';
+      successBanner.classList.add('show');
+      submitBtn.textContent='Candidatura inviata ✓';
+    } else {
+      errorMsg.textContent="Errore durante l'invio. Riprova!";
+      submitBtn.textContent='Invia candidatura';
+      submitBtn.disabled=false;
+    }
+  } catch(err){
+    errorMsg.textContent='Errore di rete. Controlla la connessione e riprova.';
+    submitBtn.textContent='Invia candidatura';
+    submitBtn.disabled=false;
+  }
 });
 </script>
-
 </body>
 </html>

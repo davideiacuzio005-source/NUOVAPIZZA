@@ -346,7 +346,7 @@ function renderPizze(filter){
     return;
   }
  
-  countLabel.innerHTML=`<span>${filtered.length}</span> pizza${filtered.length!==1?'e':''} disponibil${filtered.length!==1?'i':'e'}`;
+  countLabel.innerHTML=`<span>${filtered.length}</span> pizze${filtered.length!==1?'':''} disponibil${filtered.length!==1?'i':'e'}`;
  
   filtered.forEach((p,i)=>{
     const tipoClass = p.tipo.includes('piccante') ? 'tipo-piccante' : p.tipo.includes('vegetariana') ? 'tipo-vegetariana' : '';

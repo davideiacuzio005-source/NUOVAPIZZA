@@ -4,50 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grazie per la candidatura!</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif; }
-  body {
-    background: #111;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    padding: 20px;
-  }
-  .container {
-    max-width: 500px;
-    background: #1a1a1a;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-  }
-  h1 {
-    color: #ff4d4d;
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-  }
-  p {
-    margin-bottom: 30px;
-    font-size: 1.2rem;
-    line-height: 1.5;
-  }
-  .btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: #ff4d4d;
-    color: white;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.3s;
-  }
-  .btn:hover {
-    background: #e60000;
-    transform: scale(1.05);
-  }
+:root {
+  --red: #c0392b;
+  --red-dark: #96281b;
+  --gold: #c9a84c;
+  --dark: #0e0b08;
+  --dark2: #1a1410;
+  --text: #f0ebe0;
+  --text-muted: #a09070;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Lato', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.container {
+  max-width: 500px;
+  background: var(--dark2);
+  padding: 40px;
+  border-radius: 8px;
+  border: 1px solid rgba(201,168,76,0.25);
+  text-align: center;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold);
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+}
+p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--red);
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.25s;
+}
+.btn:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(192,57,43,0.35);
+}
 </style>
 </head>
 <body>

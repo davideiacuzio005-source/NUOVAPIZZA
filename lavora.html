@@ -4,28 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lavora con noi</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto', sans-serif; }
   body {
     background: #111;
     color: #fff;
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 20px;
   }
 
   .container {
     background: #1a1a1a;
-    padding: 2rem;
-    border-radius: 10px;
+    padding: 40px;
+    border-radius: 15px;
     width: 100%;
-    max-width: 450px;
+    max-width: 500px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
   }
 
   h1 {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 30px;
+    color: #ff4d4d;
+    font-size: 2rem;
   }
 
   form {
@@ -34,16 +39,26 @@
     gap: 1rem;
   }
 
+  label, p {
+    font-weight: 500;
+  }
+
   input, select {
     padding: 0.7rem;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 1px solid #333;
     background: #111;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  select option {
+    background: #1a1a1a;
     color: #fff;
   }
 
   input[type="file"] {
-    background: #111;
+    padding: 0.5rem;
   }
 
   button {
@@ -51,23 +66,31 @@
     border: none;
     background: #ff4d4d;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 30px;
     cursor: pointer;
     font-weight: bold;
+    transition: 0.3s;
+    margin-top: 10px;
   }
 
   button:hover {
     background: #e60000;
+    transform: scale(1.05);
   }
 
   .back {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 20px;
   }
 
   .back a {
     color: #ff4d4d;
     text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back a:hover {
+    text-decoration: underline;
   }
 </style>
 </head>
@@ -77,8 +100,9 @@
   <h1>Lavora con noi</h1>
 
   <form id="jobForm" enctype="multipart/form-data">
-
+    <!-- disabilita captcha -->
     <input type="hidden" name="_captcha" value="false">
+    <!-- oggetto email -->
     <input type="hidden" name="_subject" value="RICHIESTA PERSONALE">
 
     <p>Nome e Cognome</p>
@@ -89,7 +113,7 @@
 
     <p>Tipo di lavoro</p>
     <select name="Lavoro" required>
-      <option value="">Tipo di lavoro</option>
+      <option value="">Seleziona tipo di lavoro</option>
       <option>Cameriere</option>
       <option>Cuoco</option>
       <option>Pizzaiolo</option>
@@ -97,7 +121,7 @@
 
     <p>Orari</p>
     <select name="Orari" required>
-      <option value="">Orari preferiti</option>
+      <option value="">Seleziona orario</option>
       <option>Mattina</option>
       <option>Sera</option>
       <option>Mattina e Sera</option>
@@ -105,7 +129,7 @@
 
     <p>Giorni di lavoro</p>
     <select name="Giorni" required>
-      <option value="">Giorni di lavoro</option>
+      <option value="">Seleziona giorni</option>
       <option>Tutti i giorni di apertura</option>
       <option>Weekend (Venerdì + Sabato + Domenica)</option>
     </select>

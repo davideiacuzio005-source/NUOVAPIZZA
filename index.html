@@ -3,228 +3,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Pizzeria Renato</title>
 <meta name="description" content="Pizzeria Renato - Pizza artigianale, ingredienti freschi e prenotazioni online.">
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+ 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
-html{scroll-behavior:smooth;}
-body{background:#111;color:#fff;}
-
+:root {
+  --cream: #f5f0e8;
+  --warm-white: #faf8f4;
+  --charcoal: #1a1612;
+  --deep: #0e0c09;
+  --red: #c0392b;
+  --red-dark: #96281b;
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --text-muted: #6b5f52;
+  --border: rgba(201,168,76,0.25);
+}
+ 
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+ 
+body {
+  background: var(--deep);
+  color: var(--cream);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+ 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+ 
 /* NAVBAR */
-nav{
-position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;
-padding:15px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);z-index:1000;
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 1000;
+  padding: 22px 60px;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background 0.5s, padding 0.4s;
 }
-nav .logo img{height:45px;}
-nav ul{display:flex;gap:20px;list-style:none;}
-nav a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:500;}
-nav a:hover, nav a.active{background:#ff4d4d;}
-
-/* HAMBURGER */
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1100;}
-.hamburger div{width:25px;height:3px;background:white;transition:0.3s;}
-.hamburger.active div:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
-.hamburger.active div:nth-child(2){opacity:0;}
-.hamburger.active div:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
-
+nav.scrolled {
+  background: rgba(14,12,9,0.94);
+  backdrop-filter: blur(20px);
+  padding: 14px 60px;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
+}
+.nav-logo img {
+  height: 42px; border-radius: 50%; border: 1px solid var(--border);
+}
+.nav-logo span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 600;
+  color: var(--cream); letter-spacing: 0.04em;
+}
+nav ul { display: flex; gap: 8px; list-style: none; }
+nav a {
+  color: rgba(245,240,232,0.75); text-decoration: none;
+  font-size: 0.8rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 8px 16px; border-radius: 2px;
+  transition: color 0.3s, background 0.3s;
+}
+nav a:hover, nav a.active { color: var(--gold-light); }
+.nav-cta { background: var(--red) !important; color: white !important; }
+.nav-cta:hover { background: var(--red-dark) !important; }
+ 
+.hamburger { display:none; flex-direction:column; gap:6px; cursor:pointer; z-index:1100; }
+.hamburger span { width:26px; height:1.5px; background:var(--cream); transition:0.3s; display:block; }
+.hamburger.active span:nth-child(1) { transform:rotate(45deg) translate(5px,5px); }
+.hamburger.active span:nth-child(2) { opacity:0; }
+.hamburger.active span:nth-child(3) { transform:rotate(-45deg) translate(5px,-5px); }
+ 
 @media(max-width:768px){
-  nav ul{
-    position:fixed;top:0;right:-100%;height:100vh;width:70%;
-    background:#111;flex-direction:column;padding:80px 20px;transition:0.3s;
+  nav { padding: 18px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  nav ul {
+    position:fixed; top:0; right:-100%; height:100vh; width:75%;
+    background:var(--deep); flex-direction:column; padding:100px 36px;
+    transition:0.4s cubic-bezier(.77,0,.18,1); gap:4px;
+    border-left: 1px solid var(--border);
   }
-  nav ul.show{right:0;}
-  .hamburger{display:flex;}
+  nav ul.show { right:0; }
+  nav ul a { font-size:1rem; padding:14px 0; border-bottom:1px solid var(--border); border-radius:0; }
+  .hamburger { display:flex; }
 }
-
+ 
 /* HERO */
-.hero{
-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
-background:url('https://images.unsplash.com/photo-1593560708920-61dd98c46a4e') center/cover;
-position:relative;
+.hero {
+  height: 100vh; min-height: 600px;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
 }
-.hero::after{
-content:"";position:absolute;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,0.5);
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
 }
-.hero .overlay{
-position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 20px;
+.hero-bg::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(to bottom, rgba(14,12,9,0.3) 0%, rgba(14,12,9,0.5) 50%, rgba(14,12,9,0.88) 100%);
 }
-.hero h1{font-size:3rem;font-weight:700;margin-bottom:15px;text-shadow:2px 2px 4px #000;}
-.hero p{font-size:1.2rem;margin-bottom:25px;opacity:0.9;text-shadow:1px 1px 3px #000;}
-.cta{display:flex;gap:15px;flex-wrap:wrap;}
-.cta a{background:#ff4d4d;padding:12px 25px;border-radius:30px;color:white;text-decoration:none;font-weight:500;transition:0.3s;}
-.cta a:hover{background:#e60000;transform:scale(1.05);}
-
+.hero-content {
+  position: relative; z-index:2; text-align: center; padding: 0 24px;
+  animation: heroReveal 1.2s ease both;
+}
+@keyframes heroReveal { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+ 
+.hero-eyebrow {
+  font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 20px;
+  animation: heroReveal 1.2s 0.1s ease both;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300; line-height: 1.1; margin-bottom: 10px;
+  animation: heroReveal 1.2s 0.2s ease both;
+}
+.hero h1 em { font-style: italic; color: var(--gold-light); }
+.hero-sub {
+  font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+  color: rgba(245,240,232,0.65); letter-spacing: 0.05em; margin-bottom: 40px;
+  animation: heroReveal 1.2s 0.35s ease both;
+}
+.hero-actions {
+  display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  animation: heroReveal 1.2s 0.5s ease both;
+}
+.btn-primary {
+  background: var(--red); color: white; text-decoration: none;
+  padding: 14px 34px; font-size: 0.8rem; letter-spacing: 0.15em;
+  text-transform: uppercase; font-weight: 400;
+  transition: background 0.3s, transform 0.2s; border-radius: 2px;
+}
+.btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+.btn-outline {
+  border: 1px solid rgba(201,168,76,0.5); color: var(--gold-light);
+  text-decoration: none; padding: 14px 34px; font-size: 0.8rem;
+  letter-spacing: 0.15em; text-transform: uppercase; font-weight: 400;
+  transition: border-color 0.3s, background 0.3s, transform 0.2s; border-radius: 2px;
+}
+.btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); transform: translateY(-2px); }
+ 
+.scroll-hint {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: fadeIn 2s 1.2s ease both;
+}
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+.scroll-hint span { font-size: 0.65rem; letter-spacing: 0.25em; text-transform:uppercase; color:rgba(245,240,232,0.4); }
+.scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s infinite; }
+@keyframes scrollPulse { 0%,100% { transform: scaleY(1); opacity:0.6; } 50% { transform: scaleY(1.3); opacity:1; } }
+ 
+/* SECTION HEADER */
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-eyebrow { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; display: block; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.2; color: var(--cream); }
+.section-title em { font-style: italic; color: var(--gold-light); }
+.section-divider { width: 48px; height: 1px; background: var(--gold); margin: 20px auto 0; opacity: 0.6; }
+ 
+/* FEATURES */
+.features { background: var(--charcoal); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 900px; margin: 0 auto; }
+.feature-item { padding: 42px 36px; text-align: center; border-right: 1px solid var(--border); }
+.feature-item:last-child { border-right: none; }
+.feature-icon { font-size: 1.6rem; margin-bottom: 14px; display: block; }
+.feature-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 8px; color: var(--cream); }
+.feature-item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+@media(max-width:600px){
+  .features-grid { grid-template-columns: 1fr; }
+  .feature-item { border-right:none; border-bottom:1px solid var(--border); }
+  .feature-item:last-child { border-bottom:none; }
+}
+ 
 /* ABOUT */
-.about{padding:5rem 20px;text-align:center;background:#222;line-height:1.6;}
-
-/* FORM */
-.reservation{padding:5rem 20px;display:flex;flex-direction:column;align-items:center;gap:20px;}
-.reservation form{display:flex;flex-direction:column;gap:12px;width:100%;max-width:400px;}
-.reservation input,.reservation select,.reservation textarea{
-padding:12px;border-radius:5px;border:1px solid #333;background:#1a1a1a;color:#fff;
+.about { padding: 100px 24px; max-width: 720px; margin: 0 auto; text-align: center; }
+.about p { font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.85; color: rgba(245,240,232,0.7); }
+.about p + p { margin-top: 24px; }
+.about-quote {
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 3vw, 2rem);
+  font-style: italic; color: var(--gold-light); line-height: 1.5; margin: 48px 0; padding: 0 20px; position: relative;
 }
-.reservation button{padding:12px;border:none;background:#ff4d4d;color:white;border-radius:5px;cursor:pointer;transition:0.3s;}
-.reservation button:hover{background:#e60000;transform:scale(1.03);}
+.about-quote::before { content: '"'; font-size: 4rem; color: var(--gold); opacity: 0.3; position: absolute; left: 0; top: -10px; line-height: 1; }
+ 
+/* ORARI */
+.orari { background: var(--charcoal); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px 24px; }
+.orari-grid { max-width: 560px; margin: 0 auto; }
+.orario-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.orario-row:last-child { border-bottom: none; }
+.orario-giorno { color: rgba(245,240,232,0.5); text-transform:uppercase; font-size:0.72rem; letter-spacing:0.1em; }
+.orario-ore { color: var(--cream); }
+.orario-chiuso { color: var(--red); font-size: 0.72rem; letter-spacing:0.15em; text-transform:uppercase; }
+ 
+/* RESERVATION */
+.reservation { padding: 100px 24px; max-width: 540px; margin: 0 auto; }
+.reservation form {
+  display: flex; flex-direction: column;
+  background: var(--charcoal); border: 1px solid var(--border); padding: 48px 40px; border-radius: 4px;
+}
+@media(max-width:480px){ .reservation form { padding: 32px 24px; } }
+ 
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field-group { display: flex; flex-direction: column; margin-bottom: 20px; }
+.field-group label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.field-group input, .field-group select, .field-group textarea {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.2);
+  color: var(--cream); padding: 12px 14px; font-size: 0.9rem;
+  font-family: 'Barlow', sans-serif; font-weight: 300; border-radius: 2px;
+  transition: border-color 0.3s; outline: none; -webkit-appearance: none;
+}
+.field-group input:focus, .field-group select:focus, .field-group textarea:focus {
+  border-color: var(--gold); background: rgba(201,168,76,0.05);
+}
+.field-group input::placeholder { color: rgba(245,240,232,0.25); }
+.field-group select option { background: var(--charcoal); }
+.reservation input[type="date"]::-webkit-calendar-picker-indicator,
+.reservation input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.7) sepia(1) saturate(0.5); cursor: pointer; }
+ 
+.btn-submit {
+  width: 100%; padding: 15px; background: var(--red); color: white; border: none;
+  font-family: 'Barlow', sans-serif; font-size: 0.78rem; font-weight: 400;
+  letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;
+  transition: background 0.3s, transform 0.2s; border-radius: 2px; margin-top: 8px;
+}
+.btn-submit:hover { background: var(--red-dark); transform: translateY(-1px); }
+.form-error { font-size: 0.8rem; color: #e74c3c; margin-top: 12px; text-align: center; min-height: 20px; }
+.form-note { font-size: 0.72rem; color: var(--text-muted); text-align: center; margin-top: 16px; line-height: 1.6; }
+ 
+/* FOOTER */
+footer { background: var(--deep); border-top: 1px solid var(--border); padding: 48px 24px 32px; text-align: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--gold-light); letter-spacing: 0.08em; margin-bottom: 8px; }
+footer p { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.06em; margin-top: 8px; }
+ 
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
-
 <body>
-
-<nav>
-  <div class="logo">
-    <a href="#hero"><img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo Pizzeria Renato"></a>
-  </div>
-
+ 
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo Pizzeria Renato">
+    <span>Pizzeria Renato</span>
+  </a>
   <ul id="nav-links">
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="menu.html">Menù</a></li>
-    <li><a href="#reservation">Prenotazione</a></li>
+    <li><a href="#reservation" class="nav-cta">Prenota</a></li>
     <li><a href="lavora.html" target="_blank" rel="noopener noreferrer">Lavora con noi</a></li>
     <li><a href="#about">Chi siamo</a></li>
   </ul>
-
   <div class="hamburger" id="hamburger">
-    <div></div><div></div><div></div>
+    <span></span><span></span><span></span>
   </div>
 </nav>
-
+ 
 <section class="hero" id="hero">
-  <div class="overlay">
-    <h1>La Migliore Pizza in Città</h1>
-    <p>Tradizione e ingredienti freschi ogni giorno</p>
-    <div class="cta">
-      <a href="#reservation">Prenota Ora</a>
-      <a href="menu.html" style="scroll-behavior:auto;">Scopri il Menù</a>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Pizza artigianale — dal forno al cuore</p>
+    <h1>La Migliore<br><em>Pizza in Città</em></h1>
+    <p class="hero-sub">Tradizione napoletana, ingredienti freschi ogni giorno</p>
+    <div class="hero-actions">
+      <a href="#reservation" class="btn-primary">Prenota ora</a>
+      <a href="menu.html" class="btn-outline">Scopri il menù</a>
     </div>
   </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scorri</span>
+  </div>
 </section>
-
+ 
+<div class="features reveal">
+  <div class="features-grid">
+    <div class="feature-item">
+      <span class="feature-icon">🌾</span>
+      <h3>Ingredienti Freschi</h3>
+      <p>Selezionati ogni mattina dai migliori fornitori locali.</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🔥</span>
+      <h3>Forno a Legna</h3>
+      <p>Cottura tradizionale a 450°C per una pizza autentica.</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">👨‍🍳</span>
+      <h3>Ricette di Famiglia</h3>
+      <p>Tre generazioni di passione e arte pizzaiola.</p>
+    </div>
+  </div>
+</div>
+ 
 <section class="about" id="about">
-  <h2>Chi siamo</h2>
-  <p>Pizza artigianale con ingredienti freschi e ambiente familiare.</p>
+  <div class="reveal">
+    <div class="section-header">
+      <span class="section-eyebrow">La nostra storia</span>
+      <h2 class="section-title">Chi <em>siamo</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-quote">La pizza è un atto d'amore verso chi si nutre.</div>
+    <p>La Pizzeria Renato nasce nel cuore della città con un sogno semplice: portare in tavola la vera pizza napoletana, quella fatta con le mani, con pazienza, con rispetto per gli ingredienti e per la tradizione.</p>
+    <p>Ogni impasto riposa oltre 48 ore, ogni pomodoro è scelto personalmente, ogni pizza esce dal forno a legna con la stessa cura di sempre. Benvenuti nella nostra famiglia.</p>
+  </div>
 </section>
-
+ 
+<div class="orari reveal">
+  <div class="section-header">
+    <span class="section-eyebrow">Quando trovarci</span>
+    <h2 class="section-title">Orari di <em>apertura</em></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="orari-grid">
+    <div class="orario-row"><span class="orario-giorno">Lunedì</span><span class="orario-ore">11:00–15:00 · 18:00–23:30</span></div>
+    <div class="orario-row"><span class="orario-giorno">Martedì</span><span class="orario-chiuso">Chiuso</span></div>
+    <div class="orario-row"><span class="orario-giorno">Mercoledì</span><span class="orario-ore">11:00–15:00 · 18:00–23:30</span></div>
+    <div class="orario-row"><span class="orario-giorno">Giovedì</span><span class="orario-ore">11:00–15:00 · 18:00–23:30</span></div>
+    <div class="orario-row"><span class="orario-giorno">Venerdì</span><span class="orario-ore">11:00–15:00 · 18:00–23:30</span></div>
+    <div class="orario-row"><span class="orario-giorno">Sabato</span><span class="orario-ore">11:00–15:00 · 18:00–23:30</span></div>
+    <div class="orario-row"><span class="orario-giorno">Domenica</span><span class="orario-ore">11:00–15:00 · 18:00–23:30</span></div>
+  </div>
+</div>
+ 
 <section class="reservation" id="reservation">
-  <h2>Prenota il tuo tavolo</h2>
-  <form id="reservationForm">
-  <p>Nome</p>
-  <input type="text" name="Nome" required>
-
-  <p>Cognome</p>
-  <input type="text" name="Cognome" required>
-
-  <p>Telefono</p>
-  <input type="tel" name="Telefono" required>
-
-  <p>Persone</p>
-  <input type="number" name="Persone" required>
-
-  <p>Data</p>
-  <input type="date" name="Data" required>
-
-  <p>Orario</p>
-  <input type="time" name="Ora" required>
-
-  <button type="submit">Prenota</button>
-
-  <p id="reservationError" style="color:red; margin-top:10px;"></p>
-</form>
+  <div class="reveal">
+    <div class="section-header">
+      <span class="section-eyebrow">Riserva il tuo posto</span>
+      <h2 class="section-title">Prenota un <em>tavolo</em></h2>
+      <div class="section-divider"></div>
+    </div>
+    <form id="reservationForm">
+      <div class="form-row">
+        <div class="field-group">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="Nome" placeholder="Mario" required>
+        </div>
+        <div class="field-group">
+          <label for="cognome">Cognome</label>
+          <input type="text" id="cognome" name="Cognome" placeholder="Rossi" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field-group">
+          <label for="tel">Telefono</label>
+          <input type="tel" id="tel" name="Telefono" placeholder="+39 000 000 0000" required>
+        </div>
+        <div class="field-group">
+          <label for="persone">Persone</label>
+          <input type="number" id="persone" name="Persone" placeholder="2" min="1" max="20" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field-group">
+          <label for="data">Data</label>
+          <input type="date" id="data" name="Data" required>
+        </div>
+        <div class="field-group">
+          <label for="ora">Orario</label>
+          <input type="time" id="ora" name="Ora" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">Conferma Prenotazione</button>
+      <p class="form-error" id="reservationError"></p>
+      <p class="form-note">Chiusi il martedì · Aperto 11:00–15:00 e 18:00–23:30</p>
+    </form>
+  </div>
 </section>
-
+ 
+<footer>
+  <div class="footer-logo">Pizzeria Renato</div>
+  <p>Pizza artigianale · Ingredienti freschi · Amore vero</p>
+  <p style="margin-top:24px;">© 2025 Pizzeria Renato · Tutti i diritti riservati</p>
+</footer>
+ 
 <script>
-// MENU MOBILE
-const hamburger=document.getElementById('hamburger');
-const navLinks=document.getElementById('nav-links');
-
-hamburger.addEventListener('click',()=>{
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+ 
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('active');
   navLinks.classList.toggle('show');
 });
-
-document.querySelectorAll('#nav-links a').forEach(link=>{
-  link.addEventListener('click',()=>{
-    navLinks.classList.remove('show');
-    hamburger.classList.remove('active');
-  });
+document.querySelectorAll('#nav-links a').forEach(a => {
+  a.addEventListener('click', () => { navLinks.classList.remove('show'); hamburger.classList.remove('active'); });
 });
-</script>
-
-<script>
+ 
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+ 
+document.querySelector('input[name="Data"]').min = new Date().toISOString().split("T")[0];
+ 
 const form = document.getElementById('reservationForm');
 const errorMsg = document.getElementById('reservationError');
-
-// BLOCCA DATE PASSATE NEL CALENDARIO
-document.querySelector('input[name="Data"]').min = new Date().toISOString().split("T")[0];
-
-form.addEventListener('submit', async function(e){
-  e.preventDefault();
-  errorMsg.textContent = "";
-
+form.addEventListener('submit', async function(e) {
+  e.preventDefault(); errorMsg.textContent = '';
   const dateInput = form.querySelector('input[name="Data"]').value;
   const timeInput = form.querySelector('input[name="Ora"]').value;
-
-  if(!dateInput || !timeInput){
-    errorMsg.textContent = "Inserisci data e orario.";
-    return;
-  }
-
+  if(!dateInput || !timeInput) { errorMsg.textContent = 'Inserisci data e orario.'; return; }
   const [year, month, day] = dateInput.split('-').map(Number);
   const [hours, minutes] = timeInput.split(':').map(Number);
-
-  const selectedDate = new Date(year, month-1, day, hours, minutes);
   const selectedDayOnly = new Date(year, month-1, day);
-  const today = new Date();
-  today.setHours(0,0,0,0);
-
-  const dayOfWeek = selectedDate.getDay();
+  const today = new Date(); today.setHours(0,0,0,0);
+  const dayOfWeek = new Date(year, month-1, day).getDay();
   const timeInMinutes = hours*60 + minutes;
-
   const inMorning = timeInMinutes >= 11*60 && timeInMinutes <= 15*60;
-  const inEvening = timeInMinutes >= 18*60 && timeInMinutes <= (23*60+30);
-
-  // ❌ DATA PASSATA
-  if(selectedDayOnly < today){
-    errorMsg.textContent = "Non puoi prenotare per una data passata.";
-    return;
-  }
-
-  // ❌ MARTEDÌ
-  if(dayOfWeek === 2){
-    errorMsg.textContent = "La pizzeria è chiusa il martedì.";
-    return;
-  }
-
-  // ❌ ORARIO SBAGLIATO
-  if(!inMorning && !inEvening){
-    errorMsg.textContent = "Orario non disponibile. Aperto 11:00-15:00 e 18:00-23:30.";
-    return;
-  }
-
-  // ✅ INVIO
+  const inEvening = timeInMinutes >= 18*60 && timeInMinutes <= 23*60+30;
+  if(selectedDayOnly < today) { errorMsg.textContent = 'Non puoi prenotare per una data passata.'; return; }
+  if(dayOfWeek === 2) { errorMsg.textContent = 'La pizzeria è chiusa il martedì.'; return; }
+  if(!inMorning && !inEvening) { errorMsg.textContent = 'Orario non disponibile. Aperto 11:00–15:00 e 18:00–23:30.'; return; }
   try {
-    const formData = new FormData(form);
-
     const response = await fetch("https://formsubmit.co/ajax/davideiacuzio005@gmail.com", {
-      method: "POST",
-      body: formData,
-      headers: { "Accept": "application/json" }
+      method: "POST", body: new FormData(form), headers: { "Accept": "application/json" }
     });
-
-    if(response.ok){
-      window.location.href = "grazie.html";
-    } else {
-      errorMsg.textContent = "Errore durante l'invio. Riprova!";
-    }
-  } catch(err){
-    errorMsg.textContent = "Errore di rete. Riprova!";
-  }
+    if(response.ok) window.location.href = "grazie.html";
+    else errorMsg.textContent = "Errore durante l'invio. Riprova!";
+  } catch { errorMsg.textContent = "Errore di rete. Riprova!"; }
 });
 </script>
-  
 </body>
 </html>

@@ -38,10 +38,79 @@ body::before {
   opacity:0.45;
 }
 
+/* ───────── HEADER E HAMBURGER ───────── */
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  padding: 20px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10000;
+}
+
+.header .logo {
+  color: var(--cream);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.menu-toggle {
+  width: 28px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background: var(--dark2);
+  padding-top: 80px;
+  transition: right 0.3s ease;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.nav ul li {
+  margin: 20px 0;
+}
+
+.nav ul li a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.nav.open { right: 0; }
+
+.menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(6px,-6px); }
+
 /* ───────── CONTENITORE FORM ───────── */
 .container {
   max-width:500px;
-  margin:120px auto 80px;
+  margin:160px auto 80px;
   background:var(--dark2);
   padding:40px 36px 36px 36px;
   border-radius:8px;
@@ -171,6 +240,24 @@ body::before {
 </head>
 <body>
 
+<!-- HEADER CON HAMBURGER -->
+<header class="header">
+  <div class="logo">Pizzeria Renato</div>
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="nav" id="navMenu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- FORM -->
 <div class="container reveal">
   <h1>Lavora con noi</h1>
   <form id="jobForm" enctype="multipart/form-data">
@@ -269,6 +356,15 @@ document.querySelectorAll('.form-group select').forEach(select => {
       select.classList.remove('has-value');
     }
   });
+});
+
+// Hamburger menu
+const menuToggle = document.getElementById('menuToggle');
+const navMenu = document.getElementById('navMenu');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('open');
+  navMenu.classList.toggle('open');
 });
 </script>
 

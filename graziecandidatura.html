@@ -14,8 +14,11 @@
   --dark2: #1a1410;
   --text: #f0ebe0;
   --text-muted: #a09070;
+  --transition: 0.4s ease;
 }
+
 * { margin:0; padding:0; box-sizing:border-box; }
+html{scroll-behavior:smooth;}
 body {
   background: var(--dark);
   color: var(--text);
@@ -25,33 +28,72 @@ body {
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Noise sfondo */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:0.45;
+}
+
+/* Container centrale */
 .container {
   max-width: 500px;
   background: var(--dark2);
-  padding: 40px;
-  border-radius: 8px;
+  padding: 40px 30px;
+  border-radius: 10px;
   border: 1px solid rgba(201,168,76,0.25);
   text-align: center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.5);
+  opacity:0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s forwards;
 }
+
+/* Animazione ingresso */
+@keyframes fadeInUp {
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* Titolo */
 h1 {
   font-family: 'Playfair Display', serif;
   color: var(--gold);
-  font-size: 2.8rem;
-  margin-bottom: 20px;
+  font-size: 3rem;
+  margin-bottom: 15px;
+  position: relative;
 }
+h1::after{
+  content:'';
+  width:70px;
+  height:2px;
+  background:var(--gold);
+  display:block;
+  margin:12px auto 0;
+  border-radius:2px;
+}
+
+/* Messaggio */
 p {
   color: var(--text-muted);
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 30px;
 }
+
+/* Pulsante */
 .btn {
   display: inline-block;
   padding: 14px 36px;
   background: var(--red);
   color: #fff;
-  border-radius: 4px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -60,14 +102,27 @@ p {
 }
 .btn:hover {
   background: var(--red-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(192,57,43,0.35);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(192,57,43,0.35);
 }
+
+/* Sottotitolo/icon */
+.sub-title {
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+.sub-title span{font-size:1.6rem;}
 </style>
 </head>
 <body>
 
 <div class="container">
+  <div class="sub-title"><span>🎉</span> Candidatura Inviata!</div>
   <h1>Grazie!</h1>
   <p>La tua candidatura è stata inviata con successo.<br>
      Ti contatteremo al più presto se il tuo profilo corrisponde alle nostre esigenze.</p>

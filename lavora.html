@@ -303,7 +303,7 @@ footer{
   <div class="form-card">
     <h3>Invia la tua candidatura</h3>
  
-    <form id="jobForm">
+   <form id="jobForm" action="https://formsubmit.co/davideiacuzio005@gmail.com" method="POST" enctype="multipart/form-data">
       <!-- Nascosti per formsubmit -->
       <input type="hidden" name="_subject" value="RICHIESTA PERSONALE">
       <input type="hidden" name="_captcha" value="false">
@@ -467,61 +467,40 @@ const errorMsg  = document.getElementById('errorMsg');
 const submitBtn = document.getElementById('submitBtn');
 const successBanner = document.getElementById('successBanner');
  
-form.addEventListener('submit', async function(e){
+form.addEventListener('submit', function(e){
   e.preventDefault();
   errorMsg.textContent='';
 
-// ✅ CONTROLLO TELEFONO
-const telVal = form.querySelector('[name="Telefono"]').value.trim();
-const telefonoPulito = telVal.replace(/\s+/g, '');
+  // ✅ CONTROLLO TELEFONO
+  const telVal = form.querySelector('[name="Telefono"]').value.trim();
+  const telefonoPulito = telVal.replace(/\s+/g, '');
+  const regexTelefono = /^(\+39)?3\d{9}$/;
 
-// accetta +39 oppure numero italiano mobile
-const regexTelefono = /^(\+39)?3\d{9}$/;
+  if(!regexTelefono.test(telefonoPulito)){
+    errorMsg.textContent='❌ Inserisci un numero di telefono valido (es. +39 333 1234567)';
+    return;
+  }
 
-if(!regexTelefono.test(telefonoPulito)){
-  errorMsg.textContent='❌ Inserisci un numero di telefono valido (es. +39 333 1234567)';
-  return;
-}
- 
-  // Valida CV
+  // ✅ CONTROLLO CV
   if(!cvInput.files || !cvInput.files[0]){
     errorMsg.textContent='❌ Allega il tuo CV in formato PDF.';
     return;
   }
+
   const file = cvInput.files[0];
   const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+
   if(!isPdf){
     errorMsg.textContent='❌ Il file deve essere in formato PDF.';
     return;
   }
- 
+
+  // feedback UI
   submitBtn.textContent='Invio in corso…';
   submitBtn.disabled=true;
- 
-  try{
-    const fd = new FormData(form);
-    const res = await fetch('https://formsubmit.co/ajax/davideiacuzio005@gmail.com',{
-      method:'POST',
-      body:fd,
-      headers:{Accept:'application/json'}
-    });
- 
-    if(res.ok){
-      form.reset();
-      fileSelected.classList.remove('show');
-      fileNameEl.textContent='';
-      successBanner.classList.add('show');
-      submitBtn.textContent='Candidatura inviata ✓';
-    } else {
-      errorMsg.textContent="Errore durante l'invio. Riprova!";
-      submitBtn.textContent='Invia candidatura';
-      submitBtn.disabled=false;
-    }
-  } catch(err){
-    errorMsg.textContent='Errore di rete. Controlla la connessione e riprova.';
-    submitBtn.textContent='Invia candidatura';
-    submitBtn.disabled=false;
-  }
+
+  // ✅ INVIO REALE (con allegato funzionante)
+  form.submit();
 });
 </script>
 </body>

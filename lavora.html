@@ -60,15 +60,14 @@ body::before{
 h1{
   font-family:'Playfair Display',serif;
   font-size:2rem;
-  color:var(--text);
-  margin-bottom:10px;
   text-align:center;
+  margin-bottom:10px;
 }
 
 .subtitle{
   text-align:center;
-  font-size:0.85rem;
-  letter-spacing:0.2em;
+  font-size:0.8rem;
+  letter-spacing:0.25em;
   text-transform:uppercase;
   color:var(--gold);
   margin-bottom:25px;
@@ -90,6 +89,7 @@ label{
   margin-bottom:5px;
 }
 
+/* INPUT + SELECT FIXATI */
 input, select{
   width:100%;
   padding:13px 14px;
@@ -99,6 +99,7 @@ input, select{
   color:var(--text);
   font-size:0.95rem;
   transition:0.2s;
+  appearance:none;
 }
 
 input:focus, select:focus{
@@ -107,13 +108,22 @@ input:focus, select:focus{
   outline:none;
 }
 
+/* FIX DROPDOWN */
+select{
+  cursor:pointer;
+}
+
+select option{
+  background:#1a1410;
+  color:#f0ebe0;
+}
+
 /* FILE */
 .file-box{
   border:1px dashed var(--border);
   padding:15px;
   border-radius:4px;
   text-align:center;
-  font-size:0.9rem;
   color:var(--text-muted);
 }
 
@@ -149,7 +159,6 @@ button:hover{
   color:var(--gold);
   text-decoration:none;
   font-size:0.8rem;
-  letter-spacing:0.1em;
 }
 
 /* ANIMAZIONE */

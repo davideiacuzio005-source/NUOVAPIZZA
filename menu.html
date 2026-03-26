@@ -6,21 +6,46 @@
 
 <title>Menu - Pizzeria Renato</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto',sans-serif;}
-body{background:#111;color:white;}
+:root{
+  --red:#c0392b;
+  --red-dark:#96281b;
+  --gold:#c9a84c;
+  --dark:#0e0b08;
+  --dark2:#1a1410;
+  --dark3:#241e18;
+  --text:#f0ebe0;
+  --text-muted:#a09070;
+  --border:rgba(201,168,76,0.2);
+}
 
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:var(--text);font-family:'Lato',sans-serif;}
+
+/* NAV */
 nav{
 position:fixed;top:0;width:100%;
 display:flex;justify-content:space-between;align-items:center;
-padding:15px 20px;background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);
+padding:0 30px;height:70px;
+background:rgba(14,11,8,0.85);
+backdrop-filter:blur(20px);
+border-bottom:1px solid var(--border);
 z-index:1000;
 }
-nav a{color:white;text-decoration:none;margin:0 10px;}
-nav a:hover{color:#ff4d4d;}
+nav a{
+color:var(--text-muted);
+text-decoration:none;
+margin:0 10px;
+font-size:0.85rem;
+letter-spacing:0.1em;
+text-transform:uppercase;
+font-weight:700;
+}
+nav a:hover{color:var(--gold);}
 
+/* HERO */
 .hero{
 height:50vh;
 display:flex;
@@ -33,88 +58,129 @@ position:relative;
 .hero::after{
 content:"";
 position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.6);
+inset:0;
+background:rgba(0,0,0,0.65);
 }
 .hero h1{
 position:relative;
 z-index:2;
+font-family:'Playfair Display',serif;
 font-size:3rem;
+color:var(--text);
 }
 
+/* FILTRI */
 .filters{
-margin-top:80px;
+margin-top:90px;
 display:flex;
 justify-content:center;
-gap:10px;
+gap:12px;
 flex-wrap:wrap;
 padding:20px;
 }
 .filters button{
-background:#222;
-border:none;
+background:transparent;
+border:1px solid var(--border);
 padding:10px 20px;
-color:white;
-border-radius:20px;
+color:var(--text-muted);
+border-radius:30px;
 cursor:pointer;
-transition:0.3s;
+transition:0.25s;
+font-size:0.75rem;
+letter-spacing:0.1em;
+text-transform:uppercase;
 }
-.filters button.active,
 .filters button:hover{
-background:#ff4d4d;
+border-color:var(--gold);
+color:var(--gold);
+}
+.filters button.active{
+background:var(--red);
+color:#fff;
+border-color:var(--red);
 }
 
+/* MENU GRID */
 .menu{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-padding:30px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+padding:40px;
 }
 
+/* CARD */
 .card{
-background:#1a1a1a;
-border-radius:15px;
+background:var(--dark3);
+border:1px solid var(--border);
+border-radius:6px;
 overflow:hidden;
 transition:0.3s;
 position:relative;
-border:2px solid #333;
+opacity:0;
+transform:translateY(20px);
+animation:fadeUp 0.6s forwards;
 }
 .card:hover{
-transform:translateY(-10px) scale(1.03);
-border-color:#ff4d4d;
+transform:translateY(-6px);
+border-color:var(--gold);
 }
 
+/* IMG */
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
+filter:brightness(0.9);
 }
 
+/* INFO */
 .info{
-padding:15px;
+padding:20px;
 text-align:center;
 }
-.info h3{margin-bottom:5px;}
-.price{color:#ff4d4d;font-weight:bold;}
+.info h3{
+font-family:'Playfair Display',serif;
+margin-bottom:8px;
+}
+.info p{
+color:var(--text-muted);
+font-size:0.9rem;
+margin-bottom:8px;
+}
+.price{
+color:var(--gold);
+font-weight:700;
+}
 
+/* BADGE */
 .badge{
 position:absolute;
-top:10px;
-left:10px;
-padding:5px 10px;
+top:12px;
+left:12px;
+padding:4px 10px;
 border-radius:20px;
-font-size:0.8rem;
-font-weight:bold;
+font-size:0.7rem;
+font-weight:700;
+text-transform:uppercase;
 }
-.normale{background:#6c757d;}
-.piccante{background:#e60000;}
-.vegetariana{background:#28a745;}
+.normale{background:#555;}
+.piccante{background:#c0392b;}
+.vegetariana{background:#2e7d32;}
 
+/* FOOTER */
 footer{
 text-align:center;
 padding:30px;
-opacity:0.7;
+color:var(--text-muted);
+font-size:0.8rem;
+}
+
+/* ANIMAZIONE */
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 </style>
 </head>
@@ -122,8 +188,11 @@ opacity:0.7;
 <body>
 
 <nav>
-  <a href="index.html">Home</a>
-  <a href="menu.html">Menu</a>
+  <div>Pizzeria Renato</div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="menu.html">Menu</a>
+  </div>
 </nav>
 
 <section class="hero">
@@ -151,7 +220,7 @@ const menu = document.getElementById("menu");
 function mostraMenu(){
   menu.innerHTML = "";
 
-  pizze.forEach(pizza => {
+  pizze.forEach((pizza, index) => {
 
     let badge = pizza.tipo.map(t =>
       `<span class="badge ${t}">${t}</span>`
@@ -160,6 +229,8 @@ function mostraMenu(){
     let div = document.createElement("div");
     div.classList.add("card");
     div.dataset.type = pizza.tipo.join(" ");
+
+    div.style.animationDelay = (index * 0.1) + "s";
 
     div.innerHTML = `
       ${badge}

@@ -148,7 +148,7 @@ nav a.active{color:var(--gold);}
 /* ─── GRID ─── */
 .menu-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
   gap:20px;
   padding:0 40px 80px;
   max-width:1200px;margin:0 auto;
@@ -178,10 +178,6 @@ nav a.active{color:var(--gold);}
  
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
 .card-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--cream);line-height:1.2;}
-.card-price{
-  font-weight:700;color:var(--gold);font-size:1.1rem;
-  white-space:nowrap;flex-shrink:0;
-}
  
 .badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
 .badge{
@@ -193,14 +189,48 @@ nav a.active{color:var(--gold);}
 .badge-piccante{background:rgba(192,57,43,0.2);color:#e87070;border:1px solid rgba(192,57,43,0.3);}
 .badge-vegetariana{background:rgba(46,125,50,0.2);color:#6dbf6d;border:1px solid rgba(46,125,50,0.3);}
  
-.card-desc{color:var(--text-muted);font-size:0.88rem;line-height:1.6;margin-bottom:10px;font-weight:300;}
+.card-desc{color:var(--text-muted);font-size:0.88rem;line-height:1.6;margin-bottom:12px;font-weight:300;}
+ 
+/* ─── PREZZI TABLE ─── */
+.prezzi{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:12px;
+}
+.prezzo-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:7px 12px;
+  min-width:68px;
+  flex:1;
+  transition:border-color 0.2s;
+}
+.card:hover .prezzo-item{border-color:rgba(201,168,76,0.3);}
+.prezzo-label{
+  font-size:0.62rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text-muted);
+  font-weight:700;
+  margin-bottom:4px;
+  white-space:nowrap;
+}
+.prezzo-val{
+  font-size:1rem;
+  font-weight:700;
+  color:var(--gold);
+  white-space:nowrap;
+}
+ 
 .card-allergeni{
   font-size:0.75rem;color:rgba(160,144,112,0.65);
   border-top:1px solid var(--border);padding-top:10px;margin-top:4px;
 }
- 
-/* HIDDEN */
-.card.hidden{display:none;}
  
 /* EMPTY */
 .empty-state{
@@ -229,7 +259,7 @@ footer{
 <nav id="navbar">
   <a class="logo" href="index.html">
     <img src="https://raw.githubusercontent.com/davideiacuzio005-source/NUOVAPIZZA/main/Logo%20Pizzeria.jpg" alt="Logo">
-    <span class="logo-text">Pizzeria Renato</span>
+    <span class="logo-text">L'Officina Della Pizza</span>
   </a>
   <ul id="nav-links">
     <li><a href="index.html">Home</a></li>
@@ -269,15 +299,23 @@ footer{
  
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Pizzeria Renato</div>
-  <div class="footer-copy">© 2025 Pizzeria Renato · Tutti i diritti riservati</div>
+  <div class="footer-logo">L'Officina Della Pizza</div>
+  <div class="footer-copy">© 2025 L'Officina Della Pizza · Tutti i diritti riservati</div>
 </footer>
  
 <script>
 /* ===============================================================
    🍕 AGGIUNGI LE TUE PIZZE QUI
-   Copia un blocco e modifica i valori.
-   tipo: uno o più tra "normale", "piccante", "vegetariana"
+   
+   Per i prezzi usa l'oggetto "prezzi" con le chiavi:
+     mini        → pizza mini
+     normale     → pizza normale
+     tirata      → pizza tirata
+     mezzoMetro  → mezzo metro
+   
+   Inserisci solo le chiavi che esistono per quella pizza.
+   Le format attese sono numeri come stringa es. "6.00"
+   Se una misura non è disponibile, ometti la chiave.
 ================================================================ */
 const pizze = [
  
@@ -285,88 +323,135 @@ const pizze = [
     nome: "Margherita",
     ingredienti: "Pomodoro, Mozzarella e olio EVO",
     allergeni: "Glutine, latte",
-    prezzo: "6",
+    prezzi: {
+      mini: "4.50",
+      normale: "6.00",
+      tirata: "7.00",
+      mezzoMetro: "12.00"
+    },
     tipo: ["normale"]
   },
   {
     nome: "Bufala",
     ingredienti: "Pomodoro, Mozzarella e Bufala",
     allergeni: "Glutine, latte",
-    prezzo: "7",
+    prezzi: {
+      mini: "5.00",
+      normale: "7.00",
+      tirata: "8.00",
+      mezzoMetro: "14.00"
+    },
     tipo: ["normale"]
   },
   {
     nome: "Marinara",
     ingredienti: "Pomodoro, Origano e Aglio",
     allergeni: "Glutine, latte",
-    prezzo: "8.50",
+    prezzi: {
+      mini: "4.00",
+      normale: "8.50",
+      tirata: "9.50",
+      mezzoMetro: "16.00"
+    },
     tipo: ["vegetariana"]
   },
   {
     nome: "Cosacca",
     ingredienti: "Pomodoro, Capperi, Pecorino, Acciughe",
     allergeni: "Glutine, Latte, Pesce",
-    prezzo: "normale 6.00",
-    prezzo: "tirata 7.00",
+    prezzi: {
+      normale: "6.00",
+      tirata: "7.00"
+    },
     tipo: ["normale"]
   },
   {
     nome: "Inferno",
     ingredienti: "Pomodoro, mozzarella, 'nduja, cipolla rossa, peperoncino fresco",
     allergeni: "Glutine, latte",
-    prezzo: "11.00",
+    prezzi: {
+      normale: "11.00",
+      tirata: "13.00",
+      mezzoMetro: "22.00"
+    },
     tipo: ["piccante"]
   },
   {
     nome: "Bufala e Rucola",
     ingredienti: "Pomodoro, mozzarella di bufala DOP, rucola fresca, scaglie di parmigiano",
     allergeni: "Glutine, latte",
-    prezzo: "11.50",
+    prezzi: {
+      normale: "11.50",
+      tirata: "13.50",
+      mezzoMetro: "23.00"
+    },
     tipo: ["vegetariana"]
   },
  
 ];
  
+/* ─── CONFIG ETICHETTE ─── */
+const prezzoConfig = {
+  mini:       { label: "Mini" },
+  normale:    { label: "Normale" },
+  tirata:     { label: "Tirata" },
+  mezzoMetro: { label: "½ Metro" },
+};
+ 
 /* ─── RENDER ─── */
-const grid      = document.getElementById('menuGrid');
-const countLabel= document.getElementById('countLabel');
+const grid       = document.getElementById('menuGrid');
+const countLabel = document.getElementById('countLabel');
  
-const badgeIcon = { normale:'', piccante:'🌶', vegetariana:'🥦' };
-const badgeLabel= { normale:'Classica', piccante:'Piccante', vegetariana:'Vegetariana' };
+const badgeIcon  = { normale:'', piccante:'🌶', vegetariana:'🥦' };
+const badgeLabel = { normale:'Classica', piccante:'Piccante', vegetariana:'Vegetariana' };
  
-function renderPizze(filter){
-  grid.innerHTML='';
-  const filtered = filter==='all' ? pizze : pizze.filter(p=>p.tipo.includes(filter));
+function buildPrezziHtml(prezzi) {
+  const keys = ['mini', 'normale', 'tirata', 'mezzoMetro'];
+  const available = keys.filter(k => prezzi && prezzi[k]);
+  if (!available.length) return '';
+  return `<div class="prezzi">${
+    available.map(k => `
+      <div class="prezzo-item">
+        <span class="prezzo-label">${prezzoConfig[k].label}</span>
+        <span class="prezzo-val">€${prezzi[k]}</span>
+      </div>
+    `).join('')
+  }</div>`;
+}
  
-  if(filtered.length===0){
-    grid.innerHTML=`
+function renderPizze(filter) {
+  grid.innerHTML = '';
+  const filtered = filter === 'all' ? pizze : pizze.filter(p => p.tipo.includes(filter));
+ 
+  if (filtered.length === 0) {
+    grid.innerHTML = `
       <div class="empty-state">
         <div class="icon">🍕</div>
         <p>Nessuna pizza trovata per questa categoria.</p>
       </div>`;
-    countLabel.innerHTML='';
+    countLabel.innerHTML = '';
     return;
   }
  
-  countLabel.innerHTML=`<span>${filtered.length}</span> pizze${filtered.length!==1?'':''} disponibil${filtered.length!==1?'i':'e'}`;
+  countLabel.innerHTML = `<span>${filtered.length}</span> pizze disponibili`;
  
-  filtered.forEach((p,i)=>{
-    const tipoClass = p.tipo.includes('piccante') ? 'tipo-piccante' : p.tipo.includes('vegetariana') ? 'tipo-vegetariana' : '';
-    const badgesHtml = p.tipo.map(t=>
-      `<span class="badge badge-${t}">${badgeIcon[t]?badgeIcon[t]+' ':''}${badgeLabel[t]}</span>`
+  filtered.forEach((p, i) => {
+    const tipoClass  = p.tipo.includes('piccante') ? 'tipo-piccante' : p.tipo.includes('vegetariana') ? 'tipo-vegetariana' : '';
+    const badgesHtml = p.tipo.map(t =>
+      `<span class="badge badge-${t}">${badgeIcon[t] ? badgeIcon[t] + ' ' : ''}${badgeLabel[t]}</span>`
     ).join('');
  
     const card = document.createElement('div');
     card.className = `card ${tipoClass}`;
-    card.style.animationDelay = `${i*0.06}s`;
+    card.style.animationDelay = `${i * 0.06}s`;
     card.dataset.tipo = p.tipo.join(' ');
-    card.innerHTML=`
+    card.innerHTML = `
       <div class="card-top">
         <div class="card-name">${p.nome}</div>
-        <div class="card-price">€${p.prezzo}</div>
       </div>
       <div class="badges">${badgesHtml}</div>
       <p class="card-desc">${p.ingredienti}</p>
+      ${buildPrezziHtml(p.prezzi)}
       <p class="card-allergeni">⚠ Allergeni: ${p.allergeni}</p>
     `;
     grid.appendChild(card);
@@ -376,17 +461,17 @@ function renderPizze(filter){
 renderPizze('all');
  
 /* ─── FILTRI ─── */
-document.querySelectorAll('.filters-bar button').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.filters-bar button').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.filters-bar button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filters-bar button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderPizze(btn.dataset.type);
   });
 });
  
 /* ─── NAVBAR ─── */
-window.addEventListener('scroll',()=>{
-  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY>40);
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
 });
  
 /* ─── MOBILE MENU ─── */
@@ -394,17 +479,17 @@ const hamburger   = document.getElementById('hamburger');
 const navLinks    = document.getElementById('nav-links');
 const menuOverlay = document.getElementById('menuOverlay');
  
-function openMenu(){
-  hamburger.classList.add('active');navLinks.classList.add('show');
-  menuOverlay.classList.add('show');document.body.style.overflow='hidden';
+function openMenu() {
+  hamburger.classList.add('active'); navLinks.classList.add('show');
+  menuOverlay.classList.add('show'); document.body.style.overflow = 'hidden';
 }
-function closeMenu(){
-  hamburger.classList.remove('active');navLinks.classList.remove('show');
-  menuOverlay.classList.remove('show');document.body.style.overflow='';
+function closeMenu() {
+  hamburger.classList.remove('active'); navLinks.classList.remove('show');
+  menuOverlay.classList.remove('show'); document.body.style.overflow = '';
 }
-hamburger.addEventListener('click',()=>navLinks.classList.contains('show')?closeMenu():openMenu());
-menuOverlay.addEventListener('click',closeMenu);
-document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',closeMenu));
+hamburger.addEventListener('click', () => navLinks.classList.contains('show') ? closeMenu() : openMenu());
+menuOverlay.addEventListener('click', closeMenu);
+document.querySelectorAll('#nav-links a').forEach(a => a.addEventListener('click', closeMenu));
 </script>
 </body>
 </html>

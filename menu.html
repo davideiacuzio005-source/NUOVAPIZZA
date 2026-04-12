@@ -175,6 +175,10 @@ nav a.active{color:var(--gold);}
 .card:hover::before{background:var(--gold);}
 .card.tipo-piccante::before{background:var(--red);}
 .card.tipo-vegetariana::before{background:var(--green);}
+/* Bordo sfumato per pizze con tag multipli (es. piccante + vegetariana) */
+.card.tipo-piccante.tipo-vegetariana::before{
+  background:linear-gradient(to bottom, var(--red) 50%, var(--green) 50%);
+}
  
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
 .card-name{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--cream);line-height:1.2;}
@@ -191,7 +195,7 @@ nav a.active{color:var(--gold);}
  
 .card-desc{color:var(--text-muted);font-size:0.88rem;line-height:1.6;margin-bottom:12px;font-weight:300;}
  
-/* ─── PREZZI TABLE ─── */
+/* ─── PREZZI ─── */
 .prezzi{
   display:flex;
   flex-wrap:wrap;
@@ -306,16 +310,21 @@ footer{
 <script>
 /* ===============================================================
    🍕 AGGIUNGI LE TUE PIZZE QUI
-   
-   Per i prezzi usa l'oggetto "prezzi" con le chiavi:
-     mini        → pizza mini
-     normale     → pizza normale
-     tirata      → pizza tirata
-     mezzoMetro  → mezzo metro
-   
-   Inserisci solo le chiavi che esistono per quella pizza.
-   Le format attese sono numeri come stringa es. "6.00"
-   Se una misura non è disponibile, ometti la chiave.
+ 
+   tipo: array con uno o più valori tra "normale", "piccante", "vegetariana"
+ 
+   ✅ Esempi corretti:
+     tipo: ["normale"]
+     tipo: ["vegetariana"]
+     tipo: ["normale", "vegetariana"]      ← classica E vegetariana
+     tipo: ["piccante", "vegetariana"]     ← piccante E vegetariana
+     tipo: ["normale", "piccante"]         ← classica E piccante
+ 
+   ❌ Errori da evitare:
+     tipo: ["normale,vegetariana"]         ← SBAGLIATO, la virgola è dentro la stringa
+     tipo: ["normale"],["vegetariana"]     ← SBAGLIATO, non è un array valido
+ 
+   prezzi: inserisci solo le misure disponibili per quella pizza.
 ================================================================ */
 const pizze = [
  
@@ -329,7 +338,7 @@ const pizze = [
       tirata: "6.00",
       mezzoMetro: "14.00"
     },
-    tipo: ["normale,vegetariana"]
+    tipo: ["normale", "vegetariana"]
   },
   {
     nome: "Bufala",
@@ -341,7 +350,7 @@ const pizze = [
       tirata: "7.00",
       mezzoMetro: "17.00"
     },
-    tipo: ["normale,vegetariana"]
+    tipo: ["normale", "vegetariana"]
   },
   {
     nome: "Marinara",
@@ -353,7 +362,7 @@ const pizze = [
       tirata: "6.00",
       mezzoMetro: "12.00"
     },
-    tipo: ["normale"],["vegetariana"]
+    tipo: ["normale", "vegetariana"]
   },
   {
     nome: "Cosacca",
@@ -404,8 +413,8 @@ const prezzoConfig = {
 const grid       = document.getElementById('menuGrid');
 const countLabel = document.getElementById('countLabel');
  
-const badgeIcon  = { normale:'', piccante:'🌶', vegetariana:'🥦' };
-const badgeLabel = { normale:'Classica', piccante:'Piccante', vegetariana:'Vegetariana' };
+const badgeIcon  = { normale: '', piccante: '🌶', vegetariana: '🥦' };
+const badgeLabel = { normale: 'Classica', piccante: 'Piccante', vegetariana: 'Vegetariana' };
  
 function buildPrezziHtml(prezzi) {
   const keys = ['mini', 'normale', 'tirata', 'mezzoMetro'];
@@ -423,7 +432,11 @@ function buildPrezziHtml(prezzi) {
  
 function renderPizze(filter) {
   grid.innerHTML = '';
-  const filtered = filter === 'all' ? pizze : pizze.filter(p => p.tipo.includes(filter));
+ 
+  // Una pizza appare se ALMENO UNO dei suoi tag corrisponde al filtro
+  const filtered = filter === 'all'
+    ? pizze
+    : pizze.filter(p => p.tipo.includes(filter));
  
   if (filtered.length === 0) {
     grid.innerHTML = `
@@ -438,15 +451,17 @@ function renderPizze(filter) {
   countLabel.innerHTML = `<span>${filtered.length}</span> pizze disponibili`;
  
   filtered.forEach((p, i) => {
-    const tipoClass  = p.tipo.includes('piccante') ? 'tipo-piccante' : p.tipo.includes('vegetariana') ? 'tipo-vegetariana' : '';
+    // Classi CSS per il bordo colorato — supporta combinazioni multiple
+    const tipoClasses = p.tipo.map(t => `tipo-${t}`).join(' ');
+ 
+    // Un badge per ogni tag presente
     const badgesHtml = p.tipo.map(t =>
-      `<span class="badge badge-${t}">${badgeIcon[t] ? badgeIcon[t] + ' ' : ''}${badgeLabel[t]}</span>`
+      `<span class="badge badge-${t}">${badgeIcon[t] ? badgeIcon[t] + ' ' : ''}${badgeLabel[t] || t}</span>`
     ).join('');
  
     const card = document.createElement('div');
-    card.className = `card ${tipoClass}`;
+    card.className = `card ${tipoClasses}`;
     card.style.animationDelay = `${i * 0.06}s`;
-    card.dataset.tipo = p.tipo.join(' ');
     card.innerHTML = `
       <div class="card-top">
         <div class="card-name">${p.nome}</div>

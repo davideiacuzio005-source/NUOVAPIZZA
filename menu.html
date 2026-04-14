@@ -21,6 +21,7 @@
   --text-muted:#a09070;
   --border:rgba(201,168,76,0.2);
   --green:#2e7d32;
+  --purple:#7b2d8b;
 }
  
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -136,7 +137,20 @@ nav a.active{color:var(--gold);}
   letter-spacing:0.1em;text-transform:uppercase;
 }
 .filters-bar button:hover{border-color:var(--gold);color:var(--cream);}
-.filters-bar button.active{background:var(--red);color:#fff;border-color:var(--red);}
+.filters-bar button.active{color:#fff;border-color:transparent;}
+.filters-bar button[data-type="all"].active{background:var(--red);}
+.filters-bar button[data-type="normale"].active{background:rgba(255,255,255,0.18);border-color:rgba(255,255,255,0.4);color:var(--cream);}
+.filters-bar button[data-type="piccante"].active{background:var(--red);}
+.filters-bar button[data-type="vegetariana"].active{background:var(--green);}
+.filters-bar button[data-type="speciale"].active{background:var(--purple);}
+ 
+.filter-hint{
+  text-align:center;
+  font-size:0.72rem;
+  color:var(--text-muted);
+  letter-spacing:0.06em;
+  padding:6px 20px 0;
+}
  
 /* COUNT BADGE */
 .count-label{
@@ -175,9 +189,15 @@ nav a.active{color:var(--gold);}
 .card:hover::before{background:var(--gold);}
 .card.tipo-piccante::before{background:var(--red);}
 .card.tipo-vegetariana::before{background:var(--green);}
-/* Bordo sfumato per pizze con tag multipli (es. piccante + vegetariana) */
+.card.tipo-speciale::before{background:var(--purple);}
 .card.tipo-piccante.tipo-vegetariana::before{
   background:linear-gradient(to bottom, var(--red) 50%, var(--green) 50%);
+}
+.card.tipo-piccante.tipo-speciale::before{
+  background:linear-gradient(to bottom, var(--red) 50%, var(--purple) 50%);
+}
+.card.tipo-vegetariana.tipo-speciale::before{
+  background:linear-gradient(to bottom, var(--green) 50%, var(--purple) 50%);
 }
  
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;}
@@ -192,6 +212,7 @@ nav a.active{color:var(--gold);}
 .badge-normale{background:rgba(255,255,255,0.08);color:var(--text-muted);}
 .badge-piccante{background:rgba(192,57,43,0.2);color:#e87070;border:1px solid rgba(192,57,43,0.3);}
 .badge-vegetariana{background:rgba(46,125,50,0.2);color:#6dbf6d;border:1px solid rgba(46,125,50,0.3);}
+.badge-speciale{background:rgba(123,45,139,0.2);color:#ce7de8;border:1px solid rgba(123,45,139,0.3);}
  
 .card-desc{color:var(--text-muted);font-size:0.88rem;line-height:1.6;margin-bottom:12px;font-weight:300;}
  
@@ -295,7 +316,9 @@ footer{
   <button data-type="normale">Classiche</button>
   <button data-type="piccante">🌶 Piccanti</button>
   <button data-type="vegetariana">🥦 Vegetariane</button>
+  <button data-type="speciale">⭐ Speciali</button>
 </div>
+<p class="filter-hint">Puoi selezionare più categorie insieme</p>
 <div class="count-label" id="countLabel"></div>
  
 <!-- GRID -->
@@ -311,20 +334,15 @@ footer{
 /* ===============================================================
    🍕 AGGIUNGI LE TUE PIZZE QUI
  
-   tipo: array con uno o più valori tra "normale", "piccante", "vegetariana"
+   tipo: array con uno o più valori tra "normale", "piccante", "vegetariana", "speciale"
  
    ✅ Esempi corretti:
      tipo: ["normale"]
      tipo: ["vegetariana"]
-     tipo: ["normale", "vegetariana"]      ← classica E vegetariana
-     tipo: ["piccante", "vegetariana"]     ← piccante E vegetariana
-     tipo: ["normale", "piccante"]         ← classica E piccante
- 
-   ❌ Errori da evitare:
-     tipo: ["normale,vegetariana"]         ← SBAGLIATO, la virgola è dentro la stringa
-     tipo: ["normale"],["vegetariana"]     ← SBAGLIATO, non è un array valido
- 
-   prezzi: inserisci solo le misure disponibili per quella pizza.
+     tipo: ["normale", "vegetariana"]
+     tipo: ["piccante", "vegetariana"]
+     tipo: ["speciale"]
+     tipo: ["speciale", "vegetariana"]
 ================================================================ */
 const pizze = [
  
@@ -392,6 +410,7 @@ const pizze = [
     },
     tipo: ["piccante"]
   },
+ 
   {
     nome: "Bufala e Rucola",
     ingredienti: "Pomodoro, mozzarella di bufala DOP, rucola fresca, scaglie di parmigiano",
@@ -400,30 +419,30 @@ const pizze = [
       mini: "6.00",
       normale: "7.00",
       tirata: "8.00",
-      mezzoMetro: "18.00""
+      mezzoMetro: "18.00"
     },
     tipo: ["vegetariana"]
   },
-
- {
+ 
+  {
     nome: "Napoli",
     ingredienti: "Pomodoro, Mozzarella, Acciughe e Origano",
     allergeni: "Glutine, Latte, Pesce",
     prezzi: {
-      nmini: "5.00",
+      mini: "5.00",
       normale: "6.00",
       tirata: "7.00",
       mezzoMetro: "17.00"
     },
     tipo: ["normale"]
   },
-
+ 
   {
     nome: "Würstel",
     ingredienti: "Pomodoro, Mozzarella, Würstel di carne mista",
     allergeni: "Glutine, Latte",
     prezzi: {
-      nmini: "4.00",
+      mini: "4.00",
       normale: "6.00",
       tirata: "7.00",
       mezzoMetro: "17.00"
@@ -445,8 +464,8 @@ const prezzoConfig = {
 const grid       = document.getElementById('menuGrid');
 const countLabel = document.getElementById('countLabel');
  
-const badgeIcon  = { normale: '', piccante: '🌶', vegetariana: '🥦' };
-const badgeLabel = { normale: 'Classica', piccante: 'Piccante', vegetariana: 'Vegetariana' };
+const badgeIcon  = { normale: '', piccante: '🌶', vegetariana: '🥦', speciale: '⭐' };
+const badgeLabel = { normale: 'Classica', piccante: 'Piccante', vegetariana: 'Vegetariana', speciale: 'Speciale' };
  
 function buildPrezziHtml(prezzi) {
   const keys = ['mini', 'normale', 'tirata', 'mezzoMetro'];
@@ -462,13 +481,18 @@ function buildPrezziHtml(prezzi) {
   }</div>`;
 }
  
-function renderPizze(filter) {
+/* ─── STATO FILTRI ATTIVI (multi-selezione) ─── */
+let activeFilters = new Set(['all']);
+ 
+function renderPizze() {
   grid.innerHTML = '';
  
-  // Una pizza appare se ALMENO UNO dei suoi tag corrisponde al filtro
-  const filtered = filter === 'all'
-    ? pizze
-    : pizze.filter(p => p.tipo.includes(filter));
+  let filtered;
+  if (activeFilters.has('all') || activeFilters.size === 0) {
+    filtered = pizze;
+  } else {
+    filtered = pizze.filter(p => p.tipo.some(t => activeFilters.has(t)));
+  }
  
   if (filtered.length === 0) {
     grid.innerHTML = `
@@ -483,10 +507,8 @@ function renderPizze(filter) {
   countLabel.innerHTML = `<span>${filtered.length}</span> pizze disponibili`;
  
   filtered.forEach((p, i) => {
-    // Classi CSS per il bordo colorato — supporta combinazioni multiple
     const tipoClasses = p.tipo.map(t => `tipo-${t}`).join(' ');
  
-    // Un badge per ogni tag presente
     const badgesHtml = p.tipo.map(t =>
       `<span class="badge badge-${t}">${badgeIcon[t] ? badgeIcon[t] + ' ' : ''}${badgeLabel[t] || t}</span>`
     ).join('');
@@ -507,14 +529,32 @@ function renderPizze(filter) {
   });
 }
  
-renderPizze('all');
+renderPizze();
  
-/* ─── FILTRI ─── */
+/* ─── FILTRI MULTI-SELEZIONE ─── */
 document.querySelectorAll('.filters-bar button').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filters-bar button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderPizze(btn.dataset.type);
+    const type = btn.dataset.type;
+ 
+    if (type === 'all') {
+      // "Tutte" resetta tutto
+      activeFilters = new Set(['all']);
+    } else {
+      activeFilters.delete('all');
+ 
+      if (activeFilters.has(type)) {
+        activeFilters.delete(type);
+        if (activeFilters.size === 0) activeFilters.add('all');
+      } else {
+        activeFilters.add(type);
+      }
+    }
+ 
+    document.querySelectorAll('.filters-bar button').forEach(b => {
+      b.classList.toggle('active', activeFilters.has(b.dataset.type));
+    });
+ 
+    renderPizze();
   });
 });
  

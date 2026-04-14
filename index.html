@@ -288,14 +288,56 @@
     .hours-list .day   { color: var(--cream); font-weight: 700; }
     .hours-list .closed { color: var(--red); font-style: italic; }
  
+    /* ─── FORM CARD ─── */
     .form-card {
       background: var(--dark3);
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 36px;
     }
-    .form-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 28px; }
+    .form-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--cream); margin-bottom: 8px; }
+    .form-card .form-note { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; line-height: 1.5; }
  
+    /* ─── TIPO ORDINE (TABS) ─── */
+    .order-type-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .order-tab {
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,0.02);
+      border: none;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.22s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .order-tab:first-child { border-right: 1px solid var(--border); }
+    .order-tab svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .order-tab.active { background: var(--red); color: #fff; }
+    .order-tab:not(.active):hover { background: rgba(201,168,76,0.08); color: var(--cream); }
+ 
+    /* ─── CAMPI CONDIZIONALI ─── */
+    .fields-asporto,
+    .fields-domicilio { display: none; }
+    .fields-asporto.show,
+    .fields-domicilio.show { display: contents; }
+ 
+    /* ─── FORM GROUPS ─── */
     .form-group { margin-bottom: 18px; }
     .form-group label {
       display: block;
@@ -308,7 +350,8 @@
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
       width: 100%;
       padding: 13px 16px;
       background: rgba(255, 255, 255, 0.04);
@@ -321,9 +364,28 @@
       outline: none;
       -webkit-appearance: none;
     }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+      line-height: 1.5;
+    }
     .form-group input:focus,
-    .form-group select:focus { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); background: rgba(201,168,76,0.06); }
     .form-group select option { background: var(--dark2); color: var(--text); }
+ 
+    /* Separatore sezione */
+    .form-section-sep {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      padding: 4px 0 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+      display: block;
+    }
  
     .btn-submit {
       width: 100%;
@@ -560,13 +622,13 @@
   </div>
 </section>
  
-<!-- ─── PRENOTAZIONE ─── -->
+<!-- ─── PRENOTAZIONE / ORDINI ─── -->
 <section class="reservation" id="reservation">
   <div class="reservation-info reveal">
-    <p class="section-label">Riserva il tuo posto</p>
-    <h2 class="section-title">Prenota<br>un tavolo</h2>
+    <p class="section-label">Ordina o riserva</p>
+    <h2 class="section-title">Asporto &<br>Domicilio</h2>
     <div class="divider"></div>
-    <p>Scegli data e orario e assicurati un posto. Conferma immediata via email.</p>
+    <p>Ordina comodamente da casa o vieni a ritirarla tu. Scegli il tipo di servizio e inserisci i tuoi dati.</p>
     <ul class="hours-list">
       <li><span class="day">Lunedì</span>   <span>11:00–15:00 · 18:00–23:30</span></li>
       <li><span class="day">Martedì</span>  <span class="closed">Chiuso</span></li>
@@ -579,10 +641,34 @@
   </div>
  
   <div class="form-card reveal">
-    <h3>Dettagli prenotazione</h3>
-    <p>Si avvisa la gentile clientela che online è possibile prenotare solo per i giorni successivi.</p>
+    <h3>Dettagli ordine</h3>
+    <p class="form-note">Online puoi ordinare solo per i giorni successivi. Per ordini immediati chiama direttamente.</p>
+ 
+    <!-- TABS TIPO ORDINE -->
+    <div class="order-type-tabs">
+      <button class="order-tab active" id="tabAsporto" onclick="switchTab('asporto')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        Asporto
+      </button>
+      <button class="order-tab" id="tabDomicilio" onclick="switchTab('domicilio')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Domicilio
+      </button>
+    </div>
+ 
+    <!-- FORM -->
     <form id="reservationForm">
-      <input type="hidden" name="_subject" value="PRENOTAZIONE">
+ 
+      <!-- Campo nascosto: tipo ordine -->
+      <input type="hidden" name="Tipo" id="fieldTipo" value="Asporto">
+ 
+      <!-- ── DATI COMUNI ── -->
+      <span class="form-section-sep">Dati personali</span>
       <div class="form-row">
         <div class="form-group">
           <label for="nome">Nome</label>
@@ -597,31 +683,70 @@
         <label for="tel">Telefono</label>
         <input type="tel" id="tel" name="Telefono" placeholder="+39 333 000 0000" required>
       </div>
+ 
+      <!-- ── DATA E ORA ── -->
+      <span class="form-section-sep">Quando</span>
       <div class="form-row">
         <div class="form-group">
           <label for="data">Data</label>
           <input type="date" id="data" name="Data" required>
         </div>
         <div class="form-group">
-          <label for="ora">Orario</label>
+          <label for="ora">Orario ritiro / consegna</label>
           <input type="time" id="ora" name="Ora" required>
         </div>
       </div>
-      <div class="form-group">
-        <label for="persone">Numero di persone</label>
-        <select id="persone" name="Persone" required>
-          <option value="" disabled selected>Seleziona</option>
-          <option value="1">1 persona</option>
-          <option value="2">2 persone</option>
-          <option value="3">3 persone</option>
-          <option value="4">4 persone</option>
-          <option value="5">5 persone</option>
-          <option value="6">6 persone</option>
-          <option value="7">7 persone</option>
-          <option value="8">8+ persone</option>
-        </select>
+ 
+      <!-- ── CAMPI SOLO ASPORTO ── -->
+      <div class="fields-asporto show" id="fieldsAsporto">
+        <span class="form-section-sep">Dettaglio asporto</span>
+        <div class="form-group">
+          <label for="persone">Numero di persone</label>
+          <select id="persone" name="Persone">
+            <option value="" disabled selected>Seleziona</option>
+            <option value="1">1 persona</option>
+            <option value="2">2 persone</option>
+            <option value="3">3 persone</option>
+            <option value="4">4 persone</option>
+            <option value="5">5 persone</option>
+            <option value="6">6 persone</option>
+            <option value="7">7 persone</option>
+            <option value="8">8+ persone</option>
+          </select>
+        </div>
       </div>
-      <button type="submit" class="btn-submit">Conferma prenotazione</button>
+ 
+      <!-- ── CAMPI SOLO DOMICILIO ── -->
+      <div class="fields-domicilio" id="fieldsDomicilio">
+        <span class="form-section-sep">Indirizzo di consegna</span>
+        <div class="form-group">
+          <label for="via">Via e numero civico</label>
+          <input type="text" id="via" name="Via" placeholder="Via Roma, 12">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="citta">Città</label>
+            <input type="text" id="citta" name="Città" placeholder="Scandiano">
+          </div>
+          <div class="form-group">
+            <label for="cap">CAP</label>
+            <input type="text" id="cap" name="CAP" placeholder="42019" maxlength="5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="citofono">Citofono / interno (opzionale)</label>
+          <input type="text" id="citofono" name="Citofono" placeholder="Es. Rossi, int. 3">
+        </div>
+      </div>
+ 
+      <!-- ── NOTE ── -->
+      <span class="form-section-sep">Altro</span>
+      <div class="form-group">
+        <label for="note">Note sull'ordine (opzionale)</label>
+        <textarea id="note" name="Note" placeholder="Allergie, richieste particolari, ecc."></textarea>
+      </div>
+ 
+      <button type="submit" class="btn-submit" id="btnSubmit">Conferma ordine</button>
       <p class="error-msg" id="errorMsg"></p>
     </form>
   </div>
@@ -722,13 +847,75 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
  
-  /* ─── FORM PRENOTAZIONE ─── */
+  /* ─── SWITCH TABS ASPORTO / DOMICILIO ─── */
+  function switchTab(tipo) {
+    const isAsporto = tipo === 'asporto';
  
-  // Data minima = domani (nessuna prenotazione per oggi)
+    document.getElementById('tabAsporto').classList.toggle('active', isAsporto);
+    document.getElementById('tabDomicilio').classList.toggle('active', !isAsporto);
+ 
+    document.getElementById('fieldsAsporto').classList.toggle('show', isAsporto);
+    document.getElementById('fieldsDomicilio').classList.toggle('show', !isAsporto);
+ 
+    document.getElementById('fieldTipo').value = isAsporto ? 'Asporto' : 'Domicilio';
+ 
+    // Gestione required dinamici per i campi domicilio
+    const campiDomicilio = ['via', 'citta', 'cap'];
+    campiDomicilio.forEach(id => {
+      document.getElementById(id).required = !isAsporto;
+    });
+    document.getElementById('persone').required = isAsporto;
+  }
+  // Imposta required iniziali (asporto attivo di default)
+  document.getElementById('persone').required = true;
+ 
+  /* ─── DATA MINIMA = DOMANI ─── */
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   document.getElementById('data').min = tomorrow.toISOString().split('T')[0];
  
+  /* ─────────────────────────────────────────────────────────────────────────
+   * COLLEGAMENTO GOOGLE SHEETS — ISTRUZIONI
+   * ─────────────────────────────────────────────────────────────────────────
+   * 1. Apri Google Sheets e crea un foglio nuovo.
+   *    Nella prima riga (intestazioni) metti queste colonne nell'ordine:
+   *    Timestamp | Tipo | Nome | Cognome | Telefono | Data | Ora |
+   *    Persone | Via | Città | CAP | Citofono | Note
+   *
+   * 2. Dal menu "Estensioni" → "Apps Script", incolla questo codice:
+   *
+   *    function doPost(e) {
+   *      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+   *      var data  = JSON.parse(e.postData.contents);
+   *      sheet.appendRow([
+   *        new Date(),          // Timestamp automatico
+   *        data.Tipo,
+   *        data.Nome,
+   *        data.Cognome,
+   *        data.Telefono,
+   *        data.Data,
+   *        data.Ora,
+   *        data.Persone  || '',
+   *        data.Via      || '',
+   *        data['Città'] || '',
+   *        data.CAP      || '',
+   *        data.Citofono || '',
+   *        data.Note     || ''
+   *      ]);
+   *      return ContentService
+   *        .createTextOutput(JSON.stringify({ result: 'ok' }))
+   *        .setMimeType(ContentService.MimeType.JSON);
+   *    }
+   *
+   * 3. Salva lo script, clicca "Distribuisci" → "Nuova distribuzione".
+   *    Tipo: "App Web" | Esegui come: "Me" | Chi ha accesso: "Chiunque"
+   *    → Clicca "Distribuisci" e copia l'URL che ti viene dato.
+   *
+   * 4. Incolla quell'URL nella variabile GOOGLE_SCRIPT_URL qui sotto.
+   * ───────────────────────────────────────────────────────────────────────── */
+  const GOOGLE_SCRIPT_URL = 'INCOLLA_QUI_URL_APPS_SCRIPT';
+ 
+  /* ─── FORM SUBMIT ─── */
   const form    = document.getElementById('reservationForm');
   const errorEl = document.getElementById('errorMsg');
  
@@ -739,8 +926,9 @@
     const dateVal = form.querySelector('[name="Data"]').value;
     const timeVal = form.querySelector('[name="Ora"]').value;
     const telVal  = form.querySelector('[name="Telefono"]').value.trim();
+    const tipo    = document.getElementById('fieldTipo').value;
  
-    // Campi obbligatori
+    // Campi obbligatori base
     if (!dateVal || !timeVal) {
       errorEl.textContent = 'Inserisci data e orario.';
       return;
@@ -753,12 +941,27 @@
       return;
     }
  
+    // Validazione campi domicilio
+    if (tipo === 'Domicilio') {
+      const via    = form.querySelector('[name="Via"]').value.trim();
+      const citta  = form.querySelector('[name="Città"]').value.trim();
+      const cap    = form.querySelector('[name="CAP"]').value.trim();
+      if (!via || !citta || !cap) {
+        errorEl.textContent = 'Compila tutti i campi di indirizzo per la consegna a domicilio.';
+        return;
+      }
+      if (!/^\d{5}$/.test(cap)) {
+        errorEl.textContent = 'CAP non valido (deve essere 5 cifre).';
+        return;
+      }
+    }
+ 
     // No oggi e no passato
     const [y, m, d] = dateVal.split('-').map(Number);
-    const oggi  = new Date(); oggi.setHours(0, 0, 0, 0);
+    const oggi   = new Date(); oggi.setHours(0, 0, 0, 0);
     const scelta = new Date(y, m - 1, d);
     if (scelta <= oggi) {
-      errorEl.textContent = 'Non puoi prenotare per oggi o per una data passata. Prenota da domani in poi.';
+      errorEl.textContent = 'Non puoi ordinare per oggi o per una data passata. Ordina da domani in poi.';
       return;
     }
  
@@ -768,37 +971,40 @@
       return;
     }
  
-    // Orari di apertura
+    // Orari
     const [h, min] = timeVal.split(':').map(Number);
     const mins   = h * 60 + min;
-    const pranzo = mins >= 660  && mins <= 900;   // 11:00–15:00
-    const cena   = mins >= 1080 && mins <= 1410;  // 18:00–23:30
+    const pranzo = mins >= 660  && mins <= 900;
+    const cena   = mins >= 1080 && mins <= 1410;
     if (!pranzo && !cena) {
       errorEl.textContent = 'Orario non disponibile. Aperto 11:00–15:00 e 18:00–23:30.';
       return;
     }
  
     // Invio
-    const btn = form.querySelector('.btn-submit');
+    const btn = document.getElementById('btnSubmit');
     btn.textContent = 'Invio in corso…';
     btn.disabled = true;
  
+    // Raccoglie tutti i dati del form in un oggetto JSON
+    const payload = {};
+    new FormData(form).forEach((v, k) => { payload[k] = v; });
+ 
     try {
-      const res = await fetch('https://formsubmit.co/ajax/davideiacuzio005@gmail.com', {
+      const res = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json' }
       });
-      if (res.ok) {
+      const json = await res.json();
+      if (json.result === 'ok') {
         window.location.href = 'grazie.html';
       } else {
-        errorEl.textContent = "Errore durante l'invio. Riprova!";
-        btn.textContent = 'Conferma prenotazione';
-        btn.disabled = false;
+        throw new Error('Risposta non ok');
       }
     } catch (err) {
-      errorEl.textContent = 'Errore di rete. Riprova!';
-      btn.textContent = 'Conferma prenotazione';
+      errorEl.textContent = 'Errore durante l\'invio. Riprova o chiamaci direttamente!';
+      btn.textContent = 'Conferma ordine';
       btn.disabled = false;
     }
   });

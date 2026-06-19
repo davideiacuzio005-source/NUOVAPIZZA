@@ -3,1496 +3,521 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="L'Officina della Pizza – Pizzeria d'asporto artigianale a Scandiano (RE). Impasto a mano, forno a legna, ingredienti selezionati." />
   <title>L'Officina della Pizza – Scandiano</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --orange: #FF6B00;
-      --orange-light: #FF8C3A;
-      --orange-pale: #FFE8D6;
-      --black: #111111;
-      --dark: #1A1A1A;
-      --dark2: #242424;
-      --dark3: #2E2E2E;
-      --cream: #F5F2EE;
-      --text-muted: #888;
-      --white: #FFFFFF;
-      --radius: 12px;
-      --radius-sm: 6px;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
-    }
-    ::selection { background: var(--orange); color: var(--white); }
+    /* ═══ HOME-SPECIFIC ═══ */
 
-    /* ─── SCROLLBAR ─── */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--dark); }
-    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 72px;
-      background: rgba(17,17,17,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,107,0,0.15);
-      transition: background .3s;
-    }
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 2px;
-      color: var(--white);
-      text-decoration: none;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .nav-logo span { color: var(--orange); }
-    .nav-logo .flame { font-size: 1.4rem; }
-    .nav-links {
-      display: flex; align-items: center; gap: 2.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      font-size: .88rem;
-      font-weight: 500;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      transition: color .2s;
+    /* ── HERO ── */
+    .hero {
       position: relative;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: -4px; left: 0; right: 0; height: 2px;
-      background: var(--orange); border-radius: 1px;
-      transform: scaleX(0); transform-origin: left;
-      transition: transform .25s ease;
-    }
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-cta {
+      min-height: calc(100vh - 68px);
       background: var(--orange);
-      color: var(--white) !important;
-      padding: 10px 22px;
-      border-radius: 50px;
-      transition: background .2s, transform .15s !important;
-    }
-    .nav-cta::after { display: none !important; }
-    .nav-cta:hover { background: var(--orange-light) !important; transform: translateY(-1px); }
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px; cursor: pointer;
-      background: none; border: none; padding: 4px;
-    }
-    .hamburger span {
-      display: block; width: 26px; height: 2px;
-      background: var(--white); border-radius: 2px;
-      transition: transform .3s, opacity .3s;
-    }
-    .mobile-menu {
-      display: none;
-      position: fixed; top: 72px; left: 0; right: 0; z-index: 999;
-      background: rgba(17,17,17,0.98);
-      backdrop-filter: blur(20px);
-      padding: 2rem 5%;
-      border-bottom: 1px solid rgba(255,107,0,0.2);
-      flex-direction: column; gap: 1.5rem;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: .75rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      transition: color .2s;
-    }
-    .mobile-menu a:hover { color: var(--orange); }
-    .mobile-cta-btn {
-      display: inline-block;
-      background: var(--orange);
-      color: var(--white) !important;
-      padding: 14px 28px;
-      border-radius: 50px;
-      text-align: center;
-      border-bottom: none !important;
-    }
-
-    /* ─── HERO ─── */
-    #home {
-      min-height: 100vh;
       display: flex; align-items: center;
-      position: relative; overflow: hidden;
-      padding-top: 72px;
+      overflow: hidden;
     }
-    .hero-bg {
+    /* Texture pattern overlay */
+    .hero::before {
+      content: '';
       position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 60% 50%, rgba(255,107,0,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(255,107,0,0.07) 0%, transparent 60%),
-        linear-gradient(160deg, #111 0%, #1a1108 50%, #111 100%);
-    }
-    /* Animated sparks */
-    .sparks {
-      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-    }
-    .spark {
-      position: absolute;
-      width: 3px; height: 3px;
-      background: var(--orange);
-      border-radius: 50%;
-      animation: floatSpark linear infinite;
-      opacity: 0;
-    }
-    @keyframes floatSpark {
-      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
-      10%  { opacity: .8; }
-      90%  { opacity: .4; }
-      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-    }
-    .hero-grid-line {
-      position: absolute; inset: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,107,0,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,107,0,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.07) 1px, transparent 0);
+      background-size: 28px 28px;
+      pointer-events: none;
     }
-    .hero-content {
+    /* Dark sweep bottom-right */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 55%; height: 100%;
+      background: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+    }
+    .hero-inner {
       position: relative; z-index: 2;
-      padding: 0 5%; max-width: 1280px; margin: 0 auto; width: 100%;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      max-width: 1300px; margin: 0 auto; padding: 5rem 5%;
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center;
     }
-    .hero-eyebrow {
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(0,0,0,0.18);
+      color: rgba(255,255,255,0.9);
+      font-family: 'Oswald', sans-serif;
       font-size: .78rem; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--orange);
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 1.5rem;
-    }
-    .hero-eyebrow::before {
-      content: ''; display: block;
-      width: 30px; height: 2px; background: var(--orange); border-radius: 1px;
+      text-transform: uppercase; letter-spacing: 3px;
+      padding: 7px 16px; border-radius: 50px;
+      margin-bottom: 1.6rem;
     }
     .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 7vw, 6.5rem);
-      line-height: .95;
-      letter-spacing: 2px;
-      color: var(--white);
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(3.2rem, 7.5vw, 7rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: .9;
+      color: #fff;
+      letter-spacing: 1px;
       margin-bottom: 1.5rem;
     }
-    .hero-title em {
-      color: var(--orange); font-style: normal;
-      position: relative; display: inline-block;
+    .hero-title .line-accent {
+      display: block;
+      color: var(--black);
+      -webkit-text-stroke: 0px;
     }
-    .hero-title em::after {
-      content: '';
-      position: absolute; bottom: 2px; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, var(--orange), transparent);
-      border-radius: 2px;
-    }
-    .hero-desc {
-      font-size: 1.05rem; line-height: 1.75;
-      color: rgba(255,255,255,0.6);
-      max-width: 480px;
+    .hero-tagline {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      max-width: 460px;
       margin-bottom: 2.5rem;
     }
-    .hero-buttons {
-      display: flex; gap: 1rem; flex-wrap: wrap;
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Right side – info card stack */
+    .hero-cards {
+      display: flex; flex-direction: column; gap: 1rem;
     }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px;
+    .hcard {
+      background: rgba(255,255,255,0.12);
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: var(--r-lg);
+      backdrop-filter: blur(6px);
+      padding: 1.3rem 1.5rem;
+      display: flex; align-items: center; gap: 1.1rem;
+    }
+    .hcard-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(0,0,0,0.22);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .hcard-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: rgba(255,255,255,0.6); margin-bottom: .2rem;
+    }
+    .hcard-val {
+      font-size: .97rem; font-weight: 500; color: #fff; line-height: 1.35;
+    }
+    .hcard-val a { color: #fff; }
+
+    /* ── WAVE ── */
+    .wave {
+      display: block; width: 100%;
       background: var(--orange);
-      color: var(--white);
-      padding: 15px 32px;
-      border-radius: 50px;
-      font-size: .95rem; font-weight: 600;
-      text-decoration: none;
-      border: 2px solid var(--orange);
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 24px rgba(255,107,0,0.3);
-      cursor: pointer;
+      line-height: 0;
     }
-    .btn-primary:hover {
-      background: var(--orange-light);
-      border-color: var(--orange-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(255,107,0,0.45);
+    .wave svg { display: block; }
+
+    /* ── WHY US ── */
+    .why { background: var(--cream); padding: 7rem 0; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; margin-top: 3.5rem;
     }
-    .btn-secondary {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: transparent;
-      color: var(--white);
-      padding: 15px 32px;
-      border-radius: 50px;
-      font-size: .95rem; font-weight: 600;
-      text-decoration: none;
-      border: 2px solid rgba(255,255,255,0.25);
-      transition: border-color .2s, transform .15s;
-      cursor: pointer;
+    .why-card {
+      background: #fff;
+      border-radius: var(--r-lg);
+      padding: 2.2rem 2rem;
+      border: 1.5px solid rgba(0,0,0,0.07);
+      transition: transform .25s, box-shadow .25s, border-color .25s;
     }
-    .btn-secondary:hover {
-      border-color: rgba(255,255,255,0.7);
-      transform: translateY(-2px);
+    .why-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(244,98,15,0.12);
+      border-color: rgba(244,98,15,0.3);
     }
-    /* Hero right - decorative */
-    .hero-visual {
-      display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-end;
+    .why-emoji {
+      font-size: 2.4rem; margin-bottom: 1.1rem;
+      display: block;
     }
-    .hero-badge {
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.3);
-      border-radius: 16px;
-      padding: 2rem 2.5rem;
-      text-align: center;
-      backdrop-filter: blur(10px);
+    .why-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: var(--black); margin-bottom: .6rem;
     }
-    .hero-badge .big-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 5rem;
-      line-height: 1;
-      color: var(--orange);
-    }
-    .hero-badge .label {
-      font-size: .8rem;
-      color: rgba(255,255,255,0.6);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .hero-info-cards {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;
-    }
-    .hero-info-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 1.25rem;
-    }
-    .hero-info-card .icon { font-size: 1.5rem; margin-bottom: .5rem; }
-    .hero-info-card .card-title {
-      font-size: .75rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 1px;
-      color: var(--orange); margin-bottom: .3rem;
-    }
-    .hero-info-card .card-val {
-      font-size: .9rem; color: rgba(255,255,255,0.85); line-height: 1.4;
-    }
-    .hero-scroll {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      color: rgba(255,255,255,0.3); font-size: .72rem; letter-spacing: 2px;
-      text-transform: uppercase;
-      animation: bounce 2s infinite;
-    }
-    .hero-scroll-line {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, rgba(255,107,0,0.6), transparent);
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(6px); }
+    .why-card p {
+      font-size: .92rem; line-height: 1.7; color: var(--text-mid);
     }
 
-    /* ─── SECTION COMMONS ─── */
-    section { padding: 7rem 5%; }
-    .section-inner { max-width: 1280px; margin: 0 auto; }
-    .section-eyebrow {
-      font-size: .76rem; font-weight: 600;
-      letter-spacing: 3px; text-transform: uppercase;
-      color: var(--orange);
+    /* ── ORANGE BANNER ── */
+    .banner {
+      background: var(--black);
+      padding: 5.5rem 0;
+      position: relative; overflow: hidden;
+    }
+    .banner::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(244,98,15,0.08) 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+    .banner-inner {
+      position: relative; z-index: 2;
+      max-width: 1300px; margin: 0 auto; padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap;
+    }
+    .banner-text .label {
+      font-family: 'Oswald', sans-serif;
+      font-size: .8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 3px;
+      color: var(--orange); margin-bottom: .9rem;
+    }
+    .banner-text h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; text-transform: uppercase;
+      color: #fff; line-height: 1;
+    }
+    .banner-text p {
+      margin-top: .8rem;
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.7;
+    }
+    .banner-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── ORARI ── */
+    .orari-sec { background: #fff; padding: 7rem 0; }
+    .orari-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+      margin-top: 3rem;
+    }
+    .orari-table { width: 100%; border-collapse: collapse; }
+    .orari-table tr td {
+      padding: 1rem 0;
+      font-size: .97rem;
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .orari-table tr:last-child td { border-bottom: none; }
+    .orari-table td:first-child {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600; font-size: 1rem;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: var(--black);
+    }
+    .orari-table td:last-child {
+      text-align: right; color: var(--text-mid); font-weight: 500;
+    }
+    .orari-table .closed { color: var(--orange); font-weight: 600; }
+    .orari-highlight {
+      background: var(--orange);
+      border-radius: var(--r-lg);
+      padding: 2.5rem 2.5rem;
+      color: #fff;
+    }
+    .orari-highlight h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .orari-highlight p {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.85);
+      margin-bottom: 1.5rem;
+    }
+    .orari-tel {
       display: flex; align-items: center; gap: 10px;
-      margin-bottom: 1rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: #fff; letter-spacing: 1px;
     }
-    .section-eyebrow::before {
-      content: ''; display: block;
-      width: 24px; height: 2px; background: var(--orange); border-radius: 1px;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 1rem;
-    }
-    .section-subtitle {
-      font-size: 1rem; line-height: 1.7;
-      color: rgba(255,255,255,0.5);
-      max-width: 560px;
-    }
-    .section-header { margin-bottom: 4rem; }
 
-    /* ─── STRIP ─── */
-    .strip {
+    /* ── SCROLL TICKER ── */
+    .ticker {
       background: var(--orange);
-      overflow: hidden;
-      padding: 1.2rem 0;
-      white-space: nowrap;
+      overflow: hidden; padding: 1rem 0; white-space: nowrap;
     }
-    .strip-track {
-      display: inline-flex; gap: 3rem;
-      animation: scrollStrip 18s linear infinite;
+    .ticker-track {
+      display: inline-flex; gap: 2.5rem;
+      animation: ticker 20s linear infinite;
     }
-    .strip-item {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      color: rgba(0,0,0,0.7);
+    .ticker-item {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.05rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: rgba(0,0,0,0.55);
       display: flex; align-items: center; gap: 1rem;
     }
-    .strip-dot { color: rgba(0,0,0,0.4); font-size: .7rem; }
-    @keyframes scrollStrip {
+    .ticker-dot { color: rgba(0,0,0,0.3); }
+    @keyframes ticker {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
 
-    /* ─── MENU ─── */
-    #menu { background: var(--dark); }
-    .menu-filters {
-      display: flex; flex-wrap: wrap; gap: .75rem;
-      margin-bottom: 3rem;
-    }
-    .filter-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 18px; border-radius: 50px;
-      font-size: .82rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: .5px;
-      cursor: pointer; transition: all .2s;
-      border: 1.5px solid rgba(255,255,255,0.15);
-      background: transparent; color: rgba(255,255,255,0.6);
-    }
-    .filter-btn:hover { border-color: var(--orange); color: var(--white); }
-    .filter-btn.active {
-      background: var(--orange); border-color: var(--orange); color: var(--white);
-    }
-    .pizza-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem;
-    }
-    .pizza-card {
-      background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: var(--radius);
-      overflow: hidden;
-      transition: transform .25s, border-color .25s, box-shadow .25s;
-    }
-    .pizza-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255,107,0,0.35);
-      box-shadow: 0 12px 40px rgba(255,107,0,0.12);
-    }
-    .pizza-card-head {
-      background: var(--dark3);
-      padding: 1.5rem 1.5rem 1rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .pizza-tags {
-      display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .75rem;
-    }
-    .tag {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 10px; border-radius: 50px;
-      font-size: .7rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .5px;
-    }
-    .tag-classic   { background: rgba(180,130,70,0.2);  color: #D4A055; border: 1px solid rgba(180,130,70,0.3); }
-    .tag-special   { background: rgba(147,51,234,0.15); color: #C084FC; border: 1px solid rgba(147,51,234,0.3); }
-    .tag-spicy     { background: rgba(220,38,38,0.15);  color: #F87171; border: 1px solid rgba(220,38,38,0.3); }
-    .tag-veggie    { background: rgba(34,197,94,0.12);  color: #4ADE80; border: 1px solid rgba(34,197,94,0.3); }
-    .tag-new       { background: rgba(255,107,0,0.15);  color: var(--orange); border: 1px solid rgba(255,107,0,0.4); }
-    .pizza-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem; letter-spacing: 1px; color: var(--white);
-      margin-bottom: .4rem;
-    }
-    .pizza-desc {
-      font-size: .87rem; line-height: 1.55;
-      color: rgba(255,255,255,0.55);
-    }
-    .pizza-card-body { padding: 1.25rem 1.5rem 1.5rem; }
-    .pizza-footer {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .pizza-price {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem; color: var(--orange); letter-spacing: 1px;
-    }
-    .pizza-price span { font-size: 1rem; color: rgba(255,255,255,0.4); }
-    /* Allergeni */
-    .allergen-toggle {
-      display: flex; align-items: center; gap: 6px;
-      margin-top: 1rem;
-      font-size: .76rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 1px;
-      color: rgba(255,255,255,0.35);
-      cursor: pointer;
-      background: none; border: none; padding: 0;
-      transition: color .2s;
-    }
-    .allergen-toggle:hover { color: rgba(255,255,255,0.65); }
-    .allergen-toggle .arrow {
-      display: inline-block; transition: transform .25s;
-      font-size: .6rem;
-    }
-    .allergen-toggle.open .arrow { transform: rotate(90deg); }
-    .allergen-box {
-      display: none; margin-top: .75rem;
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius-sm);
-      padding: .85rem 1rem;
-    }
-    .allergen-box.visible { display: block; }
-    .allergen-label {
-      font-size: .72rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 1px;
-      color: var(--orange); margin-bottom: .5rem;
-    }
-    .allergen-list {
-      display: flex; flex-wrap: wrap; gap: .4rem;
-    }
-    .allergen-pill {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 9px; border-radius: 4px;
-      font-size: .72rem; font-weight: 500;
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.2);
-      color: rgba(255,255,255,0.7);
-    }
-    /* add pizza card */
-    .pizza-card-add {
-      background: repeating-linear-gradient(
-        45deg,
-        rgba(255,107,0,0.04) 0px,
-        rgba(255,107,0,0.04) 2px,
-        transparent 2px,
-        transparent 12px
-      );
-      border: 2px dashed rgba(255,107,0,0.3);
-      border-radius: var(--radius);
-      padding: 2.5rem;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; gap: 1rem; min-height: 200px;
-      transition: border-color .2s, background .2s;
-    }
-    .pizza-card-add:hover { border-color: var(--orange); }
-    .pizza-card-add .add-icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(255,107,0,0.15);
-      border: 2px solid rgba(255,107,0,0.4);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.6rem; color: var(--orange);
-    }
-    .pizza-card-add h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem; color: rgba(255,255,255,0.5);
-      letter-spacing: 1px;
-    }
-    .pizza-card-add p {
-      font-size: .82rem; color: rgba(255,255,255,0.3); line-height: 1.5;
-    }
-    .pizza-card-add code {
-      display: block; background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(255,107,0,0.2);
-      border-radius: var(--radius-sm);
-      padding: .6rem 1rem;
-      font-size: .75rem; color: var(--orange);
-      font-family: 'Courier New', monospace;
-      text-align: left; white-space: pre;
-      width: 100%;
-    }
-
-    /* ─── INFO SECTION ─── */
-    #info {
-      background: linear-gradient(160deg, #111 0%, #1a1108 60%, #111 100%);
-      position: relative; overflow: hidden;
-    }
-    #info::before {
-      content: '';
-      position: absolute; top: -200px; right: -200px;
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .info-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
-    }
-    .info-block { display: flex; flex-direction: column; gap: 2rem; }
-    .info-row {
-      display: flex; gap: 1.25rem; align-items: flex-start;
-    }
-    .info-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.25);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; flex-shrink: 0;
-    }
-    .info-row-text {}
-    .info-row-label {
-      font-size: .72rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--orange); margin-bottom: .3rem;
-    }
-    .info-row-val {
-      font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.5;
-    }
-    .info-row-val a {
-      color: inherit; text-decoration: none;
-      transition: color .2s;
-    }
-    .info-row-val a:hover { color: var(--orange); }
-    .map-block {
-      border-radius: var(--radius);
-      overflow: hidden;
-      border: 2px solid rgba(255,107,0,0.2);
-      position: relative;
-    }
-    .map-block iframe {
-      display: block; width: 100%; height: 420px; border: none;
-    }
-    .map-overlay-btn {
-      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(17,17,17,0.92);
-      color: var(--white);
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-size: .85rem; font-weight: 600;
-      text-decoration: none;
-      border: 1.5px solid rgba(255,107,0,0.4);
-      backdrop-filter: blur(10px);
-      transition: background .2s, border-color .2s;
-      white-space: nowrap;
-    }
-    .map-overlay-btn:hover {
-      background: var(--orange);
-      border-color: var(--orange);
-    }
-    .cta-bar {
-      background: var(--orange);
-      border-radius: var(--radius);
-      padding: 2.5rem 3rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
-      margin-top: 3rem;
-      flex-wrap: wrap;
-    }
-    .cta-bar-text {}
-    .cta-bar-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem; letter-spacing: 1px; color: var(--white);
-    }
-    .cta-bar-sub {
-      font-size: .9rem; color: rgba(255,255,255,0.75);
-    }
-    .btn-dark {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--black); color: var(--white);
-      padding: 14px 30px; border-radius: 50px;
-      font-size: .95rem; font-weight: 600;
-      text-decoration: none;
-      transition: background .2s, transform .15s;
-      border: 2px solid transparent;
-      flex-shrink: 0; white-space: nowrap;
-    }
-    .btn-dark:hover { background: var(--dark3); transform: translateY(-1px); }
-
-    /* ─── LAVORA CON NOI ─── */
-    #lavora { background: var(--dark); }
-    .job-layout {
-      display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: start;
-    }
-    .job-perks { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
-    .job-perk {
-      display: flex; gap: 1rem; align-items: flex-start;
-    }
-    .perk-icon {
-      width: 42px; height: 42px; border-radius: 10px;
-      background: rgba(255,107,0,0.1);
-      border: 1px solid rgba(255,107,0,0.2);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
-    }
-    .perk-text h4 {
-      font-size: .92rem; font-weight: 600; color: var(--white); margin-bottom: .25rem;
-    }
-    .perk-text p { font-size: .83rem; color: rgba(255,255,255,0.5); line-height: 1.5; }
-
-    /* FORM */
-    .job-form {
-      background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 18px;
-      padding: 2.5rem;
-    }
-    .form-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem; letter-spacing: 1px; color: var(--white);
-      margin-bottom: .4rem;
-    }
-    .form-sub { font-size: .85rem; color: rgba(255,255,255,0.45); margin-bottom: 2rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: .5rem; }
-    .form-group label {
-      font-size: .76rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 1px;
-      color: rgba(255,255,255,0.45);
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: rgba(0,0,0,0.3);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: 8px;
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-size: .92rem;
-      padding: 12px 14px;
-      transition: border-color .2s, box-shadow .2s;
-      outline: none;
-      width: 100%;
-    }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(255,107,0,0.12);
-    }
-    .form-group textarea { resize: vertical; min-height: 90px; }
-    .file-upload {
-      border: 2px dashed rgba(255,107,0,0.3);
-      border-radius: 8px;
-      padding: 1.75rem;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color .2s, background .2s;
-      position: relative;
-    }
-    .file-upload:hover { border-color: var(--orange); background: rgba(255,107,0,0.04); }
-    .file-upload input[type="file"] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer;
-      width: 100%; height: 100%; z-index: 2;
-      border: none; background: none; padding: 0;
-    }
-    .file-upload .upload-icon { font-size: 2rem; margin-bottom: .5rem; }
-    .file-upload .upload-text {
-      font-size: .85rem; color: rgba(255,255,255,0.5);
-    }
-    .file-upload .upload-text strong { color: var(--orange); }
-    .file-upload .upload-hint {
-      font-size: .72rem; color: rgba(255,255,255,0.3); margin-top: .3rem;
-    }
-    .file-name-display {
-      margin-top: .5rem; font-size: .8rem;
-      color: var(--orange); display: none;
-    }
-    .form-check {
-      display: flex; gap: .75rem; align-items: flex-start;
-      margin-top: .5rem;
-    }
-    .form-check input[type="checkbox"] {
-      width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
-      accent-color: var(--orange); cursor: pointer;
-      border-radius: 4px;
-    }
-    .form-check label {
-      font-size: .82rem; color: rgba(255,255,255,0.5); line-height: 1.5; cursor: pointer;
-    }
-    .form-check a { color: var(--orange); }
-    .btn-submit {
-      width: 100%; padding: 15px;
-      background: var(--orange);
-      color: var(--white);
-      border: none; border-radius: 50px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem; font-weight: 700;
-      letter-spacing: .5px; text-transform: uppercase;
-      cursor: pointer;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(255,107,0,0.3);
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .btn-submit:hover {
-      background: var(--orange-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(255,107,0,0.4);
-    }
-    .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
-    .form-msg {
-      margin-top: 1rem;
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      font-size: .88rem; font-weight: 500;
-      display: none;
-    }
-    .form-msg.success {
-      background: rgba(34,197,94,0.1);
-      border: 1px solid rgba(34,197,94,0.3);
-      color: #4ADE80;
-    }
-    .form-msg.error {
-      background: rgba(220,38,38,0.1);
-      border: 1px solid rgba(220,38,38,0.3);
-      color: #F87171;
-    }
-    .form-gap { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #0A0A0A;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 4rem 5% 2rem;
-    }
-    .footer-inner { max-width: 1280px; margin: 0 auto; }
-    .footer-grid {
-      display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem;
-      padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      margin-bottom: 2rem;
-    }
-    .footer-brand .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem; letter-spacing: 2px; color: var(--white);
-      display: block; margin-bottom: .5rem;
-    }
-    .footer-brand .logo span { color: var(--orange); }
-    .footer-brand p {
-      font-size: .88rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: .75rem;
-    }
-    .footer-col h4 {
-      font-size: .75rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2px;
-      color: var(--orange); margin-bottom: 1.25rem;
-    }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .75rem; }
-    .footer-col ul a {
-      color: rgba(255,255,255,0.5); text-decoration: none;
-      font-size: .88rem; transition: color .2s;
-    }
-    .footer-col ul a:hover { color: var(--white); }
-    .footer-bottom {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    }
-    .footer-copy { font-size: .8rem; color: rgba(255,255,255,0.25); }
-    .footer-copy span { color: var(--orange); }
-    .back-top {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: .78rem; color: rgba(255,255,255,0.35);
-      text-decoration: none; transition: color .2s;
-      cursor: pointer; background: none; border: none;
-    }
-    .back-top:hover { color: var(--orange); }
-
-    /* ─── LOADING OVERLAY ─── */
-    .loading-spinner {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: var(--white);
-      animation: spin .7s linear infinite; display: none;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ─── ANIMATIONS ─── */
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
-    .fade-up.in { opacity: 1; transform: translateY(0); }
-    .fade-up-d1 { transition-delay: .1s; }
-    .fade-up-d2 { transition-delay: .2s; }
-    .fade-up-d3 { transition-delay: .3s; }
-    .fade-up-d4 { transition-delay: .4s; }
-
-    /* ─── RESPONSIVE ─── */
+    /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .hero-content { grid-template-columns: 1fr; gap: 3rem; }
-      .hero-visual { align-items: center; }
-      .hero-info-cards { max-width: 400px; }
-      .info-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .job-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
-      .footer-brand { grid-column: 1 / -1; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-cards { display: grid; grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .orari-grid { grid-template-columns: 1fr; }
     }
-    @media (max-width: 680px) {
-      nav { padding: 0 4%; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 5rem 4%; }
-      .pizza-grid { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .hero-info-cards { grid-template-columns: 1fr; max-width: 300px; }
-      .cta-bar { padding: 2rem; }
-      .cta-bar { flex-direction: column; align-items: flex-start; }
-      .job-form { padding: 1.75rem; }
+    @media (max-width: 580px) {
+      .hero-inner { padding: 3rem 4%; }
+      .hero-cards { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .banner-inner { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
-<nav id="navbar">
-  <a href="#home" class="nav-logo">
-    <span class="flame">🔥</span>L'<span>OFFICINA</span>
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo">
+    <span class="pizza-icon">🍕</span>
+    L'Officina della Pizza
   </a>
   <ul class="nav-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="#info">Dove Siamo</a></li>
-    <li><a href="#lavora">Lavora con Noi</a></li>
-    <li><a href="tel:0522777020" class="nav-cta">📞 Chiama Ora</a></li>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="lavora.html">Lavora con Noi</a></li>
+    <li><a href="index.html#dove-siamo">Dove Siamo</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
+  <a href="tel:0522777020" class="nav-call desktop btn">📞 Chiama Ora</a>
+  <button class="hamburger" id="hbg" aria-label="Apri menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home" onclick="closeMobile()">Home</a>
-  <a href="#menu" onclick="closeMobile()">Menu</a>
-  <a href="#info" onclick="closeMobile()">Dove Siamo</a>
-  <a href="#lavora" onclick="closeMobile()">Lavora con Noi</a>
-  <a href="tel:0522777020" class="mobile-cta-btn">📞 Chiama Ora</a>
+<div class="mobile-drawer" id="drawer">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="lavora.html">Lavora con Noi</a>
+  <a href="index.html#dove-siamo">Dove Siamo</a>
+  <a href="tel:0522777020" class="mob-call">📞 0522 777020</a>
 </div>
 
-<!-- ─── HERO ─── -->
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-line"></div>
-  <div class="sparks" id="sparks"></div>
-  <div class="hero-content">
-    <div>
-      <div class="hero-eyebrow fade-up">Pizzeria Artigianale d'Asporto • Scandiano</div>
-      <h1 class="hero-title fade-up fade-up-d1">
-        L'<em>OFFICINA</em><br>DELLA<br>PIZZA
-      </h1>
-      <p class="hero-desc fade-up fade-up-d2">
-        Ogni pizza è un progetto. Impasto lavorato a mano, ingredienti selezionati, cottura in forno a legna. Artigianato autentico a Scandiano.
-      </p>
-      <div class="hero-buttons fade-up fade-up-d3">
-        <a href="tel:0522777020" class="btn-primary">📞 Ordina Ora</a>
-        <a href="#info" class="btn-secondary">📍 Trovaci</a>
-      </div>
-    </div>
-    <div class="hero-visual fade-up fade-up-d2">
-      <div class="hero-badge">
-        <div class="big-num" id="counter">0</div>
-        <div class="label">Pizze nel Menu</div>
-      </div>
-      <div class="hero-info-cards">
-        <div class="hero-info-card">
-          <div class="icon">🕐</div>
-          <div class="card-title">Orari</div>
-          <div class="card-val">Mar–Dom<br>18:30 – 22:30</div>
-        </div>
-        <div class="hero-info-card">
-          <div class="icon">🛵</div>
-          <div class="card-title">Servizio</div>
-          <div class="card-val">Solo Asporto<br>& Consegna</div>
-        </div>
-        <div class="hero-info-card">
-          <div class="icon">📍</div>
-          <div class="card-title">Indirizzo</div>
-          <div class="card-val">Via Martiri della Libertà, 3<br>Scandiano (RE)</div>
-        </div>
-        <div class="hero-info-card">
-          <div class="icon">📞</div>
-          <div class="card-title">Telefono</div>
-          <div class="card-val"><a href="tel:0522777020">0522 777020</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    <div class="hero-scroll-line"></div>
-    Scorri
-  </div>
-</section>
+<div class="page-wrapper">
 
-<!-- ─── STRIP ─── -->
-<div class="strip">
-  <div class="strip-track" id="stripTrack">
-    <!-- duplicato via JS -->
-  </div>
-</div>
-
-<!-- ─── MENU ─── -->
-<section id="menu">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-eyebrow fade-up">Il Nostro Menu</div>
-      <h2 class="section-title fade-up fade-up-d1">LE NOSTRE<br>CREAZIONI</h2>
-      <p class="section-subtitle fade-up fade-up-d2">Pizze artigianali realizzate con ingredienti freschi e selezionati. Filtra per trovare la tua preferita.</p>
-    </div>
-
-    <div class="menu-filters fade-up">
-      <button class="filter-btn active" data-filter="all">🍕 Tutte</button>
-      <button class="filter-btn" data-filter="classic">🥇 Classiche</button>
-      <button class="filter-btn" data-filter="special">⭐ Speciali</button>
-      <button class="filter-btn" data-filter="spicy">🌶️ Piccanti</button>
-      <button class="filter-btn" data-filter="veggie">🌿 Vegetariane</button>
-      <button class="filter-btn" data-filter="new">🆕 Novità</button>
-    </div>
-
-    <div class="pizza-grid" id="pizzaGrid">
-      <!-- le card vengono generate via JS -->
-    </div>
-  </div>
-</section>
-
-<!-- ─── DOVE SIAMO ─── -->
-<section id="info">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-eyebrow fade-up">Vieni a Trovarci</div>
-      <h2 class="section-title fade-up fade-up-d1">DOVE<br>SIAMO</h2>
-    </div>
-    <div class="info-grid">
-      <div class="info-block fade-up">
-        <div class="info-row">
-          <div class="info-icon">📍</div>
-          <div class="info-row-text">
-            <div class="info-row-label">Indirizzo</div>
-            <div class="info-row-val">Via Martiri della Libertà, 3<br>42019 Scandiano (RE)</div>
-          </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">📞</div>
-          <div class="info-row-text">
-            <div class="info-row-label">Telefono</div>
-            <div class="info-row-val"><a href="tel:0522777020">0522 777020</a></div>
-          </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">🕐</div>
-          <div class="info-row-text">
-            <div class="info-row-label">Orari di Apertura</div>
-            <div class="info-row-val">
-              Martedì – Domenica: 18:30 – 22:30<br>
-              <span style="color:var(--text-muted);font-size:.85rem;">Lunedì chiuso</span>
-            </div>
-          </div>
-        </div>
-        <div class="info-row">
-          <div class="info-icon">🛵</div>
-          <div class="info-row-text">
-            <div class="info-row-label">Servizio</div>
-            <div class="info-row-val">Asporto e Consegna a Domicilio</div>
-          </div>
-        </div>
-        <div class="cta-bar fade-up">
-          <div class="cta-bar-text">
-            <div class="cta-bar-title">Ordina Adesso</div>
-            <div class="cta-bar-sub">Chiamaci e prenota la tua pizza!</div>
-          </div>
-          <a href="tel:0522777020" class="btn-dark">📞 0522 777020</a>
-        </div>
-      </div>
-      <div class="map-block fade-up fade-up-d1">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838.0!2d10.6912!3d44.5988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477fed97c5c4e3f1%3A0x2b4e2a6c7f8d9e1a!2sVia%20Martiri%20della%20Libert%C3%A0%2C%203%2C%2042019%20Scandiano%20RE!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"
-          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          title="L'Officina della Pizza – Mappa">
-        </iframe>
-        <a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank" rel="noopener" class="map-overlay-btn">
-          🗺️ Apri in Google Maps
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── LAVORA CON NOI ─── -->
-<section id="lavora">
-  <div class="section-inner">
-    <div class="job-layout">
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-inner">
       <div>
-        <div class="section-eyebrow fade-up">Carriera</div>
-        <h2 class="section-title fade-up fade-up-d1">LAVORA<br>CON NOI</h2>
-        <p class="section-subtitle fade-up fade-up-d2" style="margin-top:1rem;">Cerchiamo persone appassionate, motivate e con la voglia di fare parte di un team artigianale in crescita. Entra nell'officina!</p>
-        <div class="job-perks fade-up fade-up-d3">
-          <div class="job-perk">
-            <div class="perk-icon">🔥</div>
-            <div class="perk-text">
-              <h4>Ambiente Artigianale</h4>
-              <p>Lavorerai a stretto contatto con pizzaioli esperti e prodotti di qualità.</p>
-            </div>
+        <div class="hero-label">🔥 Pizzeria Artigianale d'Asporto · Scandiano</div>
+        <h1 class="hero-title">
+          L'Officina<br>
+          <span class="line-accent">della Pizza</span>
+        </h1>
+        <p class="hero-tagline">
+          Impasto a mano ogni giorno. Forno a legna. Ingredienti che parlano da soli. La pizza artigianale che meriti, pronta da portare a casa.
+        </p>
+        <div class="hero-ctas">
+          <a href="tel:0522777020" class="btn btn-black">📞 Ordina Subito</a>
+          <a href="menu.html" class="btn btn-outline-white">Scopri il Menu</a>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="hcard reveal reveal-d1">
+          <div class="hcard-icon">🕐</div>
+          <div>
+            <div class="hcard-label">Orari</div>
+            <div class="hcard-val">Mar – Dom · 18:30 – 22:30</div>
           </div>
-          <div class="job-perk">
-            <div class="perk-icon">📈</div>
-            <div class="perk-text">
-              <h4>Crescita Professionale</h4>
-              <p>Possibilità di formazione e crescita all'interno del nostro team.</p>
-            </div>
+        </div>
+        <div class="hcard reveal reveal-d2">
+          <div class="hcard-icon">📍</div>
+          <div>
+            <div class="hcard-label">Indirizzo</div>
+            <div class="hcard-val">Via Martiri della Libertà, 3<br>Scandiano (RE)</div>
           </div>
-          <div class="job-perk">
-            <div class="perk-icon">🤝</div>
-            <div class="perk-text">
-              <h4>Team Coeso</h4>
-              <p>Un ambiente di lavoro positivo, rispettoso e dinamico.</p>
-            </div>
+        </div>
+        <div class="hcard reveal reveal-d3">
+          <div class="hcard-icon">📞</div>
+          <div>
+            <div class="hcard-label">Telefono</div>
+            <div class="hcard-val"><a href="tel:0522777020">0522 777020</a></div>
+          </div>
+        </div>
+        <div class="hcard reveal reveal-d4">
+          <div class="hcard-icon">🛵</div>
+          <div>
+            <div class="hcard-label">Servizio</div>
+            <div class="hcard-val">Asporto & Consegna</div>
           </div>
         </div>
       </div>
-      <div class="job-form fade-up fade-up-d2">
-        <div class="form-title">Invia la tua Candidatura</div>
-        <div class="form-sub">Compila il modulo e carica il tuo CV in formato PDF. Ti ricontatteremo al più presto.</div>
-        <form id="jobForm" novalidate>
-          <div class="form-gap">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="f-nome">Nome *</label>
-                <input type="text" id="f-nome" name="nome" placeholder="Mario" required />
-              </div>
-              <div class="form-group">
-                <label for="f-cognome">Cognome *</label>
-                <input type="text" id="f-cognome" name="cognome" placeholder="Rossi" required />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="f-tel">Numero di Telefono *</label>
-              <input type="tel" id="f-tel" name="telefono" placeholder="+39 333 000 0000" required />
-            </div>
-            <div class="form-group">
-              <label>Curriculum Vitae (solo PDF) *</label>
-              <div class="file-upload" id="fileUpload">
-                <input type="file" id="f-cv" name="cv" accept=".pdf" required />
-                <div class="upload-icon">📄</div>
-                <div class="upload-text"><strong>Clicca per caricare</strong> o trascina qui</div>
-                <div class="upload-hint">Solo file PDF • Max 5MB</div>
-              </div>
-              <div class="file-name-display" id="fileName">✔ Nessun file selezionato</div>
-            </div>
-            <div class="form-check">
-              <input type="checkbox" id="f-privacy" name="privacy" required />
-              <label for="f-privacy">Acconsento al trattamento dei miei dati personali ai sensi del GDPR per finalità di selezione del personale.</label>
-            </div>
-            <button type="submit" class="btn-submit" id="submitBtn">
-              <span id="submitText">Invia Candidatura 🚀</span>
-              <div class="loading-spinner" id="spinner"></div>
-            </button>
-            <div class="form-msg" id="formMsg"></div>
-          </div>
-        </form>
+    </div>
+  </section>
+
+  <!-- ═══ TICKER ═══ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- ═══ WHY US ═══ -->
+  <section class="why">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-kicker reveal">La Nostra Filosofia</div>
+        <h2 class="sec-title reveal reveal-d1">Perché Sceglierci</h2>
+        <p class="sec-sub reveal reveal-d2">Ogni sera accendiamo il forno con la stessa passione del primo giorno. Nessuna scorciatoia, nessun compromesso.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <span class="why-emoji">🌾</span>
+          <h3>Impasto Artigianale</h3>
+          <p>Farina di tipo 1 macinata a pietra, lievitazione lenta di 48 ore. Un impasto leggero, digeribile, profumato.</p>
+        </div>
+        <div class="why-card reveal reveal-d1">
+          <span class="why-emoji">🔥</span>
+          <h3>Forno a Legna</h3>
+          <p>Cottura a 450°C in forno a legna tradizionale. Bordi croccanti fuori, morbidi dentro. Il sapore non mente.</p>
+        </div>
+        <div class="why-card reveal reveal-d2">
+          <span class="why-emoji">🍅</span>
+          <h3>Ingredienti Selezionati</h3>
+          <p>Pomodoro San Marzano DOP, fior di latte campano, basilico fresco. Solo quello che vale la pena mettere.</p>
+        </div>
+        <div class="why-card reveal reveal-d3">
+          <span class="why-emoji">🧑‍🍳</span>
+          <h3>Artigianalità Vera</h3>
+          <p>Nessuna catena, nessun franchising. Siamo una pizzeria di quartiere che ha fatto della qualità la sua firma.</p>
+        </div>
+        <div class="why-card reveal reveal-d1">
+          <span class="why-emoji">🏘️</span>
+          <h3>Scandiano nel Cuore</h3>
+          <p>Nati qui, radicati qui. Portiamo la pizza artigianale nel centro di Scandiano ogni sera, con orgoglio.</p>
+        </div>
+        <div class="why-card reveal reveal-d2">
+          <span class="why-emoji">📦</span>
+          <h3>Imballaggio Caldo</h3>
+          <p>Consegnata in box termici per mantenere temperatura e croccantezza fino alla tua porta. Calda come appena sfornata.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BANNER CTA ═══ -->
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="banner-text reveal">
+        <div class="label">Pronti a Ordinare?</div>
+        <h2>Una Telefonata e<br>la Pizza è Tua</h2>
+        <p>Chiamaci, dimmi cosa vuoi, passa a ritirare o aspettaci a casa. Semplice come deve essere.</p>
+      </div>
+      <div class="banner-actions reveal reveal-d1">
+        <a href="tel:0522777020" class="btn btn-orange">📞 0522 777020</a>
+        <a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank" rel="noopener" class="btn btn-outline-white">📍 Dove Siamo</a>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ─── FOOTER ─── -->
+  <!-- ═══ ORARI ═══ -->
+  <section class="orari-sec" id="dove-siamo">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-kicker reveal">Vieni a Trovarci</div>
+        <h2 class="sec-title reveal reveal-d1">Orari & Contatti</h2>
+      </div>
+      <div class="orari-grid">
+        <div class="reveal">
+          <table class="orari-table">
+            <tr><td>Lunedì</td><td class="closed">Chiuso</td></tr>
+            <tr><td>Martedì</td><td>18:30 – 22:30</td></tr>
+            <tr><td>Mercoledì</td><td>18:30 – 22:30</td></tr>
+            <tr><td>Giovedì</td><td>18:30 – 22:30</td></tr>
+            <tr><td>Venerdì</td><td>18:30 – 22:30</td></tr>
+            <tr><td>Sabato</td><td>18:30 – 22:30</td></tr>
+            <tr><td>Domenica</td><td>18:30 – 22:30</td></tr>
+          </table>
+        </div>
+        <div class="orari-highlight reveal reveal-d1">
+          <h3>Ordina Adesso</h3>
+          <p>Chiamaci per prenotare la tua pizza o per la consegna a domicilio. Siamo operativi ogni sera tranne il lunedì.</p>
+          <div class="orari-tel">
+            <span>📞</span>
+            <a href="tel:0522777020" style="color:#fff;">0522 777020</a>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank" rel="noopener" class="btn btn-black" style="width:100%;margin-top:.5rem;">
+              📍 Via Martiri della Libertà, 3 – Scandiano
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- MAPPA -->
+      <div style="margin-top:2.5rem; border-radius:var(--r-lg); overflow:hidden; border:3px solid var(--orange); line-height:0;" class="reveal">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838!2d10.6912!3d44.5988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477fed97c5c4e3f1%3A0x2b4e2a6c7f8d9e1a!2sVia%20Martiri%20della%20Libert%C3%A0%2C%203%2C%2042019%20Scandiano%20RE!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"
+          width="100%" height="380" style="border:none;" allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title="Mappa L'Officina della Pizza">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-wrapper -->
+
+<!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <span class="logo">🔥 L'<span>OFFICINA</span> DELLA PIZZA</span>
-        <p>Artigiani della pizza dal cuore. Ogni impasto è una storia, ogni forno acceso è una passione. Vieni a trovarci a Scandiano.</p>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">🍕 L'<span>Officina</span> della Pizza</div>
+        <p class="footer-tagline">"Artigiani della pizza. Ogni impasto è una promessa, ogni morso una conferma."</p>
       </div>
       <div class="footer-col">
-        <h4>Navigazione</h4>
+        <h5>Navigazione</h5>
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#info">Dove Siamo</a></li>
-          <li><a href="#lavora">Lavora con Noi</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="lavora.html">Lavora con Noi</a></li>
+          <li><a href="index.html#dove-siamo">Dove Siamo</a></li>
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contatti</h4>
+        <h5>Contatti</h5>
         <ul>
           <li><a href="tel:0522777020">📞 0522 777020</a></li>
-          <li><a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank">📍 Via Martiri della Libertà, 3<br>Scandiano (RE)</a></li>
-          <li><a href="#lavora">✉️ Candidatura</a></li>
+          <li><a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank">📍 Via Martiri della Libertà, 3</a></li>
+          <li><a href="#">Scandiano (RE) 42019</a></li>
+          <li><a href="lavora.html">✉️ Candidature</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2024 L'Officina della Pizza – P.IVA IT00000000000 – Tutti i diritti riservati – Made with <span>❤️</span> a Scandiano</div>
-      <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Torna su</button>
+      <p class="footer-copy">© 2024 L'Officina della Pizza – Tutti i diritti riservati – Made with <span>❤️</span> a Scandiano</p>
+      <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Torna su</button>
     </div>
   </div>
 </footer>
 
 <script>
-/* ─── SPARKS ─── */
-(function(){
-  const c=document.getElementById('sparks');
-  for(let i=0;i<18;i++){
-    const s=document.createElement('div');
-    s.className='spark';
-    s.style.left=Math.random()*100+'%';
-    s.style.width=s.style.height=(Math.random()*3+2)+'px';
-    s.style.animationDuration=(Math.random()*8+5)+'s';
-    s.style.animationDelay=(Math.random()*8)+'s';
-    c.appendChild(s);
-  }
-})();
-
-/* ─── STRIP ─── */
-(function(){
-  const items=['FORNO A LEGNA','IMPASTO ARTIGIANALE','INGREDIENTI FRESCHI','SCANDIANO','PIZZERIA D\'ASPORTO','QUALITÀ OGNI GIORNO','SOLO PRODOTTI SELEZIONATI'];
-  const t=document.getElementById('stripTrack');
-  let html='';
-  for(let i=0;i<4;i++){
-    items.forEach(txt=>{
-      html+=`<span class="strip-item"><span class="strip-dot">◆</span>${txt}</span>`;
-    });
-  }
-  t.innerHTML=html;
-})();
-
-/* ─── HAMBURGER ─── */
-const hbg=document.getElementById('hamburger');
-const mob=document.getElementById('mobileMenu');
-hbg.addEventListener('click',()=>{
-  mob.classList.toggle('open');
-  const spans=hbg.querySelectorAll('span');
-  if(mob.classList.contains('open')){
-    spans[0].style.transform='rotate(45deg) translate(5px,5px)';
-    spans[1].style.opacity='0';
-    spans[2].style.transform='rotate(-45deg) translate(5px,-5px)';
-  } else {
-    spans.forEach(s=>{s.style.transform='';s.style.opacity='';});
-  }
-});
-function closeMobile(){mob.classList.remove('open');}
-
-/* ─── COUNTER ─── */
-function animateCounter(el,target,dur){
-  let start=0;
-  const step=timestamp=>{
-    if(!step.startTime) step.startTime=timestamp;
-    const prog=Math.min((timestamp-step.startTime)/dur,1);
-    el.textContent=Math.floor(prog*target);
-    if(prog<1) requestAnimationFrame(step);
-    else el.textContent=target;
-  };
-  requestAnimationFrame(step);
-}
-let counterDone=false;
-const counterObs=new IntersectionObserver(entries=>{
-  if(entries[0].isIntersecting && !counterDone){
-    counterDone=true;
-    animateCounter(document.getElementById('counter'),24,1800);
-  }
-},{threshold:0.3});
-counterObs.observe(document.getElementById('counter'));
-setTimeout(()=>{if(!counterDone){counterDone=true;animateCounter(document.getElementById('counter'),24,1800);}},2000);
-
-/* ─── FADE UP ─── */
-const fadeEls=document.querySelectorAll('.fade-up');
-const fadeObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
-},{threshold:0.12});
-fadeEls.forEach(el=>fadeObs.observe(el));
-
-/* ─── PIZZA DATA ─── */
-const pizze=[
-  {
-    nome:"Margherita",
-    desc:"La classica per eccellenza. Pomodoro San Marzano, fior di latte, basilico fresco e un filo d'olio EVO.",
-    prezzo:"7.50",
-    tags:["classic"],
-    allergeni:["Glutine","Latte e derivati"]
-  },
-  {
-    nome:"Marinara",
-    desc:"Pomodoro San Marzano, aglio, origano e olio extravergine d'oliva. La più antica, la più onesta.",
-    prezzo:"6.50",
-    tags:["classic","veggie"],
-    allergeni:["Glutine"]
-  },
-  {
-    nome:"Diavola",
-    desc:"Pomodoro, fior di latte e salame piccante calabrese. Per chi ama il fuoco nella pizza.",
-    prezzo:"9.00",
-    tags:["classic","spicy"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-  {
-    nome:"4 Formaggi",
-    desc:"Fior di latte, gorgonzola DOP, parmigiano reggiano e fontina. Un tripudio di cremosità.",
-    prezzo:"10.50",
-    tags:["classic","veggie"],
-    allergeni:["Glutine","Latte e derivati"]
-  },
-  {
-    nome:"Officina Special",
-    desc:"La nostra firma: pancetta croccante, funghi porcini, scamorza affumicata, rucola fresca e scaglie di grana.",
-    prezzo:"13.00",
-    tags:["special","new"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-  {
-    nome:"Fuoco e Cenere",
-    desc:"'Nduja calabrese, provola affumicata, cipolla caramellata e miele di castagno. Dolce e piccante.",
-    prezzo:"12.50",
-    tags:["special","spicy"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-  {
-    nome:"Ortolana",
-    desc:"Verdure di stagione grigliate, stracciatella pugliese, pomodorini datterini e basilico. 100% vegetariana.",
-    prezzo:"11.00",
-    tags:["special","veggie"],
-    allergeni:["Glutine","Latte e derivati"]
-  },
-  {
-    nome:"Prosciutto e Funghi",
-    desc:"Fior di latte, prosciutto cotto di qualità, funghi champignon freschi. Un grande classico.",
-    prezzo:"10.00",
-    tags:["classic"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-  {
-    nome:"Tonno e Cipolla",
-    desc:"Pomodoro, tonno del Mediterraneo, cipolla rossa di Tropea e origano. Sapori del Sud.",
-    prezzo:"10.00",
-    tags:["classic"],
-    allergeni:["Glutine","Pesce","Molluschi"]
-  },
-  {
-    nome:"Capricciosa",
-    desc:"Pomodoro, fior di latte, prosciutto cotto, carciofi, olive e funghi. Il capriccio che vuoi tu.",
-    prezzo:"11.50",
-    tags:["classic"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-  {
-    nome:"Bufala e Pomodorini",
-    desc:"Base bianca, mozzarella di bufala campana DOP, pomodorini Pachino e basilico fresco.",
-    prezzo:"12.00",
-    tags:["special","veggie","new"],
-    allergeni:["Glutine","Latte e derivati"]
-  },
-  {
-    nome:"Inferno",
-    desc:"Doppia 'nduja, peperoncini freschi, salsiccia piccante e pecorino. Solo per i veri coraggiosi.",
-    prezzo:"12.00",
-    tags:["spicy","special"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-  {
-    nome:"Porcini e Tartufo",
-    desc:"Base bianca, funghi porcini del Appennino, crema al tartufo nero e grana a scaglie. Eleganza pura.",
-    prezzo:"14.50",
-    tags:["special"],
-    allergeni:["Glutine","Latte e derivati"]
-  },
-  {
-    nome:"Speck e Brie",
-    desc:"Speck Alto Adige IGP, brie cremoso, mele Golden a fettine e noci. Contrasto perfetto.",
-    prezzo:"13.00",
-    tags:["special","new"],
-    allergeni:["Glutine","Latte e derivati","Frutta a guscio","Carne suina"]
-  },
-  {
-    nome:"Regina Verde",
-    desc:"Pesto di basilico genovese DOP, pomodorini datterini, rucola fresca, stracciatella e pinoli tostati.",
-    prezzo:"12.50",
-    tags:["veggie","special"],
-    allergeni:["Glutine","Latte e derivati","Frutta a guscio"]
-  },
-  {
-    nome:"Salsiccia e Friarielli",
-    desc:"Salsiccia artigianale napoletana, friarielli (cime di rapa) saltati in padella, fior di latte.",
-    prezzo:"11.50",
-    tags:["special"],
-    allergeni:["Glutine","Latte e derivati","Carne suina"]
-  },
-];
-
-const tagMeta={
-  classic:  {label:'Classica',  emoji:'🥇', cls:'tag-classic'},
-  special:  {label:'Speciale',  emoji:'⭐', cls:'tag-special'},
-  spicy:    {label:'Piccante',  emoji:'🌶️', cls:'tag-spicy'},
-  veggie:   {label:'Vegetariana',emoji:'🌿',cls:'tag-veggie'},
-  new:      {label:'Novità',    emoji:'🆕', cls:'tag-new'},
-};
-
-function buildCard(p){
-  const tagsHtml=p.tags.map(t=>`<span class="tag ${tagMeta[t].cls}">${tagMeta[t].emoji} ${tagMeta[t].label}</span>`).join('');
-  const allergeniHtml=p.allergeni.map(a=>`<span class="allergen-pill">⚠️ ${a}</span>`).join('');
-  const id='al-'+p.nome.replace(/\s/g,'-').toLowerCase();
-  return `
-  <div class="pizza-card" data-tags="${p.tags.join(' ')}">
-    <div class="pizza-card-head">
-      <div class="pizza-tags">${tagsHtml}</div>
-      <div class="pizza-name">${p.nome}</div>
-      <div class="pizza-desc">${p.desc}</div>
-    </div>
-    <div class="pizza-card-body">
-      <div class="pizza-footer">
-        <div class="pizza-price">${p.prezzo.replace('.',',')} <span>€</span></div>
-      </div>
-      <button class="allergen-toggle" onclick="toggleAllergen('${id}',this)" aria-expanded="false">
-        <span class="arrow">▶</span> Allergeni
-      </button>
-      <div class="allergen-box" id="${id}">
-        <div class="allergen-label">Allergeni presenti</div>
-        <div class="allergen-list">${allergeniHtml}</div>
-      </div>
-    </div>
-  </div>`;
-}
-
-function buildAddCard(){
-  return `
-  <div class="pizza-card-add">
-    <div class="add-icon">➕</div>
-    <h3>Aggiungi una Pizza</h3>
-    <p>Per inserire una nuova voce nel menu, aggiungi un oggetto all'array <code>pizze</code> nel codice:</p>
-    <code>{
-  nome: "Nome Pizza",
-  desc: "Descrizione...",
-  prezzo: "10.00",
-  tags: ["classic","veggie"],
-  allergeni: ["Glutine","Latte"]
-}</code>
-  </div>`;
-}
-
-function renderPizze(filter){
-  const grid=document.getElementById('pizzaGrid');
-  let html='';
-  const filtered=filter==='all'?pizze:pizze.filter(p=>p.tags.includes(filter));
-  filtered.forEach(p=>html+=buildCard(p));
-  html+=buildAddCard();
-  grid.innerHTML=html;
-}
-renderPizze('all');
-
-/* Update counter to match pizza count */
-document.addEventListener('DOMContentLoaded',()=>{
-  // already set target=24 above
-});
-
-/* Filters */
-document.querySelectorAll('.filter-btn').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-    this.classList.add('active');
-    renderPizze(this.dataset.filter);
-  });
-});
-
-/* Allergen toggle */
-function toggleAllergen(id,btn){
-  const box=document.getElementById(id);
-  const isOpen=box.classList.contains('visible');
-  box.classList.toggle('visible',!isOpen);
-  btn.classList.toggle('open',!isOpen);
-  btn.setAttribute('aria-expanded',!isOpen);
-}
-
-/* ─── FILE UPLOAD DISPLAY ─── */
-document.getElementById('f-cv').addEventListener('change',function(){
-  const fn=document.getElementById('fileName');
-  if(this.files&&this.files[0]){
-    fn.style.display='block';
-    fn.textContent='✔ '+this.files[0].name;
-  }
-});
-
-/* ─── FORM SUBMIT (FormSubmit) ─── */
-document.getElementById('jobForm').addEventListener('submit',async function(e){
-  e.preventDefault();
-  const form=this;
-  const btn=document.getElementById('submitBtn');
-  const txt=document.getElementById('submitText');
-  const spin=document.getElementById('spinner');
-  const msg=document.getElementById('formMsg');
-
-  // validation
-  const nome=document.getElementById('f-nome').value.trim();
-  const cognome=document.getElementById('f-cognome').value.trim();
-  const tel=document.getElementById('f-tel').value.trim();
-  const cv=document.getElementById('f-cv').files[0];
-  const privacy=document.getElementById('f-privacy').checked;
-
-  if(!nome||!cognome||!tel||!cv||!privacy){
-    msg.className='form-msg error';
-    msg.style.display='block';
-    msg.textContent='⚠️ Compila tutti i campi obbligatori e carica il CV in PDF.';
-    return;
-  }
-  if(cv.type!=='application/pdf'){
-    msg.className='form-msg error';
-    msg.style.display='block';
-    msg.textContent='⚠️ Il CV deve essere in formato PDF.';
-    return;
-  }
-  if(cv.size>5*1024*1024){
-    msg.className='form-msg error';
-    msg.style.display='block';
-    msg.textContent='⚠️ Il file PDF non può superare i 5MB.';
-    return;
-  }
-
-  btn.disabled=true;
-  txt.textContent='Invio in corso...';
-  spin.style.display='block';
-  msg.style.display='none';
-
-  const fd=new FormData();
-  fd.append('_replyto','davideiacuzio005@gmail.com');
-  fd.append('_subject','Nuova Candidatura – L\'Officina della Pizza');
-  fd.append('_template','table');
-  fd.append('_captcha','false');
-  fd.append('Nome',nome);
-  fd.append('Cognome',cognome);
-  fd.append('Telefono',tel);
-  fd.append('CV',cv);
-
-  try{
-    const res=await fetch('https://formsubmit.co/davideiacuzio005@gmail.com',{
-      method:'POST',
-      body:fd
-    });
-    if(res.ok||res.status===200||res.redirected){
-      msg.className='form-msg success';
-      msg.style.display='block';
-      msg.textContent='✅ Candidatura inviata con successo! Ti contatteremo presto.';
-      form.reset();
-      document.getElementById('fileName').style.display='none';
-    } else {
-      throw new Error('HTTP '+res.status);
-    }
-  } catch(err){
-    // FormSubmit redirects, so treat as success if we reach here
-    msg.className='form-msg success';
-    msg.style.display='block';
-    msg.textContent='✅ Candidatura inviata con successo! Ti contatteremo presto.';
-    form.reset();
-    document.getElementById('fileName').style.display='none';
-  } finally {
-    btn.disabled=false;
-    txt.textContent='Invia Candidatura 🚀';
-    spin.style.display='none';
-  }
-});
-
-/* ─── NAV SCROLL EFFECT ─── */
+/* NAV */
+const nav=document.getElementById('nav');
+const hbg=document.getElementById('hbg');
+const drawer=document.getElementById('drawer');
 window.addEventListener('scroll',()=>{
-  const nav=document.getElementById('navbar');
-  if(window.scrollY>50){
-    nav.style.background='rgba(10,10,10,0.98)';
-  } else {
-    nav.style.background='rgba(17,17,17,0.92)';
-  }
-},{ passive:true });
+  nav.classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+hbg.addEventListener('click',()=>{
+  hbg.classList.toggle('open');
+  drawer.classList.toggle('open');
+});
+drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  hbg.classList.remove('open');
+  drawer.classList.remove('open');
+}));
+
+/* TICKER */
+const words=['Forno a Legna','Impasto Artigianale','Ingredienti DOP','Scandiano','Asporto & Consegna','Freschezza Quotidiana','Lievitazione 48h','Solo Prodotti Selezionati'];
+const t=document.getElementById('tickerTrack');
+let h='';
+for(let i=0;i<4;i++) words.forEach(w=>{ h+=`<span class="ticker-item"><span class="ticker-dot">◆</span>${w}</span>`; });
+t.innerHTML=h;
+
+/* REVEAL */
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
 </script>
 </body>
 </html>

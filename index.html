@@ -1,523 +1,210 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="L'Officina della Pizza – Pizzeria d'asporto artigianale a Scandiano (RE). Impasto a mano, forno a legna, ingredienti selezionati." />
-  <title>L'Officina della Pizza – Scandiano</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ═══ HOME-SPECIFIC ═══ */
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pizzeria Fornace – Pizza d’asporto</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#FF6A00; --orange-dark:#C94F00; --black:#000; --white:#fff;
+  --bg:#fff; --fg:#000; --muted:#555; --line:#000;
+  --display:'Anton','Impact','Arial Narrow',sans-serif;
+  --body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#000;--fg:#fff;--muted:#bbb;--line:#fff;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#000;--fg:#fff;--muted:#bbb;--line:#fff;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.55}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.95;margin:0;letter-spacing:.01em}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: calc(100vh - 68px);
-      background: var(--orange);
-      display: flex; align-items: center;
-      overflow: hidden;
-    }
-    /* Texture pattern overlay */
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.07) 1px, transparent 0);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    /* Dark sweep bottom-right */
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0; right: 0;
-      width: 55%; height: 100%;
-      background: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.55) 100%);
-      pointer-events: none;
-    }
-    .hero-inner {
-      position: relative; z-index: 2;
-      max-width: 1300px; margin: 0 auto; padding: 5rem 5%;
-      display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center;
-    }
-    .hero-label {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(0,0,0,0.18);
-      color: rgba(255,255,255,0.9);
-      font-family: 'Oswald', sans-serif;
-      font-size: .78rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 3px;
-      padding: 7px 16px; border-radius: 50px;
-      margin-bottom: 1.6rem;
-    }
-    .hero-title {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(3.2rem, 7.5vw, 7rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: .9;
-      color: #fff;
-      letter-spacing: 1px;
-      margin-bottom: 1.5rem;
-    }
-    .hero-title .line-accent {
-      display: block;
-      color: var(--black);
-      -webkit-text-stroke: 0px;
-    }
-    .hero-tagline {
-      font-family: 'Lora', serif;
-      font-style: italic;
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: rgba(255,255,255,0.85);
-      line-height: 1.7;
-      max-width: 460px;
-      margin-bottom: 2.5rem;
-    }
-    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* header */
+header{background:var(--black);color:var(--white)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:18px;padding-bottom:18px}
+.logo{font-family:var(--display);font-size:26px;text-transform:uppercase;text-decoration:none;letter-spacing:.02em}
+.logo span{color:var(--orange)}
+nav{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none;font-weight:500;font-size:15px}
+nav a:hover{color:var(--orange)}
+.btn{display:inline-block;background:var(--orange);color:var(--black);font-weight:700;text-decoration:none;padding:14px 26px;border-radius:999px;border:2px solid var(--orange);transition:background .15s,color .15s}
+.btn:hover{background:var(--white);border-color:var(--white)}
+.btn.ghost{background:transparent;color:var(--white);border-color:var(--white)}
+.btn.ghost:hover{background:var(--white);color:var(--black)}
+@media(max-width:700px){nav a.hide{display:none}}
 
-    /* Right side – info card stack */
-    .hero-cards {
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-    .hcard {
-      background: rgba(255,255,255,0.12);
-      border: 1.5px solid rgba(255,255,255,0.25);
-      border-radius: var(--r-lg);
-      backdrop-filter: blur(6px);
-      padding: 1.3rem 1.5rem;
-      display: flex; align-items: center; gap: 1.1rem;
-    }
-    .hcard-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: rgba(0,0,0,0.22);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; flex-shrink: 0;
-    }
-    .hcard-label {
-      font-family: 'Oswald', sans-serif;
-      font-size: .72rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 2px;
-      color: rgba(255,255,255,0.6); margin-bottom: .2rem;
-    }
-    .hcard-val {
-      font-size: .97rem; font-weight: 500; color: #fff; line-height: 1.35;
-    }
-    .hcard-val a { color: #fff; }
+/* hero */
+.hero{background:var(--orange);color:var(--black);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:center;padding-top:56px;padding-bottom:56px}
+.hero h1{font-size:clamp(56px,10vw,128px)}
+.hero h1 .w{color:var(--white);-webkit-text-stroke:0}
+.hero p{font-size:20px;max-width:30ch;margin:22px 0 28px;font-weight:500}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero .btn{background:var(--black);color:var(--white);border-color:var(--black)}
+.hero .btn:hover{background:var(--white);color:var(--black);border-color:var(--white)}
+.hero .btn.ghost{background:transparent;color:var(--black)}
+.hero .btn.ghost:hover{background:var(--black);color:var(--white)}
+.pizza{width:100%;max-width:420px;justify-self:center;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:800px){.hero .wrap{grid-template-columns:1fr;padding-top:40px}.pizza{max-width:260px;order:-1;justify-self:start}}
+@media(prefers-reduced-motion:reduce){.pizza{animation:none}html{scroll-behavior:auto}}
 
-    /* ── WAVE ── */
-    .wave {
-      display: block; width: 100%;
-      background: var(--orange);
-      line-height: 0;
-    }
-    .wave svg { display: block; }
+/* ticker info */
+.strip{background:var(--black);color:var(--white)}
+.strip .wrap{display:flex;flex-wrap:wrap;gap:12px 40px;padding-top:16px;padding-bottom:16px;font-weight:500}
+.strip b{color:var(--orange)}
 
-    /* ── WHY US ── */
-    .why { background: var(--cream); padding: 7rem 0; }
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem; margin-top: 3.5rem;
-    }
-    .why-card {
-      background: #fff;
-      border-radius: var(--r-lg);
-      padding: 2.2rem 2rem;
-      border: 1.5px solid rgba(0,0,0,0.07);
-      transition: transform .25s, box-shadow .25s, border-color .25s;
-    }
-    .why-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 40px rgba(244,98,15,0.12);
-      border-color: rgba(244,98,15,0.3);
-    }
-    .why-emoji {
-      font-size: 2.4rem; margin-bottom: 1.1rem;
-      display: block;
-    }
-    .why-card h3 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.3rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .5px;
-      color: var(--black); margin-bottom: .6rem;
-    }
-    .why-card p {
-      font-size: .92rem; line-height: 1.7; color: var(--text-mid);
-    }
+section{padding:80px 0}
+section h2{font-size:clamp(40px,6vw,72px);margin-bottom:12px}
+.lead{color:var(--muted);max-width:52ch;margin:0 0 44px}
 
-    /* ── ORANGE BANNER ── */
-    .banner {
-      background: var(--black);
-      padding: 5.5rem 0;
-      position: relative; overflow: hidden;
-    }
-    .banner::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background-image: radial-gradient(circle at 1px 1px, rgba(244,98,15,0.08) 1px, transparent 0);
-      background-size: 32px 32px;
-    }
-    .banner-inner {
-      position: relative; z-index: 2;
-      max-width: 1300px; margin: 0 auto; padding: 0 5%;
-      display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap;
-    }
-    .banner-text .label {
-      font-family: 'Oswald', sans-serif;
-      font-size: .8rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 3px;
-      color: var(--orange); margin-bottom: .9rem;
-    }
-    .banner-text h2 {
-      font-family: 'Oswald', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700; text-transform: uppercase;
-      color: #fff; line-height: 1;
-    }
-    .banner-text p {
-      margin-top: .8rem;
-      font-family: 'Lora', serif; font-style: italic;
-      font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.7;
-    }
-    .banner-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* menu */
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:20px 0;border-bottom:2px solid var(--line)}
+.item h3{font-size:26px}
+.item .price{font-family:var(--display);font-size:26px;color:var(--orange)}
+.item p{grid-column:1/-1;margin:0;color:var(--muted);font-size:15px}
+.tag{display:inline-block;background:var(--black);color:var(--white);font-family:var(--body);font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;margin-left:8px;vertical-align:middle;text-transform:none;letter-spacing:0}
+@media(max-width:800px){.menu{grid-template-columns:1fr}}
+.note{margin-top:32px;font-size:15px;color:var(--muted)}
 
-    /* ── ORARI ── */
-    .orari-sec { background: #fff; padding: 7rem 0; }
-    .orari-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-      margin-top: 3rem;
-    }
-    .orari-table { width: 100%; border-collapse: collapse; }
-    .orari-table tr td {
-      padding: 1rem 0;
-      font-size: .97rem;
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-    }
-    .orari-table tr:last-child td { border-bottom: none; }
-    .orari-table td:first-child {
-      font-family: 'Oswald', sans-serif;
-      font-weight: 600; font-size: 1rem;
-      text-transform: uppercase; letter-spacing: .5px;
-      color: var(--black);
-    }
-    .orari-table td:last-child {
-      text-align: right; color: var(--text-mid); font-weight: 500;
-    }
-    .orari-table .closed { color: var(--orange); font-weight: 600; }
-    .orari-highlight {
-      background: var(--orange);
-      border-radius: var(--r-lg);
-      padding: 2.5rem 2.5rem;
-      color: #fff;
-    }
-    .orari-highlight h3 {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.6rem; font-weight: 700;
-      text-transform: uppercase; margin-bottom: 1rem;
-    }
-    .orari-highlight p {
-      font-family: 'Lora', serif; font-style: italic;
-      font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.85);
-      margin-bottom: 1.5rem;
-    }
-    .orari-tel {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.6rem; font-weight: 700;
-      color: #fff; letter-spacing: 1px;
-    }
+/* come ordinare */
+.how{background:var(--black);color:var(--white)}
+.how .lead{color:#bbb}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;border-top:4px solid var(--orange);padding-top:18px}
+.steps li::before{content:counter(s);font-family:var(--display);font-size:64px;color:var(--orange);line-height:1;display:block;margin-bottom:8px}
+.steps h3{font-size:28px;margin-bottom:8px}
+.steps p{margin:0;color:#ccc}
+@media(max-width:800px){.steps{grid-template-columns:1fr}}
 
-    /* ── SCROLL TICKER ── */
-    .ticker {
-      background: var(--orange);
-      overflow: hidden; padding: 1rem 0; white-space: nowrap;
-    }
-    .ticker-track {
-      display: inline-flex; gap: 2.5rem;
-      animation: ticker 20s linear infinite;
-    }
-    .ticker-item {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.05rem; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 2px;
-      color: rgba(0,0,0,0.55);
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .ticker-dot { color: rgba(0,0,0,0.3); }
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+/* dove */
+.info{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.info h3{font-size:30px;margin-bottom:14px}
+.hours{width:100%;border-collapse:collapse}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:700}
+.big-phone{font-family:var(--display);font-size:clamp(40px,7vw,64px);color:var(--orange);text-decoration:none;display:block;margin:8px 0 18px;line-height:1}
+@media(max-width:800px){.info{grid-template-columns:1fr}}
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .hero-cards { display: grid; grid-template-columns: 1fr 1fr; }
-      .why-grid { grid-template-columns: 1fr 1fr; }
-      .orari-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 580px) {
-      .hero-inner { padding: 3rem 4%; }
-      .hero-cards { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: 1fr; }
-      .banner-inner { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+footer{background:var(--orange);color:var(--black);padding:28px 0;font-weight:500}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+</style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
-<nav class="nav" id="nav">
-  <a href="index.html" class="nav-logo">
-    <span class="pizza-icon">🍕</span>
-    L'Officina della Pizza
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="menu.html">Menu</a></li>
-    <li><a href="lavora.html">Lavora con Noi</a></li>
-    <li><a href="index.html#dove-siamo">Dove Siamo</a></li>
-  </ul>
-  <a href="tel:0522777020" class="nav-call desktop btn">📞 Chiama Ora</a>
-  <button class="hamburger" id="hbg" aria-label="Apri menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-<div class="mobile-drawer" id="drawer">
-  <a href="index.html">Home</a>
-  <a href="menu.html">Menu</a>
-  <a href="lavora.html">Lavora con Noi</a>
-  <a href="index.html#dove-siamo">Dove Siamo</a>
-  <a href="tel:0522777020" class="mob-call">📞 0522 777020</a>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">Pizzeria <span>Fornace</span></a>
+    <nav aria-label="Principale">
+      <a class="hide" href="#menu">Menù</a>
+      <a class="hide" href="#come-ordinare">Come ordinare</a>
+      <a class="hide" href="#dove">Orari</a>
+      <a class="btn" href="tel:+390212345678">Ordina ora</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Pizza<br>calda,<br><span class="w">da portare via.</span></h1>
+      <p>Impasto lievitato 48 ore, cotta nel forno a legna e pronta in 15 minuti.</p>
+      <div class="actions">
+        <a class="btn" href="tel:+390212345678">Chiama e ordina</a>
+        <a class="btn ghost" href="#menu">Guarda il menù</a>
+      </div>
+    </div>
+    <svg class="pizza" viewBox="0 0 200 200" role="img" aria-label="Illustrazione di una pizza">
+      <circle cx="100" cy="100" r="96" fill="#000"/>
+      <circle cx="100" cy="100" r="84" fill="#fff"/>
+      <circle cx="100" cy="100" r="76" fill="#FF6A00"/>
+      <g fill="#000">
+        <circle cx="70" cy="62" r="11"/><circle cx="128" cy="58" r="11"/><circle cx="152" cy="104" r="11"/>
+        <circle cx="122" cy="146" r="11"/><circle cx="68" cy="140" r="11"/><circle cx="48" cy="98" r="11"/>
+        <circle cx="100" cy="100" r="11"/>
+      </g>
+      <g fill="#fff">
+        <circle cx="96" cy="66" r="5"/><circle cx="138" cy="84" r="5"/><circle cx="108" cy="130" r="5"/>
+        <circle cx="76" cy="110" r="5"/><circle cx="132" cy="124" r="5"/><circle cx="80" cy="84" r="5"/>
+      </g>
+    </svg>
+  </div>
 </div>
 
-<div class="page-wrapper">
-
-  <!-- ═══ HERO ═══ -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-label">🔥 Pizzeria Artigianale d'Asporto · Scandiano</div>
-        <h1 class="hero-title">
-          L'Officina<br>
-          <span class="line-accent">della Pizza</span>
-        </h1>
-        <p class="hero-tagline">
-          Impasto a mano ogni giorno. Forno a legna. Ingredienti che parlano da soli. La pizza artigianale che meriti, pronta da portare a casa.
-        </p>
-        <div class="hero-ctas">
-          <a href="tel:0522777020" class="btn btn-black">📞 Ordina Subito</a>
-          <a href="menu.html" class="btn btn-outline-white">Scopri il Menu</a>
-        </div>
-      </div>
-      <div class="hero-cards">
-        <div class="hcard reveal reveal-d1">
-          <div class="hcard-icon">🕐</div>
-          <div>
-            <div class="hcard-label">Orari</div>
-            <div class="hcard-val">Mar – Dom · 18:30 – 22:30</div>
-          </div>
-        </div>
-        <div class="hcard reveal reveal-d2">
-          <div class="hcard-icon">📍</div>
-          <div>
-            <div class="hcard-label">Indirizzo</div>
-            <div class="hcard-val">Via Martiri della Libertà, 3<br>Scandiano (RE)</div>
-          </div>
-        </div>
-        <div class="hcard reveal reveal-d3">
-          <div class="hcard-icon">📞</div>
-          <div>
-            <div class="hcard-label">Telefono</div>
-            <div class="hcard-val"><a href="tel:0522777020">0522 777020</a></div>
-          </div>
-        </div>
-        <div class="hcard reveal reveal-d4">
-          <div class="hcard-icon">🛵</div>
-          <div>
-            <div class="hcard-label">Servizio</div>
-            <div class="hcard-val">Asporto & Consegna</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ TICKER ═══ -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track" id="tickerTrack"></div>
+<div class="strip">
+  <div class="wrap">
+    <span><b>Solo asporto</b> – niente attese al tavolo</span>
+    <span><b>Pronta in 15 min</b> – ordina per telefono</span>
+    <span><b>Aperti</b> tutte le sere dalle 18:00</span>
   </div>
+</div>
 
-  <!-- ═══ WHY US ═══ -->
-  <section class="why">
-    <div class="inner">
-      <div class="sec-head">
-        <div class="sec-kicker reveal">La Nostra Filosofia</div>
-        <h2 class="sec-title reveal reveal-d1">Perché Sceglierci</h2>
-        <p class="sec-sub reveal reveal-d2">Ogni sera accendiamo il forno con la stessa passione del primo giorno. Nessuna scorciatoia, nessun compromesso.</p>
-      </div>
-      <div class="why-grid">
-        <div class="why-card reveal">
-          <span class="why-emoji">🌾</span>
-          <h3>Impasto Artigianale</h3>
-          <p>Farina di tipo 1 macinata a pietra, lievitazione lenta di 48 ore. Un impasto leggero, digeribile, profumato.</p>
-        </div>
-        <div class="why-card reveal reveal-d1">
-          <span class="why-emoji">🔥</span>
-          <h3>Forno a Legna</h3>
-          <p>Cottura a 450°C in forno a legna tradizionale. Bordi croccanti fuori, morbidi dentro. Il sapore non mente.</p>
-        </div>
-        <div class="why-card reveal reveal-d2">
-          <span class="why-emoji">🍅</span>
-          <h3>Ingredienti Selezionati</h3>
-          <p>Pomodoro San Marzano DOP, fior di latte campano, basilico fresco. Solo quello che vale la pena mettere.</p>
-        </div>
-        <div class="why-card reveal reveal-d3">
-          <span class="why-emoji">🧑‍🍳</span>
-          <h3>Artigianalità Vera</h3>
-          <p>Nessuna catena, nessun franchising. Siamo una pizzeria di quartiere che ha fatto della qualità la sua firma.</p>
-        </div>
-        <div class="why-card reveal reveal-d1">
-          <span class="why-emoji">🏘️</span>
-          <h3>Scandiano nel Cuore</h3>
-          <p>Nati qui, radicati qui. Portiamo la pizza artigianale nel centro di Scandiano ogni sera, con orgoglio.</p>
-        </div>
-        <div class="why-card reveal reveal-d2">
-          <span class="why-emoji">📦</span>
-          <h3>Imballaggio Caldo</h3>
-          <p>Consegnata in box termici per mantenere temperatura e croccantezza fino alla tua porta. Calda come appena sfornata.</p>
-        </div>
-      </div>
+<section id="menu">
+  <div class="wrap">
+    <h2>Il menù</h2>
+    <p class="lead">Poche pizze, fatte bene. Tutte in formato 32 cm, tagliate e chiuse nel cartone.</p>
+    <div class="menu">
+      <div class="item"><h3>Margherita</h3><span class="price">6,00 €</span><p>Pomodoro, fior di latte, basilico, olio extravergine.</p></div>
+      <div class="item"><h3>Diavola <span class="tag">Piccante</span></h3><span class="price">8,00 €</span><p>Pomodoro, fior di latte, salame piccante.</p></div>
+      <div class="item"><h3>Marinara</h3><span class="price">5,00 €</span><p>Pomodoro, aglio, origano, olio. Senza formaggio.</p></div>
+      <div class="item"><h3>Prosciutto e funghi</h3><span class="price">8,50 €</span><p>Pomodoro, fior di latte, prosciutto cotto, funghi champignon.</p></div>
+      <div class="item"><h3>Quattro formaggi</h3><span class="price">9,00 €</span><p>Fior di latte, gorgonzola, parmigiano, scamorza affumicata.</p></div>
+      <div class="item"><h3>Salsiccia e friarielli</h3><span class="price">9,50 €</span><p>Fior di latte, salsiccia, friarielli saltati.</p></div>
+      <div class="item"><h3>Ortolana <span class="tag">Vegetariana</span></h3><span class="price">8,50 €</span><p>Pomodoro, fior di latte, zucchine, melanzane, peperoni.</p></div>
+      <div class="item"><h3>La Fornace <span class="tag">Della casa</span></h3><span class="price">10,50 €</span><p>Fior di latte, speck, rucola, scaglie di grana, pomodorini.</p></div>
     </div>
-  </section>
+    <p class="note">Aggiunte: bufala +2 €, prosciutto crudo +2 €, impasto integrale +1 €. Per allergie e intolleranze chiedi al telefono.</p>
+  </div>
+</section>
 
-  <!-- ═══ BANNER CTA ═══ -->
-  <div class="banner">
-    <div class="banner-inner">
-      <div class="banner-text reveal">
-        <div class="label">Pronti a Ordinare?</div>
-        <h2>Una Telefonata e<br>la Pizza è Tua</h2>
-        <p>Chiamaci, dimmi cosa vuoi, passa a ritirare o aspettaci a casa. Semplice come deve essere.</p>
-      </div>
-      <div class="banner-actions reveal reveal-d1">
-        <a href="tel:0522777020" class="btn btn-orange">📞 0522 777020</a>
-        <a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank" rel="noopener" class="btn btn-outline-white">📍 Dove Siamo</a>
-      </div>
+<section class="how" id="come-ordinare">
+  <div class="wrap">
+    <h2>Come ordinare</h2>
+    <p class="lead">Tre passaggi, nessuna coda.</p>
+    <ol class="steps">
+      <li><h3>Chiama</h3><p>Scegli le pizze e dicci a che ora passi. Rispondiamo dalle 17:30.</p></li>
+      <li><h3>Passa a ritirare</h3><p>Ti aspettiamo al banco. Paghi in contanti o con carta.</p></li>
+      <li><h3>Mangia a casa</h3><p>Il cartone mantiene la pizza calda e croccante fino alla porta di casa.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="dove">
+  <div class="wrap info">
+    <div>
+      <h3>Orari</h3>
+      <table class="hours">
+        <tr><td>Lunedì</td><td>Chiuso</td></tr>
+        <tr><td>Martedì – Giovedì</td><td>18:00 – 22:30</td></tr>
+        <tr><td>Venerdì – Sabato</td><td>18:00 – 23:30</td></tr>
+        <tr><td>Domenica</td><td>18:00 – 22:30</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Ordina e ritira</h3>
+      <a class="big-phone" href="tel:+390212345678">02 1234 5678</a>
+      <p>Via Esempio 12, 20100 Milano<br>Parcheggio breve davanti al locale.</p>
+      <a class="btn" href="tel:+390212345678">Chiama ora</a>
     </div>
   </div>
+</section>
+</main>
 
-  <!-- ═══ ORARI ═══ -->
-  <section class="orari-sec" id="dove-siamo">
-    <div class="inner">
-      <div class="sec-head">
-        <div class="sec-kicker reveal">Vieni a Trovarci</div>
-        <h2 class="sec-title reveal reveal-d1">Orari & Contatti</h2>
-      </div>
-      <div class="orari-grid">
-        <div class="reveal">
-          <table class="orari-table">
-            <tr><td>Lunedì</td><td class="closed">Chiuso</td></tr>
-            <tr><td>Martedì</td><td>18:30 – 22:30</td></tr>
-            <tr><td>Mercoledì</td><td>18:30 – 22:30</td></tr>
-            <tr><td>Giovedì</td><td>18:30 – 22:30</td></tr>
-            <tr><td>Venerdì</td><td>18:30 – 22:30</td></tr>
-            <tr><td>Sabato</td><td>18:30 – 22:30</td></tr>
-            <tr><td>Domenica</td><td>18:30 – 22:30</td></tr>
-          </table>
-        </div>
-        <div class="orari-highlight reveal reveal-d1">
-          <h3>Ordina Adesso</h3>
-          <p>Chiamaci per prenotare la tua pizza o per la consegna a domicilio. Siamo operativi ogni sera tranne il lunedì.</p>
-          <div class="orari-tel">
-            <span>📞</span>
-            <a href="tel:0522777020" style="color:#fff;">0522 777020</a>
-          </div>
-          <div style="margin-top:1.5rem;">
-            <a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank" rel="noopener" class="btn btn-black" style="width:100%;margin-top:.5rem;">
-              📍 Via Martiri della Libertà, 3 – Scandiano
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- MAPPA -->
-      <div style="margin-top:2.5rem; border-radius:var(--r-lg); overflow:hidden; border:3px solid var(--orange); line-height:0;" class="reveal">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2838!2d10.6912!3d44.5988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477fed97c5c4e3f1%3A0x2b4e2a6c7f8d9e1a!2sVia%20Martiri%20della%20Libert%C3%A0%2C%203%2C%2042019%20Scandiano%20RE!5e0!3m2!1sit!2sit!4v1700000000000!5m2!1sit!2sit"
-          width="100%" height="380" style="border:none;" allowfullscreen loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade" title="Mappa L'Officina della Pizza">
-        </iframe>
-      </div>
-    </div>
-  </section>
-
-</div><!-- /page-wrapper -->
-
-<!-- ═══ FOOTER ═══ -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <div class="footer-brand-name">🍕 L'<span>Officina</span> della Pizza</div>
-        <p class="footer-tagline">"Artigiani della pizza. Ogni impasto è una promessa, ogni morso una conferma."</p>
-      </div>
-      <div class="footer-col">
-        <h5>Navigazione</h5>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="menu.html">Menu</a></li>
-          <li><a href="lavora.html">Lavora con Noi</a></li>
-          <li><a href="index.html#dove-siamo">Dove Siamo</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Contatti</h5>
-        <ul>
-          <li><a href="tel:0522777020">📞 0522 777020</a></li>
-          <li><a href="https://maps.app.goo.gl/wWKe1TjNS3tjGEqy6" target="_blank">📍 Via Martiri della Libertà, 3</a></li>
-          <li><a href="#">Scandiano (RE) 42019</a></li>
-          <li><a href="lavora.html">✉️ Candidature</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2024 L'Officina della Pizza – Tutti i diritti riservati – Made with <span>❤️</span> a Scandiano</p>
-      <button class="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Torna su</button>
-    </div>
+  <div class="wrap">
+    <span>© 2026 Pizzeria Fornace</span>
+    <span>P.IVA 00000000000 – Via Esempio 12, Milano</span>
   </div>
 </footer>
 
-<script>
-/* NAV */
-const nav=document.getElementById('nav');
-const hbg=document.getElementById('hbg');
-const drawer=document.getElementById('drawer');
-window.addEventListener('scroll',()=>{
-  nav.classList.toggle('scrolled',window.scrollY>60);
-},{passive:true});
-hbg.addEventListener('click',()=>{
-  hbg.classList.toggle('open');
-  drawer.classList.toggle('open');
-});
-drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-  hbg.classList.remove('open');
-  drawer.classList.remove('open');
-}));
-
-/* TICKER */
-const words=['Forno a Legna','Impasto Artigianale','Ingredienti DOP','Scandiano','Asporto & Consegna','Freschezza Quotidiana','Lievitazione 48h','Solo Prodotti Selezionati'];
-const t=document.getElementById('tickerTrack');
-let h='';
-for(let i=0;i<4;i++) words.forEach(w=>{ h+=`<span class="ticker-item"><span class="ticker-dot">◆</span>${w}</span>`; });
-t.innerHTML=h;
-
-/* REVEAL */
-const revObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
-</script>
 </body>
 </html>
